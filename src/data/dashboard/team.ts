@@ -1,0 +1,57 @@
+import { TeamMember } from '../../types/dashboard';
+
+export const TEAM_MEMBERS: TeamMember[] = [
+  {
+    id: 'tm-1',
+    name: 'Abhishek Owner',
+    email: 'abhishek@acmeretail.in',
+    role: 'owner',
+    avatarInitials: 'AO',
+    status: 'active',
+    lastActive: '2026-09-05',
+  },
+  {
+    id: 'tm-2',
+    name: 'Priya Sharma',
+    email: 'priya.sharma@complianceeasily.com',
+    role: 'ca',
+    avatarInitials: 'PS',
+    status: 'active',
+    lastActive: '2026-09-05',
+  },
+  {
+    id: 'tm-3',
+    name: 'Ananya Das',
+    email: 'ananya.das@complianceeasily.com',
+    role: 'cs',
+    avatarInitials: 'AD',
+    status: 'active',
+    lastActive: '2026-09-04',
+  },
+  {
+    id: 'tm-4',
+    name: 'Rohit Gupta',
+    email: 'rohit@acmeretail.in',
+    role: 'admin',
+    avatarInitials: 'RG',
+    status: 'active',
+    lastActive: '2026-09-03',
+  },
+  {
+    id: 'tm-5',
+    name: 'Meera Kapoor',
+    email: 'meera@spiceroute.in',
+    role: 'collaborator',
+    avatarInitials: 'MK',
+    status: 'invited',
+  },
+  {
+    id: 'tm-6',
+    name: 'Vikram Singh',
+    email: 'vikram@acmeretail.in',
+    role: 'viewer',
+    avatarInitials: 'VS',
+    status: 'disabled',
+    lastActive: '2026-07-12',
+  },
+];

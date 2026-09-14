@@ -1,0 +1,7 @@
+{
+  "name": "ComplianceEasily",
+  "description": "AI-powered business compliance for India. Get free WhatsApp reminders, Business Compliance Passport, and expert-reviewed statutory filings.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+

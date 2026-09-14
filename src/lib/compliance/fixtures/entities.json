@@ -1,0 +1,73 @@
+[
+  {
+    "id": "ent-acme",
+    "name": "ACME Retail Private Limited",
+    "entityType": "Pvt Ltd",
+    "state": "West Bengal",
+    "industry": "Food & Restaurants",
+    "clientId": "cli-1",
+    "employees": 28,
+    "annualTurnoverInr": 62000000,
+    "registrations": [
+      "GSTIN", "TAN", "PAN", "CIN", "DIN", "FSSAI", "EPF", "ESIC", "PT",
+      "Shops & Establishment", "Trade Licence", "Udyam"
+    ],
+    "activities": ["retail", "food", "packaged goods"],
+    "locations": 2
+  },
+  {
+    "id": "ent-nova",
+    "name": "Nova Tech Solutions LLP",
+    "entityType": "LLP",
+    "state": "Maharashtra",
+    "industry": "IT & Technology",
+    "clientId": "cli-5",
+    "employees": 14,
+    "annualTurnoverInr": 18500000,
+    "registrations": ["GSTIN", "TAN", "PAN", "LLPIN", "DIN", "PT", "Shops & Establishment"],
+    "activities": ["saas", "software services"],
+    "locations": 1
+  },
+  {
+    "id": "ent-spice",
+    "name": "Spice Route Foods",
+    "entityType": "Proprietorship",
+    "state": "Uttar Pradesh",
+    "industry": "Manufacturing & Industrial",
+    "clientId": "cli-3",
+    "employees": 45,
+    "annualTurnoverInr": 140000000,
+    "registrations": [
+      "GSTIN", "TAN", "PAN", "FSSAI", "EPF", "ESIC", "Factory Licence",
+      "CTO", "CTE", "Udyam", "IEC"
+    ],
+    "activities": ["food manufacturing", "export"],
+    "locations": 3
+  },
+  {
+    "id": "ent-brightpath",
+    "name": "BrightPath Education Pvt Ltd",
+    "entityType": "Pvt Ltd",
+    "state": "Karnataka",
+    "industry": "Education & EdTech",
+    "clientId": "cli-2",
+    "employees": 8,
+    "annualTurnoverInr": 8500000,
+    "registrations": ["GSTIN", "PAN", "CIN", "DIN", "PT", "Shops & Establishment", "Trade Licence"],
+    "activities": ["education", "online courses"],
+    "locations": 1
+  },
+  {
+    "id": "ent-pixel",
+    "name": "Pixel Craft Studio",
+    "entityType": "Partnership",
+    "state": "Delhi",
+    "industry": "Media & Advertising",
+    "clientId": "cli-4",
+    "employees": 6,
+    "annualTurnoverInr": 4200000,
+    "registrations": ["GSTIN", "PAN", "PT", "Shops & Establishment"],
+    "activities": ["design", "advertising"],
+    "locations": 1
+  }
+]

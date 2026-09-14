@@ -1,0 +1,57 @@
+import { StaffUser } from '../../types/dashboard';
+
+export const STAFF_USERS: StaffUser[] = [
+  {
+    id: 'staff-1',
+    name: 'Platform Admin',
+    email: 'admin@complianceeasily.com',
+    role: 'super_admin',
+    status: 'active',
+    lastActive: '2026-09-05',
+    permissions: ['all'],
+  },
+  {
+    id: 'staff-2',
+    name: 'Kavita Nair',
+    email: 'kavita.nair@complianceeasily.com',
+    role: 'ops_manager',
+    status: 'active',
+    lastActive: '2026-09-05',
+    permissions: ['clients', 'filings', 'claims', 'professionals', 'support'],
+  },
+  {
+    id: 'staff-3',
+    name: 'Neha Support',
+    email: 'neha@complianceeasily.com',
+    role: 'support',
+    status: 'active',
+    lastActive: '2026-09-05',
+    permissions: ['support', 'clients:read'],
+  },
+  {
+    id: 'staff-4',
+    name: 'Arjun Reviewer',
+    email: 'arjun@complianceeasily.com',
+    role: 'reviewer',
+    status: 'active',
+    lastActive: '2026-09-04',
+    permissions: ['documents', 'filings:review'],
+  },
+  {
+    id: 'staff-5',
+    name: 'Finance Viewer',
+    email: 'finance@complianceeasily.com',
+    role: 'viewer',
+    status: 'active',
+    lastActive: '2026-09-01',
+    permissions: ['clients:read', 'catalogue:read'],
+  },
+  {
+    id: 'staff-6',
+    name: 'New Ops Hire',
+    email: 'ops.hire@complianceeasily.com',
+    role: 'ops_manager',
+    status: 'invited',
+    permissions: ['clients', 'filings'],
+  },
+];
