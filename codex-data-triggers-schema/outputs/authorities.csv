@@ -1,0 +1,113 @@
+authority_id,name,jurisdiction_id,website_url,source_id,verification_status
+AUTH-MCA,MCA / Registrar of Companies,IN,https://www.mca.gov.in/,MCA_PORTAL,routing_reference
+AUTH-LLP,MCA / Registrar of LLPs,IN,https://www.mca.gov.in/,MCA_PORTAL,routing_reference
+AUTH-NGO,State registrar / MHA FCRA / MCA as applicable,IN,https://fcraonline.gov.in/,FCRA,routing_reference
+AUTH-GST,CBIC / GSTN and jurisdictional GST authority,IN,https://www.gst.gov.in/,GST_1,routing_reference
+AUTH-INCOME_TAX,CBDT / Income Tax Department,IN,https://www.incometax.gov.in/,IT_FORMS,routing_reference
+AUTH-TDS_TCS,CBDT / Income Tax Department,IN,https://www.incometax.gov.in/,IT_FORMS,routing_reference
+AUTH-EPFO,Employees Provident Fund Organisation,IN,https://www.epfindia.gov.in/,EPF_DUE,routing_reference
+AUTH-ESIC,Employees State Insurance Corporation,IN,https://www.esic.gov.in/,ESI_RATES,routing_reference
+AUTH-LABOUR,Ministry of Labour / appropriate government,IN,https://www.labour.gov.in/,LABOUR_CODES,routing_reference
+AUTH-POSH,POSH - jurisdiction-specific authority,IN,https://www.nsws.gov.in/,NSWS_FAQ,routing_reference
+AUTH-PT,Profession / development tax - jurisdiction-specific authority,IN,https://www.nsws.gov.in/,NSWS_FAQ,routing_reference
+AUTH-SHOPS,Shops and establishments - jurisdiction-specific authority,IN,https://www.nsws.gov.in/,NSWS_FAQ,routing_reference
+AUTH-LWF,Labour welfare funds - jurisdiction-specific authority,IN,https://www.nsws.gov.in/,NSWS_FAQ,routing_reference
+AUTH-FACTORY,Appropriate government / factory inspectorate,IN,https://www.labour.gov.in/,OSH_FAQ,routing_reference
+AUTH-POLLUTION,MoEFCC / CPCB / SPCB or PCC,IN,https://cpcb.gov.in/,CPCB_DIR,routing_reference
+AUTH-WASTE,CPCB / SPCB or PCC,IN,https://cpcb.gov.in/,CPCB_DIR,routing_reference
+AUTH-MUNICIPAL,Municipal and building approvals - jurisdiction-specific authority,IN,https://www.nsws.gov.in/,NSWS_FAQ,routing_reference
+AUTH-FIRE,Fire safety - jurisdiction-specific authority,IN,https://www.nsws.gov.in/,NSWS_FAQ,routing_reference
+AUTH-FSSAI,FSSAI / State food safety authority,IN,https://foscos.fssai.gov.in/,FSSAI_PORTAL,routing_reference
+AUTH-DGFT,Directorate General of Foreign Trade,IN,https://www.dgft.gov.in/,DGFT_FTP,routing_reference
+AUTH-CUSTOMS,Customs - jurisdiction-specific authority,IN,https://www.nsws.gov.in/,NSWS_FAQ,routing_reference
+AUTH-MSME,Ministry of MSME,IN,https://udyamregistration.gov.in/,UDYAM,routing_reference
+AUTH-AUDIT,Audit and assurance - jurisdiction-specific authority,IN,https://www.nsws.gov.in/,NSWS_FAQ,routing_reference
+AUTH-IP,CGPDTM / IP India,IN,https://ipindia.gov.in/pages/e-services,IP,routing_reference
+AUTH-BOOKS,Accounting and records - jurisdiction-specific authority,IN,https://www.nsws.gov.in/,NSWS_FAQ,routing_reference
+AUTH-FEMA,Reserve Bank of India / Authorised Dealer bank,IN,https://firms.rbi.org.in/,RBI_FIRMS,routing_reference
+AUTH-LEGAL_METROLOGY,Department of Consumer Affairs / State Controller,IN,https://consumeraffairs.gov.in/pages/legal-metrology-overview,LM,routing_reference
+AUTH-BIS,Bureau of Indian Standards,IN,https://www.bis.gov.in/,BIS,routing_reference
+AUTH-DRUGS_HEALTH,CDSCO / State licensing authority,IN,https://www.cdsco.gov.in/,CDSCO,routing_reference
+AUTH-RERA,Real estate / RERA - jurisdiction-specific authority,IN,https://www.nsws.gov.in/,NSWS_FAQ,routing_reference
+AUTH-TRANSPORT,Transport and vehicles - jurisdiction-specific authority,IN,https://www.nsws.gov.in/,NSWS_FAQ,routing_reference
+AUTH-TELECOM,Telecom and wireless - jurisdiction-specific authority,IN,https://www.nsws.gov.in/,NSWS_FAQ,routing_reference
+AUTH-DATA_CYBER,MeitY / CERT-In / Data Protection Board as applicable,IN,https://www.meity.gov.in/,DPDP,routing_reference
+AUTH-ENERGY_PESO,PESO / State energy or boiler authority,IN,https://www.peso.gov.in/,PESO,routing_reference
+AUTH-AGRI_MINING,Agriculture and mining - jurisdiction-specific authority,IN,https://www.nsws.gov.in/,NSWS_FAQ,routing_reference
+AUTH-EXCISE,State excise and controlled trades - jurisdiction-specific authority,IN,https://www.nsws.gov.in/,NSWS_FAQ,routing_reference
+AUTH-AN-PCB,Andaman and Nicobar Islands pollution board / committee,IN-AN,http://andssw1.and.nic.in/swc/depts/pcc/,CPCB_DIR,directory_confirmed_not_endpoint_tested
+AUTH-AP-PCB,Andhra Pradesh pollution board / committee,IN-AP,https://pcb.ap.gov.in/,CPCB_DIR,directory_confirmed_not_endpoint_tested
+AUTH-AR-PCB,Arunachal Pradesh pollution board / committee,IN-AR,https://apspcb.net/,CPCB_DIR,directory_confirmed_not_endpoint_tested
+AUTH-AS-PCB,Assam pollution board / committee,IN-AS,http://www.pcbassam.org,CPCB_DIR,directory_confirmed_not_endpoint_tested
+AUTH-BR-PCB,Bihar pollution board / committee,IN-BR,https://bspcb.bihar.gov.in/,CPCB_DIR,directory_confirmed_not_endpoint_tested
+AUTH-CH-PCB,Chandigarh pollution board / committee,IN-CH,https://cpcc.chd.gov.in/,CPCB_DIR,directory_confirmed_not_endpoint_tested
+AUTH-CG-PCB,Chhattisgarh pollution board / committee,IN-CG,http://www.enviscecb.org,CPCB_DIR,directory_confirmed_not_endpoint_tested
+AUTH-DN-PCB,Dadra and Nagar Haveli and Daman and Diu pollution board / committee,IN-DN,https://ddd.gov.in/pollution-control-committee/,CPCB_DIR,directory_confirmed_not_endpoint_tested
+AUTH-DL-PCB,Delhi pollution board / committee,IN-DL,http://www.dpcc.delhigovt.nic.in/indexdup.php,CPCB_DIR,directory_confirmed_not_endpoint_tested
+AUTH-GA-PCB,Goa pollution board / committee,IN-GA,https://goaspcb.gov.in/,CPCB_DIR,directory_confirmed_not_endpoint_tested
+AUTH-GJ-PCB,Gujarat pollution board / committee,IN-GJ,http://gpcb.gov.in,CPCB_DIR,directory_confirmed_not_endpoint_tested
+AUTH-HR-PCB,Haryana pollution board / committee,IN-HR,http://hspcb.gov.in,CPCB_DIR,directory_confirmed_not_endpoint_tested
+AUTH-HP-PCB,Himachal Pradesh pollution board / committee,IN-HP,http://hppcb.nic.in,CPCB_DIR,directory_confirmed_not_endpoint_tested
+AUTH-JK-PCB,Jammu and Kashmir pollution board / committee,IN-JK,https://jkpcb.jk.gov.in/,CPCB_DIR,directory_confirmed_not_endpoint_tested
+AUTH-JH-PCB,Jharkhand pollution board / committee,IN-JH,https://jspcb.org.in/,CPCB_DIR,directory_confirmed_not_endpoint_tested
+AUTH-KA-PCB,Karnataka pollution board / committee,IN-KA,https://kspcb.karnataka.gov.in,CPCB_DIR,directory_confirmed_not_endpoint_tested
+AUTH-KL-PCB,Kerala pollution board / committee,IN-KL,https://kspcb.kerala.gov.in/,CPCB_DIR,directory_confirmed_not_endpoint_tested
+AUTH-LA-PCB,Ladakh pollution board / committee,IN-LA,https://www.ldocmms.nic.in/,LA_PCB,directory_confirmed_not_endpoint_tested
+AUTH-LD-PCB,Lakshadweep pollution board / committee,IN-LD,https://lpcc.utl.gov.in/,CPCB_DIR,directory_confirmed_not_endpoint_tested
+AUTH-MP-PCB,Madhya Pradesh pollution board / committee,IN-MP,https://www.mppcb.mp.gov.in/,CPCB_DIR,directory_confirmed_not_endpoint_tested
+AUTH-MH-PCB,Maharashtra pollution board / committee,IN-MH,http://mpcb.gov.in,CPCB_DIR,directory_confirmed_not_endpoint_tested
+AUTH-MN-PCB,Manipur pollution board / committee,IN-MN,https://manipcb.nic.in/,CPCB_DIR,directory_confirmed_not_endpoint_tested
+AUTH-ML-PCB,Meghalaya pollution board / committee,IN-ML,http://megspcb.gov.in,CPCB_DIR,directory_confirmed_not_endpoint_tested
+AUTH-MZ-PCB,Mizoram pollution board / committee,IN-MZ,https://mpcb.mizoram.gov.in/,CPCB_DIR,directory_confirmed_not_endpoint_tested
+AUTH-NL-PCB,Nagaland pollution board / committee,IN-NL,https://npcb.nagaland.gov.in/?cat=5,CPCB_DIR,directory_confirmed_not_endpoint_tested
+AUTH-OD-PCB,Odisha pollution board / committee,IN-OD,https://ospcboard.odisha.gov.in/,CPCB_DIR,directory_confirmed_not_endpoint_tested
+AUTH-PY-PCB,Puducherry pollution board / committee,IN-PY,https://dste.py.gov.in/ppcc/Index.html,CPCB_DIR,directory_confirmed_not_endpoint_tested
+AUTH-PB-PCB,Punjab pollution board / committee,IN-PB,https://ppcb.punjab.gov.in/en/,CPCB_DIR,directory_confirmed_not_endpoint_tested
+AUTH-RJ-PCB,Rajasthan pollution board / committee,IN-RJ,https://environment.rajasthan.gov.in/content/environment/en/rajasthan-state-pollution-control-board.html#,CPCB_DIR,directory_confirmed_not_endpoint_tested
+AUTH-SK-PCB,Sikkim pollution board / committee,IN-SK,https://spcb.sikkim.gov.in/index.html,CPCB_DIR,directory_confirmed_not_endpoint_tested
+AUTH-TN-PCB,Tamil Nadu pollution board / committee,IN-TN,http://www.tnpcb.gov.in,CPCB_DIR,directory_confirmed_not_endpoint_tested
+AUTH-TG-PCB,Telangana pollution board / committee,IN-TG,https://tgpcb.cgg.gov.in/,CPCB_DIR,directory_confirmed_not_endpoint_tested
+AUTH-TR-PCB,Tripura pollution board / committee,IN-TR,http://tspcb.tripura.gov.in,CPCB_DIR,directory_confirmed_not_endpoint_tested
+AUTH-UP-PCB,Uttar Pradesh pollution board / committee,IN-UP,http://www.uppcb.com,CPCB_DIR,directory_confirmed_not_endpoint_tested
+AUTH-UK-PCB,Uttarakhand pollution board / committee,IN-UK,http://ueppcb.uk.gov.in,CPCB_DIR,directory_confirmed_not_endpoint_tested
+AUTH-WB-PCB,West Bengal pollution board / committee,IN-WB,http://www.wbpcb.gov.in,CPCB_DIR,directory_confirmed_not_endpoint_tested
+AUTH-PB-PT,Punjab - PT authority (see source),IN-PB,https://psdt.punjab.gov.in/register,PB_PT_FORM,source_scoped
+AUTH-MH-PT,Maharashtra - PT authority (see source),IN-MH,https://www.mahagst.gov.in/user-registration/pt,MH_PT,source_scoped
+AUTH-KA-PT,Karnataka - PT authority (see source),IN-KA,https://ptax.karnataka.gov.in/,KA_PT,source_scoped
+AUTH-MN-PT,Manipur - PT authority (see source),IN-MN,https://professionaltax.mn.gov.in/Default.aspx,MN_PT,source_scoped
+AUTH-NL-PT,Nagaland - PT authority (see source),IN-NL,https://taxsoft-ngl.nic.in/Ptaxnagaland/TaxPayer/Schedule,NL_PT,source_scoped
+AUTH-ML-PT,Meghalaya - PT authority (see source),IN-ML,https://megtaxation.nic.in/,ML_PT,source_scoped
+AUTH-WB-PT,West Bengal - PT authority (see source),IN-WB,https://professiontax.wb.gov.in/new-enrol/enrol-landing,WB_PT,source_scoped
+AUTH-TN-SHOPS,Tamil Nadu - SHOPS authority (see source),IN-TN,https://labour.tn.gov.in/services/shop-establishments/registration,TN_SE,source_scoped
+AUTH-AN-SHOPS,Andaman and Nicobar Islands - SHOPS authority (see source),IN-AN,https://labour.and.nic.in/labour/,AN_LABOUR,source_scoped
+AUTH-GA-LEGAL_METROLOGY,Goa - LEGAL_METROLOGY authority (see source),IN-GA,https://clm.goa.gov.in/service/registration-of-manufacturer-packer-importer/,GOA_LM,source_scoped
+AUTH-LA-POLLUTION,Ladakh - POLLUTION authority (see source),IN-LA,https://www.ldocmms.nic.in/,LA_PCB,source_scoped
+AUTH-ML-EXCISE,Meghalaya - EXCISE authority (see source),IN-ML,https://invest.meghalaya.gov.in/InformationWizard.aspx,ML_SERVICES,source_scoped
+AUTH-KL-RERA,Kerala - RERA authority (see source),IN-KL,https://rera.kerala.gov.in/storage/documents/195.pdf,RERA_KL,source_scoped
+AUTH-DL-MUNICIPAL,Delhi - MUNICIPAL authority (see source),IN-DL,https://mcdonline.nic.in/gtlmcd/web/citizen/gtl/downloadGTLdocuments/gtlsop,MCD_GTL,source_scoped
+AUTH-TN-MUNICIPAL,Tamil Nadu - MUNICIPAL authority (see source),IN-TN,https://portal.chennaicorporation.gov.in/gcc/pdf/REVENUE_HELP.pdf,CHENNAI_SOP,source_scoped
+AUTH-RBI-FLA,Reserve Bank of India — FLA reporting,IN,https://flair.rbi.org.in/,RBI_FLA_CURRENT,source_scoped
+AUTH-APEDA,APEDA — e-RCMC through DGFT,IN,https://apeda.gov.in/,APEDA_FAQ,source_scoped
+AUTH-NITI-DARPAN,NITI Aayog — Voluntary Action Cell / NPO Darpan,IN,https://www.niti.gov.in/divisions/cell/voluntary-action-cell,NITI_DARPAN,source_scoped
+AUTH-DPIIT,DPIIT — Startup India recognition,IN,https://www.startupindia.gov.in/,STARTUP_ROUTE,source_scoped
+AUTH-SECURITIES,Securities investors and regulated intermediaries competent authority,IN,https://www.sebi.gov.in/,AX_SEBI_REG,framework_or_directory_only
+AUTH-LAND_RECORDS,"Land records, revenue and tenure competent authority",IN,https://dolr.gov.in/en/citizen-centric-services/,AX_DOLR,framework_or_directory_only
+AUTH-PROPERTY_REGISTRATION,Property transfer and registration competent authority,IN,https://dolr.gov.in/en/citizen-centric-services/,AX_REG,framework_or_directory_only
+AUTH-AX-WB-LAND,West Bengal competent land/revenue office,IN-WB,https://banglarbhumi.gov.in/,AX_WB_MUT,service_route_partial
+AUTH-AX-BR-LAND,Bihar competent land/revenue office,IN-BR,https://biharbhumi.bihar.gov.in/,AX_BR,service_route_partial
+AUTH-AX-MH-LAND,Maharashtra competent land/revenue office,IN-MH,https://mahabhumi.gov.in/,AX_MH,service_route_partial
+AUTH-AX-KA-LAND,Karnataka competent land/revenue office,IN-KA,https://landrecords.karnataka.gov.in/,AX_KA,service_route_partial
+AUTH-AX-TN-LAND,Tamil Nadu competent land/revenue office,IN-TN,https://eservices.tn.gov.in/,AX_TN,service_route_partial
+AUTH-AX-KL-LAND,Kerala competent land/revenue office,IN-KL,https://revenue.kerala.gov.in/,AX_KL,service_route_partial
+AUTH-AX-TG-LAND,Telangana competent land/revenue office,IN-TG,https://bhubharati.telangana.gov.in/,AX_TG,service_route_partial
+AUTH-AX-HP-LAND,Himachal Pradesh competent land/revenue office,IN-HP,https://himbhoomilmk.nic.in/,AX_HP,service_route_partial
+AUTH-AX-AR-LAND,Arunachal Pradesh competent land/revenue office,IN-AR,https://lisa.arunachal.gov.in/,AX_AR_LPC,service_route_partial
+AUTH-AX-ML-LAND,Meghalaya competent land/revenue office,IN-ML,,AX_ML_MUT,service_route_partial
+AUTH-AX-MZ-LAND,Mizoram competent land/revenue office,IN-MZ,,AX_MZ_LAW,service_route_partial
+AUTH-AX-IN-DL-EXCISE,IN-DL competent EXCISE authority,IN-DL,https://excise.delhi.gov.in/excise/licences,AX_DL_EX,service_route_partial
+AUTH-AX-IN-MH-EXCISE,IN-MH competent EXCISE authority,IN-MH,https://www.stateexcise.maharashtra.gov.in/Form_FLII.aspx,AX_MH_EX,service_route_partial
+AUTH-AX-IN-CG-EXCISE,IN-CG competent EXCISE authority,IN-CG,https://excise.cg.nic.in/ePayment/Citizen_Charter.aspx,AX_CG_EX,service_route_partial
+AUTH-AX-IN-BR-EXCISE,IN-BR competent EXCISE authority,IN-BR,https://state.bihar.gov.in/excise/CitizenHome.html,AX_BR_EX,service_route_partial
+AUTH-AX-IN-WB-EXCISE,IN-WB competent EXCISE authority,IN-WB,https://excise.wb.gov.in/CommonUser/egovernance.aspx,AX_WB_EX,service_route_partial
+AUTH-AX-IN-DL-MCD-MUNICIPAL,IN-DL-MCD competent MUNICIPAL authority,IN-DL-MCD,https://mcdonline.nic.in/ptrmcd/web/citizen/info?loginActive=R,AX_MCD_TAX,service_route_partial
+AUTH-AX-IN-WB-PROPERTY_REGISTRATION,IN-WB competent PROPERTY_REGISTRATION authority,IN-WB,https://wbregistration.gov.in/,AX_WB_REG,service_route_partial

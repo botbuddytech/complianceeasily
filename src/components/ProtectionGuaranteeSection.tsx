@@ -20,7 +20,7 @@ export function ProtectionGuaranteeSection({
   onOpenProtectionModal,
 }: ProtectionGuaranteeSectionProps) {
   return (
-    <Section tone="cream" withGrid className="space-y-16">
+    <Section tone="espresso" withGrid withGlow className="space-y-16">
       <Reveal>
         <SectionHeader
           eyebrow={

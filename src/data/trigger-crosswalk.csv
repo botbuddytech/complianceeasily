@@ -1,0 +1,104 @@
+app_trigger_id,compliance_id,rule_id,match_method,confidence,reviewed,codex_name,app_name
+mca-aoc4,C020,C020-V1,alias_name,0.85,yes,AOC-4 (Financial Statements),AOC-4 Financial Statements Filing
+mca-mgt7,C021,C021-V1,form_code,1.0,yes,MGT-7 / MGT-7A (Annual Return),MGT-7 / MGT-7A Annual Return
+mca-dir3-kyc,C023,C023-V1,form_code,1.0,yes,Director DIN KYC / particulars update,DIR-3 KYC Annual Director KYC
+mca-dpt3,C024,C024-V1,form_code,1.0,yes,DPT-3 (Return of Deposits),DPT-3 Return of Deposits
+mca-msme1,C025,C025-V1,form_code,1.0,yes,MSME-1 (Outstanding Dues to MSME Suppliers),MSME-1 Half-Yearly Outstanding Dues
+mca-adt1,C019,C019-V1,form_code,1.0,yes,ADT-1 (Auditor Appointment),ADT-1 Auditor Appointment Intimation
+mca-inc20a,C017,C017-V1,form_code,1.0,yes,INC-20A (Commencement of Business),INC-20A Commencement of Business
+mca-inc22a,,,none,0.0,no,,ACTIVE INC-22A (Legacy / Status Check)
+mca-dir12,C028,C028-V1,form_code,1.0,yes,DIR-12 (Director Appointment/Cessation),DIR-12 Appointment / Resignation of Director
+mca-pas3,C027,C027-V1,form_code,1.0,yes,PAS-3 (Return of Allotment),PAS-3 Return of Allotment
+mca-chg1,C026,C026-V1,form_code,1.0,yes,CHG-1 (Creation/Modification of Charge),CHG-1 Registration of Charge
+mca-sh7,IF003,IF003-V1,form_code,1.0,yes,Notice of alteration of share capital,SH-7 Alteration of Share Capital
+mca-ben2,,,none,0.0,no,,BEN-2 Significant Beneficial Owner Return
+mca-csr2,,,none,0.0,no,,CSR-2 Report on Corporate Social Responsibility
+mca-llp-form8,C034,C034-V1,token,1.0,yes,LLP Form 8 (Statement of Account & Solvency),LLP Form 8 Statement of Account & Solvency
+mca-llp-form11,C033,C033-V1,token,1.0,yes,LLP Form 11 (Annual Return),LLP Form 11 Annual Return
+mca-agm,C022,C022-V1,token,0.75,yes,Annual General Meeting (AGM),Annual General Meeting
+mca-board-meetings,,,none,0.0,no,,Minimum Board Meetings (Sec 173)
+gst-reg-threshold,C001,C001-V1,manual,0.9,yes,GST Registration,GST Registration Threshold Crossed
+gst-gstr1,C002,C002-V1,form_code,1.0,yes,GSTR-1 (Outward Supplies),GSTR-1 Outward Supplies Return
+gst-gstr3b,C003,C003-V1,form_code,1.0,yes,GSTR-3B (Summary Return & Tax Payment),GSTR-3B Summary Return & Tax Payment
+gst-cmp08,C005,C005-V1,form_code,1.0,yes,CMP-08 (Composition Scheme Statement),CMP-08 Composition Quarterly Statement
+gst-gstr4,C006,C006-V1,form_code,1.0,yes,GSTR-4 (Composition Annual Return),GSTR-4 Composition Annual Return
+gst-gstr9,C007,C007-V1,form_code,1.0,yes,GSTR-9 (Annual Return),GSTR-9 Annual Return
+gst-gstr9c,C008,C008-V1,form_code,1.0,yes,GSTR-9C (Reconciliation Statement),GSTR-9C Reconciliation Statement
+gst-einvoice,C011,C011-V1,alias_name,0.85,yes,E-Invoicing (IRN Generation),E-Invoicing Mandate Threshold
+gst-eway,C014,C014-V1,manual,0.9,yes,E-Way Bill,E-Way Bill Generation
+gst-lut,C013,C013-V1,form_code,1.0,yes,LUT for Exports (RFD-11),GST LUT for Zero-Rated Supplies
+gst-itc04,,,none,0.0,no,,ITC-04 Job Work Goods Return
+gst-gstr7,C009,C009-V1,form_code,1.0,yes,GSTR-7 (TDS under GST),GSTR-7 TDS under GST
+gst-gstr8,C010,C010-V1,form_code,1.0,yes,GSTR-8 (TCS by E-commerce Operators),GSTR-8 TCS by E-commerce Operator
+gst-apob,C012,C012-V1,manual,0.9,yes,GST Registration Amendment / Additional Place of Business (APOB),Additional Place of Business (New State)
+gst-asmt10,C103,C103-V1,token,0.25,no,GST Show Cause Notice (SCN) Response,GST ASMT-10 / DRC-01 Notice Response
+it-advance-tax,C052,C052-V1,alias_name,0.85,yes,Advance Tax (4 Instalments),Advance Tax Installments
+it-business-itr,C035,C035-V1,form_code,1.0,yes,LLP ITR-5,Business Income Tax Return
+it-44ab-audit,C050,C050-V1,token,0.5,yes,Income-tax audit report,Tax Audit under Section 44AB
+it-sft,C062,C062-V1,token,1.0,yes,Form 61A (Statement of Financial Transactions - SFT),Statement of Financial Transactions (SFT)
+it-notice-143,C106,C106-V1,token,0.625,yes,Income Tax Scrutiny Notice u/s 143(2)/142(1),Income Tax Notice Response (142/143/148)
+it-books-sec44aa,C099,C099-V1,manual,0.9,yes,Statutory Books of Accounts (Companies Act),Maintenance of Books of Account (Sec 44AA)
+tds-deposit,C053,C053-V1,manual,0.9,yes,TDS Deposit (Monthly Challan),TDS / TCS Deposit to Government
+tds-24q,C054,C054-V1,form_code,1.0,yes,Quarterly salary TDS statement,Form 24Q Salary TDS Return
+tds-26q,C055,C055-V1,form_code,1.0,yes,Quarterly resident non-salary TDS statement,Form 26Q Non-Salary TDS Return
+tds-27q,C056,C056-V1,form_code,1.0,yes,Quarterly non-resident TDS statement,Form 27Q Foreign Remittance TDS Return
+tds-form16,C058,C058-V1,manual,0.9,yes,Form 16 (Salary TDS Certificate),Form 16 Issuance to Employees
+tds-form16a,C054,C054-V1,token,0.286,no,Quarterly salary TDS statement,Form 16A Quarterly TDS Certificates
+tds-15ca-cb,C061,C061-V1,form_code,1.0,yes,Foreign remittance information / accountant certificate,Form 15CA / 15CB Foreign Remittance
+epfo-registration,C063,C063-V1,manual,0.9,yes,EPF Registration,EPF Registration at 20 Employees
+epfo-ecr,C031,C031-V1,alias_name,0.85,yes,Secretarial Audit (MR-3),EPF Monthly ECR & Contribution
+epfo-joinee-exit,,,none,0.0,no,,EPF Joinee / Exit Intimation
+esic-registration,C066,C066-V1,token,0.5,yes,ESIC Registration,ESIC Registration Threshold
+esic-monthly,C067,C067-V1,token,0.75,yes,ESIC Monthly Contribution & Return,ESIC Monthly Contribution
+esic-half-yearly,C066,C066-V1,alias_name,0.85,yes,ESIC Registration,ESIC Half-Yearly Return of Contributions
+labour-shops-reg,S-TN-SHOPS-REG,S-TN-SHOPS-REG-V1,token,0.286,no,Tamil Nadu shops and establishments registration,Shops & Establishment Registration
+labour-shops-renewal,S-AN-SHOPS,S-AN-SHOPS-V1,token,0.286,no,Andaman and Nicobar shops registration / renewal,Shops & Establishment Renewal
+labour-lwf,C072,C072-V1,token,0.667,yes,Labour Welfare Fund Contribution,Labour Welfare Fund Contribution
+labour-bonus,C071,C071-V1,token,0.5,yes,Payment of Gratuity Act Compliance,Payment of Bonus Act Compliance
+labour-gratuity,C071,C071-V1,token,0.667,yes,Payment of Gratuity Act Compliance,Payment of Gratuity Act
+labour-factory-licence,C086,C086-V1,manual,0.9,yes,Factory Licence,Factory Licence & Plan Approval
+labour-min-wages,C073,C073-V1,token,0.6,yes,Minimum Wages Compliance & Registers,Minimum Wages Revision Compliance
+labour-registers,C018,C018-V1,manual,0.9,yes,First Board Meeting & Statutory Registers,Statutory Wage & Muster Registers
+posh-ic,C070,C070-V1,token,0.5,yes,POSH Internal Committee + Annual Report,POSH Internal Committee Constitution
+posh-annual-report,C070,C070-V1,manual,0.9,yes,POSH Internal Committee + Annual Report,POSH Annual Report to District Officer
+pt-ptec,C068,C068-V1,token,0.5,yes,Professional Tax Registration (PTRC/PTEC),Professional Tax Enrolment (PTEC)
+pt-ptrc,C068,C068-V1,token,0.667,yes,Professional Tax Registration (PTRC/PTEC),Professional Tax Registration (PTRC) for Employers
+pt-monthly-return,C069,C069-V1,manual,0.9,yes,Professional Tax Return Filing,Professional Tax Monthly / Annual Return
+municipal-trade-licence,C084,C084-V1,manual,0.9,yes,Trade Licence (Municipal Corporation),Municipal Trade Licence / Certificate of Enlistment
+municipal-trade-renewal,C087,C087-V1,token,0.4,no,Factory Licence Renewal,Trade Licence Annual Renewal
+municipal-signage,,,none,0.0,no,,Outdoor Signage / Advertisement Tax
+municipal-health-noc,C084,C084-V1,token,0.333,no,Trade Licence (Municipal Corporation),Municipal Health Trade NOC
+spcb-cte,C088,C088-V1,token,0.75,yes,Consent to Establish (CTE),Consent to Establish (CTE)
+spcb-cto,C089,C089-V1,token,0.75,yes,Consent to Operate (CTO),Consent to Operate (CTO) Renewal
+spcb-form-v,C007,C007-V1,token,0.25,no,GSTR-9 (Annual Return),Annual Environmental Statement (Form V)
+spcb-hazwaste,C090,C090-V1,token,0.5,yes,Hazardous Waste Authorization,Hazardous Waste Authorisation
+fire-noc,C085,C085-V1,token,0.6,yes,Fire NOC (Fire Safety Certificate),Fire Safety NOC / Clearance
+epr-plastic,N012,N012-V1,token,0.8,yes,Plastic packaging EPR registration,Plastic Packaging EPR Registration & Annual Return
+fssai-basic-reg,C075,C075-V1,token,1.0,yes,FSSAI Basic Registration,FSSAI Basic Registration
+fssai-state-licence,C076,C076-V1,token,1.0,yes,FSSAI State Licence,FSSAI State Licence
+fssai-central-licence,C077,C077-V1,token,1.0,yes,FSSAI Central Licence,FSSAI Central Licence
+fssai-renewal,C075,C075-V1,token,0.286,no,FSSAI Basic Registration,FSSAI Licence / Registration Renewal
+fssai-form-d1,N009,N009-V1,token,0.333,no,FSSAI annual return — applicable manufacturers and importers,FSSAI Annual Return Form D1
+dgft-iec,C078,C078-V1,manual,0.9,yes,IEC (Import Export Code),Importer Exporter Code (IEC)
+dgft-iec-update,C079,C079-V1,manual,0.9,yes,IEC Annual Updation,IEC Annual Update / Confirmation
+dgft-rcmc,C080,C080-V1,token,1.0,yes,RCMC (Registration-Cum-Membership Certificate),Registration-Cum-Membership Certificate (RCMC)
+msme-udyam,C083,C083-V1,token,1.0,yes,MSME / Udyam Registration,Udyam / MSME Registration
+msme-45day,,,none,0.0,no,,MSME Payment within 45 Days
+lm-packaged,N028,N028-V1,manual,0.9,yes,Packaged-commodity manufacturer / packer / importer registration,Legal Metrology Packaged Commodity Registration
+lm-weights,,,none,0.0,no,,Weights & Measures Verification
+ip-trademark-renewal,C095,C095-V1,manual,0.9,yes,Trademark Renewal,Trademark Renewal (10-Year)
+ip-opposition,IF013,IF013-V1,token,0.5,yes,Trademark examination-report response,Trademark Opposition / Examination Response
+rbi-fcgpr,N024,N024-V1,token,0.571,yes,FDI share issue reporting — FC-GPR,FC-GPR Reporting of FDI Allotment
+rbi-fla,IF001,IF001-V1,form_code,1.0,yes,Annual foreign liabilities and assets return,Annual FLA Return (Foreign Liabilities & Assets)
+rbi-apr,,,none,0.0,no,,Overseas Investment Annual Performance Report (APR)
+audit-statutory,C030,C030-V1,token,0.5,yes,Statutory Financial Audit,Statutory Audit under Companies Act
+audit-secretarial,C031,C031-V1,token,0.6,yes,Secretarial Audit (MR-3),Secretarial Audit (Section 204)
+acc-schedule-iii,,,none,0.0,no,,Schedule III Financial Statements
+law-change-watch,,,none,0.0,no,,Regulatory Gazette / Law Change Watch
+gst-gstr1a,,,none,0.0,no,,GSTR-1A Amendment Opportunity
+gst-qrpm-optin,,,none,0.0,no,,QRMP Scheme Opt-in / Opt-out
+it-form-3ce,C051,C051-V1,form_code,1.0,yes,Transfer Pricing Report (Form 3CEB),Transfer Pricing Accountant Report (Form 3CEB)
+mca-aoc4-cfs,C020,C020-V1,manual,0.9,yes,AOC-4 (Financial Statements),AOC-4 CFS Consolidated Financial Statements
+epfo-international-workers,,,none,0.0,no,,EPF International Workers Compliance
+clra-licence,C074,C074-V1,manual,0.9,yes,Contract Labour Licence (Principal Employer & Contractor),CLRA Contractor Licence / Principal Employer RC
+pt-first-employee,,,none,0.0,no,,First Employee PT Deduction Setup

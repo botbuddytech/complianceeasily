@@ -200,13 +200,107 @@ describe('evaluateTrigger – applicability', () => {
     expect(result.applies).toBe(false);
   });
 
-  it('never applies draft triggers', () => {
+  it('draft triggers are needs_review, not applicable', () => {
     const result = evaluateTrigger(
       baseProfile(),
       baseTrigger({ status: 'draft' }),
     );
     expect(result.applies).toBe(false);
+    expect(result.result).toBe('needs_review');
     expect(result.reasons.some((r) => r.includes('draft'))).toBe(true);
+  });
+});
+
+describe('condition DSL – unknown on missing facts', () => {
+  it('returns unknown when required fact is missing', () => {
+    const result = evaluateTrigger(
+      baseProfile({ facts: {} }),
+      baseTrigger({
+        condition: {
+          all: [
+            { field: 'gst_max_aato_since_2017_inr', op: 'gt', value: 50_000_000 },
+            { field: 'gst_registered', op: 'eq', value: true },
+          ],
+        },
+      }),
+    );
+    expect(result.result).toBe('unknown');
+    expect(result.missingFacts).toContain('gst_max_aato_since_2017_inr');
+  });
+
+  it('returns applicable when all condition facts pass', () => {
+    const result = evaluateTrigger(
+      baseProfile({
+        facts: {
+          gst_max_aato_since_2017_inr: 80_000_000,
+          gst_registered: true,
+          e_invoice_exempt: false,
+        },
+      }),
+      baseTrigger({
+        condition: {
+          all: [
+            { field: 'gst_max_aato_since_2017_inr', op: 'gt', value: 50_000_000 },
+            { field: 'gst_registered', op: 'eq', value: true },
+            { field: 'e_invoice_exempt', op: 'eq', value: false },
+          ],
+        },
+      }),
+    );
+    expect(result.result).toBe('applicable');
+    expect(result.applies).toBe(true);
+  });
+
+  it('returns not_applicable when condition fails with known facts', () => {
+    const result = evaluateTrigger(
+      baseProfile({
+        facts: {
+          food_turnover_inr: 1_000_000,
+          special_fssai_category: false,
+        },
+      }),
+      baseTrigger({
+        condition: {
+          all: [
+            { field: 'food_turnover_inr', op: 'gt', value: 15_000_000 },
+            { field: 'special_fssai_category', op: 'eq', value: false },
+          ],
+        },
+      }),
+    );
+    expect(result.result).toBe('not_applicable');
+  });
+
+  it('any-group is true if one branch passes', () => {
+    const result = evaluateTrigger(
+      baseProfile({
+        facts: { company_turnover_inr: 3_000_000_000, is_cpse: false },
+      }),
+      baseTrigger({
+        condition: {
+          any: [
+            { field: 'company_turnover_inr', op: 'gt', value: 2_500_000_000 },
+            { field: 'is_cpse', op: 'eq', value: true },
+          ],
+        },
+      }),
+    );
+    expect(result.applies).toBe(true);
+  });
+
+  it('canMaterialize requires automation_enabled', async () => {
+    const { canMaterialize } = await import('../matcher');
+    expect(canMaterialize(baseTrigger({ automationEnabled: false }))).toBe(false);
+    expect(
+      canMaterialize(
+        baseTrigger({
+          automationEnabled: true,
+          status: 'active',
+          scheduleSource: 'curated_unverified',
+          obligationKind: 'mandatory_if_applicable',
+        }),
+      ),
+    ).toBe(true);
   });
 });
 

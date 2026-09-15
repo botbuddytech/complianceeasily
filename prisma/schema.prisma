@@ -1,0 +1,1690 @@
+// ComplianceEasily — Prisma schema (mirrors supabase/migrations/*)
+// Auth: app-managed users table + HTTP-only session cookies (no Supabase Auth).
+// RLS policies remain in SQL for defence-in-depth; Prisma uses DATABASE_URL and bypasses RLS — keep it server-only.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// ---------------------------------------------------------------------------
+// Enums
+// ---------------------------------------------------------------------------
+
+enum UserRole {
+  client_user
+  professional
+  staff
+
+  @@map("user_role")
+}
+
+enum MemberRole {
+  owner
+  admin
+  collaborator
+  viewer
+  ca
+  cs
+  advocate
+
+  @@map("member_role")
+}
+
+enum MemberStatus {
+  active
+  invited
+  disabled
+
+  @@map("member_status")
+}
+
+enum UserAccountStatus {
+  active
+  disabled
+
+  @@map("user_account_status")
+}
+
+enum PlanId {
+  free
+  pro
+  managed
+
+  @@map("plan_id")
+}
+
+enum ClientStatus {
+  active
+  trial
+  churned
+  suspended
+
+  @@map("client_status")
+}
+
+enum ProfessionalType {
+  CA
+  CS
+  Advocate
+  Internal
+
+  @@map("professional_type")
+}
+
+enum ProfessionalStatus {
+  available
+  busy
+  offline
+
+  @@map("professional_status")
+}
+
+enum FilingStatus {
+  compliant
+  upcoming
+  action_required
+  overdue
+  need_info
+  filed
+  in_review
+
+  @@map("filing_status")
+}
+
+enum TriggerPriority {
+  critical
+  high
+  medium
+  low
+
+  @@map("trigger_priority")
+}
+
+enum TriggerStatus {
+  active
+  draft
+
+  @@map("trigger_status")
+}
+
+enum DeptLevel {
+  Central
+  State
+  Municipal
+  Sectoral
+
+  @@map("dept_level")
+}
+
+enum NotifyChannel {
+  whatsapp
+  email
+  sms
+  in_app
+
+  @@map("notify_channel")
+}
+
+enum ReminderStatus {
+  pending
+  queued
+  sent
+  failed
+  cancelled
+
+  @@map("reminder_status")
+}
+
+enum NotificationJobStatus {
+  pending
+  processing
+  sent
+  failed
+  skipped
+
+  @@map("notification_job_status")
+}
+
+enum DocumentStatus {
+  uploaded
+  pending_review
+  approved
+  rejected
+  expired
+
+  @@map("document_status")
+}
+
+enum BankCode {
+  HDFC
+  ICICI
+  AXIS
+  SBI
+  KOTAK
+  YES
+
+  @@map("bank_code")
+}
+
+enum ConnectionStatus {
+  connected
+  syncing
+  action_required
+  disconnected
+
+  @@map("connection_status")
+}
+
+enum AccountType {
+  Current
+  Savings
+  CC_OD @map("CC/OD")
+
+  @@map("account_type")
+}
+
+enum EmailProvider {
+  gmail
+  outlook
+
+  @@map("email_provider")
+}
+
+enum StatementStatus {
+  processing
+  processed
+  failed
+
+  @@map("statement_status")
+}
+
+enum IntegrationCategory {
+  accounting
+  bank
+  email
+  portal
+
+  @@map("integration_category")
+}
+
+enum LedgerGroup {
+  Bank_Accounts       @map("Bank Accounts")
+  Cash_in_Hand        @map("Cash-in-Hand")
+  Sundry_Debtors      @map("Sundry Debtors")
+  Sundry_Creditors    @map("Sundry Creditors")
+  Sales_Accounts      @map("Sales Accounts")
+  Purchase_Accounts   @map("Purchase Accounts")
+  Direct_Expenses     @map("Direct Expenses")
+  Indirect_Expenses   @map("Indirect Expenses")
+  Duties_Taxes        @map("Duties & Taxes")
+
+  @@map("ledger_group")
+}
+
+enum VoucherType {
+  Payment
+  Receipt
+  Sales
+  Purchase
+  Contra
+  Journal
+
+  @@map("voucher_type")
+}
+
+enum LedgerSource {
+  Bank_Feed      @map("Bank Feed")
+  Email
+  Manual_Upload  @map("Manual Upload")
+
+  @@map("ledger_source")
+}
+
+enum GstReturnType {
+  GSTR_1  @map("GSTR-1")
+  GSTR_3B @map("GSTR-3B")
+  GSTR_2B @map("GSTR-2B")
+  GSTR_9  @map("GSTR-9")
+  IFF
+
+  @@map("gst_return_type")
+}
+
+enum GstReturnStatus {
+  filed
+  draft
+  due
+  overdue
+  auto
+
+  @@map("gst_return_status")
+}
+
+enum TdsReturnType {
+  Form_26Q  @map("Form 26Q")
+  Form_24Q  @map("Form 24Q")
+  Form_27Q  @map("Form 27Q")
+  Form_27EQ @map("Form 27EQ")
+  Form_16   @map("Form 16")
+  Form_16A  @map("Form 16A")
+
+  @@map("tds_return_type")
+}
+
+enum TdsNature {
+  TDS
+  TCS
+
+  @@map("tds_nature")
+}
+
+enum TdsReturnStatus {
+  filed
+  draft
+  due
+  overdue
+  generated
+
+  @@map("tds_return_status")
+}
+
+enum ItrFormType {
+  ITR_1 @map("ITR-1")
+  ITR_2 @map("ITR-2")
+  ITR_3 @map("ITR-3")
+  ITR_4 @map("ITR-4")
+  ITR_5 @map("ITR-5")
+  ITR_6 @map("ITR-6")
+  ITR_7 @map("ITR-7")
+
+  @@map("itr_form_type")
+}
+
+enum ItrReturnStatus {
+  filed
+  draft
+  due
+  overdue
+  verified
+
+  @@map("itr_return_status")
+}
+
+enum PropertyType {
+  Residential
+  Commercial
+  Agricultural
+  Industrial
+  Land
+
+  @@map("property_type")
+}
+
+enum OwnershipType {
+  Owned
+  Co_owned @map("Co-owned")
+  Leased
+
+  @@map("ownership_type")
+}
+
+enum Exchange {
+  NSE
+  BSE
+
+  @@map("exchange")
+}
+
+enum HoldingType {
+  Equity
+  Mutual_Fund @map("Mutual Fund")
+  ETF
+
+  @@map("holding_type")
+}
+
+enum StockTxnType {
+  Buy
+  Sell
+  Dividend
+  Bonus
+
+  @@map("stock_txn_type")
+}
+
+enum InvestmentDomain {
+  Property
+  Stocks
+
+  @@map("investment_domain")
+}
+
+enum SubscriptionStatus {
+  active
+  trialing
+  past_due
+  cancelled
+
+  @@map("subscription_status")
+}
+
+enum InvoiceStatus {
+  paid
+  pending
+  failed
+  refunded
+
+  @@map("invoice_status")
+}
+
+enum ClaimStatus {
+  eligible
+  submitted
+  under_review
+  approved
+  rejected
+  paid
+
+  @@map("claim_status")
+}
+
+enum ServiceStatus {
+  active
+  coming_soon
+  deprecated
+
+  @@map("service_status")
+}
+
+enum StaffRole {
+  super_admin
+  ops_manager
+  reviewer
+  support
+  viewer
+
+  @@map("staff_role")
+}
+
+enum TicketStatus {
+  open
+  in_progress
+  waiting
+  resolved
+  closed
+
+  @@map("ticket_status")
+}
+
+enum TicketPriority {
+  low
+  medium
+  high
+  urgent
+
+  @@map("ticket_priority")
+}
+
+// ---------------------------------------------------------------------------
+// Spine
+// ---------------------------------------------------------------------------
+
+model User {
+  id             String            @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  email          String            @unique
+  passwordHash   String            @map("password_hash")
+  fullName       String            @default("") @map("full_name")
+  role           UserRole          @default(client_user)
+  status         UserAccountStatus @default(active)
+  phone          String?
+  avatarInitials String?           @map("avatar_initials")
+  createdAt      DateTime          @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt      DateTime          @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  memberships         WorkspaceMember[]
+  professional        Professional?
+  staffUser           StaffUser?
+  assignmentsAssigned ProfessionalAssignment[] @relation("AssignedBy")
+
+  @@map("users")
+}
+
+model Workspace {
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name      String
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  members                 WorkspaceMember[]
+  clients                 Client[]
+  entities                Entity[]
+  filings                 Filing[]
+  documents               Document[]
+  subscriptions           Subscription[]
+  invoices                Invoice[]
+  protectionClaims        ProtectionClaim[]
+  notificationPreferences NotificationPreference[]
+  supportTickets          SupportTicket[]
+
+  @@map("workspaces")
+}
+
+model WorkspaceMember {
+  id          String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  workspaceId String       @map("workspace_id") @db.Uuid
+  userId      String       @map("user_id") @db.Uuid
+  memberRole  MemberRole   @default(collaborator) @map("member_role")
+  status      MemberStatus @default(active)
+  lastActive  DateTime?    @map("last_active") @db.Timestamptz(6)
+  createdAt   DateTime     @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([workspaceId, userId])
+  @@map("workspace_members")
+}
+
+model Plan {
+  id           PlanId   @id
+  name         String
+  priceDisplay String   @map("price_display")
+  period       String   @default("month")
+  features     Json     @default("[]")
+  isPublic     Boolean  @default(true) @map("is_public")
+
+  clients       Client[]
+  entities      Entity[]
+  subscriptions Subscription[]
+
+  @@map("plans")
+}
+
+model Client {
+  id                 String       @id
+  workspaceId        String       @map("workspace_id") @db.Uuid
+  businessName       String       @map("business_name")
+  contactName        String       @map("contact_name")
+  email              String
+  entityCount        Int          @default(0) @map("entity_count")
+  planId             PlanId       @default(free) @map("plan_id")
+  healthScore        Int          @default(0) @map("health_score")
+  filingsDueThisWeek Int          @default(0) @map("filings_due_this_week")
+  protectionActive   Boolean      @default(false) @map("protection_active")
+  state              String
+  joinedAt           DateTime     @default(dbgenerated("current_date")) @map("joined_at") @db.Date
+  status             ClientStatus @default(active)
+  createdAt          DateTime     @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt          DateTime     @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  workspace                   Workspace                   @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  plan                        Plan                        @relation(fields: [planId], references: [id])
+  entities                    Entity[]
+  propertyAssets              PropertyAsset[]
+  stockHoldings               StockHolding[]
+  stockLedgerEntries          StockLedgerEntry[]
+  investmentComplianceItems   InvestmentComplianceItem[]
+
+  @@index([workspaceId])
+  @@map("clients")
+}
+
+model Entity {
+  id                 String   @id
+  clientId           String   @map("client_id")
+  workspaceId        String   @map("workspace_id") @db.Uuid
+  name               String
+  shortName          String   @map("short_name")
+  entityType         String   @map("entity_type")
+  gstin              String?
+  pan                String?
+  cin                String?
+  state              String
+  locations          Int      @default(1)
+  industry           String
+  healthScore        Int      @default(0) @map("health_score")
+  healthLabel        String   @default("New") @map("health_label")
+  planId             PlanId   @default(free) @map("plan_id")
+  protectionActive   Boolean  @default(false) @map("protection_active")
+  radarActive        Boolean  @default(true) @map("radar_active")
+  employees          Int?
+  annualTurnoverInr  BigInt?  @map("annual_turnover_inr")
+  registrations      String[] @default([])
+  activities         String[] @default([])
+  createdAt          DateTime @default(dbgenerated("current_date")) @map("created_at") @db.Date
+  updatedAt          DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  client                   Client                    @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  workspace                Workspace                 @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  plan                     Plan                      @relation(fields: [planId], references: [id])
+  filings                  Filing[]
+  documents                Document[]
+  assignments              ProfessionalAssignment[]
+  triggerMatches           EntityTriggerMatch[]
+  bankConnections          BankConnection[]
+  emailConnections         EmailConnection[]
+  statementUploads         StatementUpload[]
+  booksIntegrations        BooksIntegration[]
+  ledgerAccounts           LedgerAccount[]
+  ledgerEntries            LedgerEntry[]
+  gstReturns               GstReturn[]
+  tdsReturns               TdsReturn[]
+  itrReturns               ItrReturn[]
+  entityGstProfile         EntityGstProfile?
+  entityTdsProfile         EntityTdsProfile?
+  entityItrProfile         EntityItrProfile?
+  protectionClaims         ProtectionClaim[]
+
+  @@index([clientId])
+  @@index([workspaceId])
+  @@map("entities")
+}
+
+model Professional {
+  id             String              @id
+  userId         String?             @unique @map("user_id") @db.Uuid
+  name           String
+  email          String
+  type           ProfessionalType
+  registrationNo String?             @map("registration_no")
+  status         ProfessionalStatus  @default(available)
+  specialties    String[]            @default([])
+  createdAt      DateTime            @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt      DateTime            @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  user         User?                    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  assignments  ProfessionalAssignment[]
+  filings      Filing[]
+  documents    Document[]
+
+  @@map("professionals")
+}
+
+model ProfessionalAssignment {
+  id             String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  professionalId String   @map("professional_id")
+  entityId       String   @map("entity_id")
+  assignedById   String?  @map("assigned_by") @db.Uuid
+  assignedAt     DateTime @default(now()) @map("assigned_at") @db.Timestamptz(6)
+  active         Boolean  @default(true)
+
+  professional Professional @relation(fields: [professionalId], references: [id], onDelete: Cascade)
+  entity       Entity       @relation(fields: [entityId], references: [id], onDelete: Cascade)
+  assignedBy   User?        @relation("AssignedBy", fields: [assignedById], references: [id])
+
+  @@unique([professionalId, entityId])
+  @@index([professionalId])
+  @@index([entityId])
+  @@map("professional_assignments")
+}
+
+model Filing {
+  id                  String       @id
+  entityId            String       @map("entity_id")
+  workspaceId         String       @map("workspace_id") @db.Uuid
+  triggerId           String?      @map("trigger_id")
+  name                String
+  shortName           String       @map("short_name")
+  department          String
+  category            String
+  dueDate             DateTime     @map("due_date") @db.Date
+  periodLabel         String       @map("period_label")
+  status              FilingStatus @default(upcoming)
+  protectionEligible  Boolean      @default(false) @map("protection_eligible")
+  professionalId      String?      @map("professional_id")
+  notes               String?
+  createdAt           DateTime     @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt           DateTime     @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  entity       Entity             @relation(fields: [entityId], references: [id], onDelete: Cascade)
+  workspace    Workspace          @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  trigger      ComplianceTrigger? @relation(fields: [triggerId], references: [id], onDelete: SetNull)
+  professional Professional?      @relation(fields: [professionalId], references: [id], onDelete: SetNull)
+  reminders    Reminder[]
+  claims       ProtectionClaim[]
+
+  @@index([entityId])
+  @@index([professionalId])
+  @@index([dueDate])
+  @@index([status])
+  @@map("filings")
+}
+
+// ---------------------------------------------------------------------------
+// Trigger catalogue
+// ---------------------------------------------------------------------------
+
+model TriggerMeta {
+  id           Int      @id @default(1)
+  version      String
+  lastVerified DateTime @map("last_verified") @db.Date
+  disclaimer   String
+  sources      Json     @default("[]")
+
+  @@map("trigger_meta")
+}
+
+model TriggerType {
+  id          String @id
+  label       String
+  subtitle    String
+  description String
+  iconName    String @map("icon_name")
+
+  triggers ComplianceTrigger[]
+
+  @@map("trigger_types")
+}
+
+model GovDepartment {
+  id           String    @id
+  name         String
+  shortName    String    @map("short_name")
+  level        DeptLevel
+  ministry     String
+  regulator    String
+  portalUrl    String    @map("portal_url")
+  otherPortals String[]  @default([]) @map("other_portals")
+  categoryIds  String[]  @default([]) @map("category_ids")
+  description  String
+  iconName     String    @map("icon_name")
+
+  triggers ComplianceTrigger[]
+
+  @@map("gov_departments")
+}
+
+model TriggerCategory {
+  id            String   @id
+  name          String
+  code          String
+  departmentIds String[] @default([]) @map("department_ids")
+  description   String
+
+  triggers ComplianceTrigger[]
+
+  @@map("trigger_categories")
+}
+
+model ComplianceTrigger {
+  id                  String            @id
+  name                String
+  shortName           String            @map("short_name")
+  departmentId        String            @map("department_id")
+  categoryId          String            @map("category_id")
+  triggerTypeId       String            @map("trigger_type")
+  priority            TriggerPriority   @default(medium)
+  status              TriggerStatus     @default(active)
+  legalReference      String            @default("") @map("legal_reference")
+  forms               String[]          @default([])
+  description         String            @default("")
+  sourceUrl           String            @default("") @map("source_url")
+  lastVerified        DateTime?         @map("last_verified") @db.Date
+  applicability       Json              @default("{}")
+  schedule            Json              @default("{}")
+  notification        Json              @default("{}")
+  thresholds          Json              @default("[]")
+  penaltySummary      Json              @default("{}") @map("penalty_summary")
+  linkedServiceIds    String[]          @default([]) @map("linked_service_ids")
+  protectionEligible  Boolean           @default(false) @map("protection_eligible")
+  professionalType    ProfessionalType  @default(CA) @map("professional_type")
+  ruleId              String?           @map("rule_id")
+  complianceId        String?           @map("compliance_id")
+  jurisdictionId      String?           @map("jurisdiction_id")
+  obligationKind      String            @default("mandatory_if_applicable") @map("obligation_kind")
+  scopeLevel          String            @default("central") @map("scope_level")
+  verificationStatus  String            @default("imported_unverified") @map("verification_status")
+  deadlineText        String            @default("") @map("deadline_text")
+  scheduleSource      String            @default("curated_unverified") @map("schedule_source")
+  automationEnabled   Boolean           @default(false) @map("automation_enabled")
+  processJson         Json              @default("{}") @map("process_json")
+  documentsJson       Json              @default("[]") @map("documents_json")
+  conditionJson       Json?             @map("condition_json")
+  evidenceJson        Json              @default("[]") @map("evidence_json")
+  createdAt           DateTime          @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt           DateTime          @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  department   GovDepartment       @relation(fields: [departmentId], references: [id])
+  category     TriggerCategory     @relation(fields: [categoryId], references: [id])
+  triggerType  TriggerType         @relation(fields: [triggerTypeId], references: [id])
+  ruleVersion  CatalogueRuleVersion? @relation(fields: [ruleId], references: [ruleId])
+  compliance   CatalogueCompliance?  @relation(fields: [complianceId], references: [complianceId])
+  jurisdiction Jurisdiction?         @relation(fields: [jurisdictionId], references: [jurisdictionId])
+  matches      EntityTriggerMatch[]
+  filings      Filing[]
+
+  @@index([departmentId])
+  @@index([categoryId])
+  @@index([status])
+  @@index([ruleId])
+  @@index([jurisdictionId])
+  @@index([verificationStatus])
+  @@index([automationEnabled])
+  @@map("compliance_triggers")
+}
+
+model EntityTriggerMatch {
+  id           String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  entityId     String   @map("entity_id")
+  triggerId    String   @map("trigger_id")
+  applies      Boolean
+  result       String   @default("not_applicable")
+  reasons      Json     @default("[]")
+  missingFacts Json     @default("[]") @map("missing_facts")
+  evaluatedAt  DateTime @default(now()) @map("evaluated_at") @db.Timestamptz(6)
+
+  entity  Entity            @relation(fields: [entityId], references: [id], onDelete: Cascade)
+  trigger ComplianceTrigger @relation(fields: [triggerId], references: [id], onDelete: Cascade)
+
+  @@unique([entityId, triggerId])
+  @@index([entityId])
+  @@map("entity_trigger_matches")
+}
+
+model Reminder {
+  id        String           @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  filingId  String           @map("filing_id")
+  channel   NotifyChannel
+  leadDays  Int              @map("lead_days")
+  fireAt    DateTime         @map("fire_at") @db.Timestamptz(6)
+  status    ReminderStatus   @default(pending)
+  createdAt DateTime         @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  filing Filing            @relation(fields: [filingId], references: [id], onDelete: Cascade)
+  jobs   NotificationJob[]
+
+  @@unique([filingId, channel, leadDays])
+  @@index([fireAt])
+  @@map("reminders")
+}
+
+model NotificationJob {
+  id          String                @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  reminderId  String?               @map("reminder_id") @db.Uuid
+  channel     NotifyChannel
+  status      NotificationJobStatus @default(pending)
+  payload     Json                  @default("{}")
+  error       String?
+  createdAt   DateTime              @default(now()) @map("created_at") @db.Timestamptz(6)
+  processedAt DateTime?             @map("processed_at") @db.Timestamptz(6)
+
+  reminder Reminder? @relation(fields: [reminderId], references: [id], onDelete: SetNull)
+
+  @@index([status])
+  @@map("notification_jobs")
+}
+
+// ---------------------------------------------------------------------------
+// Documents
+// ---------------------------------------------------------------------------
+
+model Document {
+  id                      String         @id
+  entityId                String         @map("entity_id")
+  workspaceId             String         @map("workspace_id") @db.Uuid
+  name                    String
+  category                String
+  fileType                String         @map("file_type")
+  sizeBytes               BigInt         @default(0) @map("size_bytes")
+  storagePath             String?        @map("storage_path")
+  status                  DocumentStatus @default(uploaded)
+  uploadedBy              String         @map("uploaded_by")
+  reviewerProfessionalId  String?        @map("reviewer_professional_id")
+  uploadedAt              DateTime       @default(now()) @map("uploaded_at") @db.Timestamptz(6)
+  updatedAt               DateTime       @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  entity   Entity        @relation(fields: [entityId], references: [id], onDelete: Cascade)
+  workspace Workspace    @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  reviewer Professional? @relation(fields: [reviewerProfessionalId], references: [id], onDelete: SetNull)
+
+  @@index([entityId])
+  @@index([reviewerProfessionalId])
+  @@index([status])
+  @@map("documents")
+}
+
+// ---------------------------------------------------------------------------
+// Books
+// ---------------------------------------------------------------------------
+
+model BankConnection {
+  id                   String           @id
+  entityId             String           @map("entity_id")
+  bankName             String           @map("bank_name")
+  bankCode             BankCode         @map("bank_code")
+  accountNumberMasked  String           @map("account_number_masked")
+  accountType          AccountType      @default(Current) @map("account_type")
+  status               ConnectionStatus @default(disconnected)
+  lastSyncedAt         DateTime?        @map("last_synced_at") @db.Timestamptz(6)
+  balance              String           @default("₹0")
+  createdAt            DateTime         @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  entity Entity @relation(fields: [entityId], references: [id], onDelete: Cascade)
+
+  @@map("bank_connections")
+}
+
+model EmailConnection {
+  id              String           @id
+  entityId        String           @map("entity_id")
+  provider        EmailProvider
+  email           String?
+  status          ConnectionStatus @default(disconnected)
+  lastSyncedAt    DateTime?        @map("last_synced_at") @db.Timestamptz(6)
+  invoicesFetched Int              @default(0) @map("invoices_fetched")
+  createdAt       DateTime         @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  entity Entity @relation(fields: [entityId], references: [id], onDelete: Cascade)
+
+  @@map("email_connections")
+}
+
+model StatementUpload {
+  id                 String          @id
+  entityId           String          @map("entity_id")
+  fileName           String          @map("file_name")
+  bankName           String?         @map("bank_name")
+  uploadedAt         DateTime        @default(now()) @map("uploaded_at") @db.Timestamptz(6)
+  status             StatementStatus @default(processing)
+  transactionsFound  Int             @default(0) @map("transactions_found")
+  periodLabel        String          @default("") @map("period_label")
+
+  entity Entity @relation(fields: [entityId], references: [id], onDelete: Cascade)
+
+  @@map("statement_uploads")
+}
+
+model BooksIntegration {
+  id           String              @id
+  entityId     String              @map("entity_id")
+  category     IntegrationCategory
+  code         String
+  name         String
+  description  String              @default("")
+  status       ConnectionStatus    @default(disconnected)
+  lastSyncedAt DateTime?           @map("last_synced_at") @db.Timestamptz(6)
+  detail       String?
+  portalUrl    String?             @map("portal_url")
+  entityScoped Boolean             @default(true) @map("entity_scoped")
+
+  entity Entity @relation(fields: [entityId], references: [id], onDelete: Cascade)
+
+  @@unique([entityId, code])
+  @@map("books_integrations")
+}
+
+model LedgerAccount {
+  id             String      @id
+  entityId       String      @map("entity_id")
+  name           String
+  group          LedgerGroup @map("group")
+  openingBalance Decimal     @default(0) @map("opening_balance") @db.Decimal(18, 2)
+  createdAt      DateTime    @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  entity  Entity         @relation(fields: [entityId], references: [id], onDelete: Cascade)
+  entries LedgerEntry[]
+
+  @@index([entityId])
+  @@map("ledger_accounts")
+}
+
+model LedgerEntry {
+  id              String       @id
+  entityId        String       @map("entity_id")
+  ledgerAccountId String?      @map("ledger_account_id")
+  date            DateTime     @db.Date
+  particulars     String
+  voucherType     VoucherType  @map("voucher_type")
+  ledgerName      String       @map("ledger_name")
+  debit           Decimal      @default(0) @db.Decimal(18, 2)
+  credit          Decimal      @default(0) @db.Decimal(18, 2)
+  source          LedgerSource @default(Manual_Upload)
+  createdAt       DateTime     @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  entity        Entity         @relation(fields: [entityId], references: [id], onDelete: Cascade)
+  ledgerAccount LedgerAccount? @relation(fields: [ledgerAccountId], references: [id], onDelete: SetNull)
+
+  @@index([entityId, date])
+  @@map("ledger_entries")
+}
+
+model GstReturn {
+  id            String         @id
+  entityId      String         @map("entity_id")
+  returnType    GstReturnType  @map("return_type")
+  periodLabel   String         @map("period_label")
+  periodFrom    DateTime       @map("period_from") @db.Date
+  periodTo      DateTime       @map("period_to") @db.Date
+  dueDate       DateTime       @map("due_date") @db.Date
+  status        GstReturnStatus @default(draft)
+  taxableValue  String         @default("₹0") @map("taxable_value")
+  igst          String         @default("₹0")
+  cgst          String         @default("₹0")
+  sgst          String         @default("₹0")
+  itcAvailable  String?        @map("itc_available")
+  netLiability  String?        @map("net_liability")
+  arn           String?
+  filedAt       DateTime?      @map("filed_at") @db.Timestamptz(6)
+  preview       Json?
+  createdAt     DateTime       @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  entity Entity @relation(fields: [entityId], references: [id], onDelete: Cascade)
+
+  @@map("gst_returns")
+}
+
+model TdsReturn {
+  id              String         @id
+  entityId        String         @map("entity_id")
+  returnType      TdsReturnType  @map("return_type")
+  nature          TdsNature      @default(TDS)
+  periodLabel     String         @map("period_label")
+  periodFrom      DateTime       @map("period_from") @db.Date
+  periodTo        DateTime       @map("period_to") @db.Date
+  dueDate         DateTime       @map("due_date") @db.Date
+  status          TdsReturnStatus @default(draft)
+  deductees       Int            @default(0)
+  taxableAmount   String         @default("₹0") @map("taxable_amount")
+  tdsAmount       String         @default("₹0") @map("tds_amount")
+  challanPaid     String?        @map("challan_paid")
+  interestLateFee String?        @map("interest_late_fee")
+  acknowledgement String?
+  filedAt         DateTime?      @map("filed_at") @db.Timestamptz(6)
+  preview         Json?
+  createdAt       DateTime       @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  entity Entity @relation(fields: [entityId], references: [id], onDelete: Cascade)
+
+  @@map("tds_returns")
+}
+
+model ItrReturn {
+  id              String         @id
+  entityId        String         @map("entity_id")
+  formType        ItrFormType    @map("form_type")
+  ay              String
+  fy              String
+  periodFrom      DateTime       @map("period_from") @db.Date
+  periodTo        DateTime       @map("period_to") @db.Date
+  status          ItrReturnStatus @default(draft)
+  dueDate         DateTime       @map("due_date") @db.Date
+  filedAt         DateTime?      @map("filed_at") @db.Timestamptz(6)
+  acknowledgement String?
+  totalIncome     String         @default("₹0") @map("total_income")
+  taxPayable      String         @default("₹0") @map("tax_payable")
+  preview         Json           @default("{}")
+  createdAt       DateTime       @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  entity Entity @relation(fields: [entityId], references: [id], onDelete: Cascade)
+
+  @@map("itr_returns")
+}
+
+model EntityGstProfile {
+  entityId           String @id @map("entity_id")
+  gstin              String
+  legalName          String @map("legal_name")
+  state              String
+  registrationType   String @default("Regular") @map("registration_type")
+
+  entity Entity @relation(fields: [entityId], references: [id], onDelete: Cascade)
+
+  @@map("entity_gst_profile")
+}
+
+model EntityTdsProfile {
+  entityId  String @id @map("entity_id")
+  tan       String
+  pan       String
+  legalName String @map("legal_name")
+  ay        String
+
+  entity Entity @relation(fields: [entityId], references: [id], onDelete: Cascade)
+
+  @@map("entity_tds_profile")
+}
+
+model EntityItrProfile {
+  entityId  String @id @map("entity_id")
+  pan       String
+  legalName String @map("legal_name")
+
+  entity Entity @relation(fields: [entityId], references: [id], onDelete: Cascade)
+
+  @@map("entity_itr_profile")
+}
+
+// ---------------------------------------------------------------------------
+// Investments
+// ---------------------------------------------------------------------------
+
+model PropertyAsset {
+  id               String         @id
+  clientId         String         @map("client_id")
+  name             String
+  type             PropertyType
+  ownershipType    OwnershipType  @map("ownership_type")
+  address          String
+  state            String
+  areaSqft         Decimal?       @map("area_sqft")
+  registrationNo   String         @map("registration_no")
+  purchaseDate     DateTime       @map("purchase_date") @db.Date
+  purchaseValueInr BigInt         @map("purchase_value_inr")
+  currentValueInr  BigInt         @map("current_value_inr")
+  createdAt        DateTime       @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  client Client @relation(fields: [clientId], references: [id], onDelete: Cascade)
+
+  @@index([clientId])
+  @@map("property_assets")
+}
+
+model StockHolding {
+  id             String      @id
+  clientId       String      @map("client_id")
+  brokerName     String      @map("broker_name")
+  symbol         String
+  companyName    String      @map("company_name")
+  exchange       Exchange
+  holdingType    HoldingType @map("holding_type")
+  quantity       Decimal     @db.Decimal(18, 4)
+  avgBuyPriceInr Decimal     @map("avg_buy_price_inr") @db.Decimal(18, 4)
+  currentPriceInr Decimal    @map("current_price_inr") @db.Decimal(18, 4)
+  createdAt      DateTime    @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  client Client @relation(fields: [clientId], references: [id], onDelete: Cascade)
+
+  @@index([clientId])
+  @@map("stock_holdings")
+}
+
+model StockLedgerEntry {
+  id          String       @id
+  clientId    String       @map("client_id")
+  date        DateTime     @db.Date
+  symbol      String
+  companyName String       @map("company_name")
+  txnType     StockTxnType @map("txn_type")
+  quantity    Decimal      @db.Decimal(18, 4)
+  priceInr    Decimal      @default(0) @map("price_inr") @db.Decimal(18, 4)
+  amountInr   Decimal      @default(0) @map("amount_inr") @db.Decimal(18, 2)
+  brokerName  String       @map("broker_name")
+  createdAt   DateTime     @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  client Client @relation(fields: [clientId], references: [id], onDelete: Cascade)
+
+  @@index([clientId])
+  @@map("stock_ledger_entries")
+}
+
+model InvestmentComplianceItem {
+  id          String            @id
+  clientId    String            @map("client_id")
+  domain      InvestmentDomain
+  assetLabel  String            @map("asset_label")
+  name        String
+  authority   String
+  dueDate     DateTime          @map("due_date") @db.Date
+  periodLabel String?           @map("period_label")
+  status      FilingStatus      @default(upcoming)
+  notes       String?
+  createdAt   DateTime          @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  client Client @relation(fields: [clientId], references: [id], onDelete: Cascade)
+
+  @@index([clientId])
+  @@map("investment_compliance_items")
+}
+
+// ---------------------------------------------------------------------------
+// Billing / protection / notifications / admin
+// ---------------------------------------------------------------------------
+
+model Subscription {
+  id           String             @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  workspaceId  String             @unique @map("workspace_id") @db.Uuid
+  planId       PlanId             @map("plan_id")
+  status       SubscriptionStatus @default(active)
+  priceDisplay String             @map("price_display")
+  period       String             @default("month")
+  entityCount  Int                @default(1) @map("entity_count")
+  renewalDate  DateTime           @map("renewal_date") @db.Date
+  features     Json               @default("[]")
+  createdAt    DateTime           @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt    DateTime           @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  plan      Plan      @relation(fields: [planId], references: [id])
+  invoices  Invoice[]
+
+  @@map("subscriptions")
+}
+
+model Invoice {
+  id                 String        @id
+  subscriptionId     String        @map("subscription_id") @db.Uuid
+  workspaceId        String        @map("workspace_id") @db.Uuid
+  date               DateTime      @db.Date
+  amount             String
+  status             InvoiceStatus @default(pending)
+  description        String
+  downloadUrl        String?       @map("download_url")
+  paymentProviderRef String?       @map("payment_provider_ref")
+  createdAt          DateTime      @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  subscription Subscription @relation(fields: [subscriptionId], references: [id], onDelete: Cascade)
+  workspace    Workspace    @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  @@map("invoices")
+}
+
+model ProtectionClaim {
+  id                   String      @id
+  entityId             String      @map("entity_id")
+  workspaceId          String      @map("workspace_id") @db.Uuid
+  filingId             String?     @map("filing_id")
+  filingName           String      @map("filing_name")
+  amountClaimed        String      @map("amount_claimed")
+  submittedAt          DateTime    @default(dbgenerated("current_date")) @map("submitted_at") @db.Date
+  status               ClaimStatus @default(submitted)
+  reason               String
+  reviewedBy           String?     @map("reviewed_by")
+  reviewNote           String?     @map("review_note")
+  evidenceDocumentIds  String[]    @default([]) @map("evidence_document_ids")
+  createdAt            DateTime    @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt            DateTime    @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  entity    Entity     @relation(fields: [entityId], references: [id], onDelete: Cascade)
+  workspace Workspace  @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  filing    Filing?    @relation(fields: [filingId], references: [id], onDelete: SetNull)
+
+  @@index([workspaceId])
+  @@index([status])
+  @@map("protection_claims")
+}
+
+model NotificationPreference {
+  id          String        @id
+  workspaceId String        @map("workspace_id") @db.Uuid
+  channel     NotifyChannel
+  label       String
+  description String
+  enabled     Boolean       @default(true)
+
+  workspace Workspace                     @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  events    NotificationPreferenceEvent[]
+
+  @@unique([workspaceId, channel])
+  @@map("notification_preferences")
+}
+
+model NotificationPreferenceEvent {
+  id           String  @id
+  preferenceId String  @map("preference_id")
+  eventKey     String  @map("event_key")
+  label        String
+  enabled      Boolean @default(true)
+
+  preference NotificationPreference @relation(fields: [preferenceId], references: [id], onDelete: Cascade)
+
+  @@unique([preferenceId, eventKey])
+  @@map("notification_preference_events")
+}
+
+model Service {
+  id                 String        @id
+  name               String
+  shortName          String        @map("short_name")
+  category           String
+  department         String
+  price              String
+  governmentFees     String        @default("₹0") @map("government_fees")
+  status             ServiceStatus @default(active)
+  protectionEligible Boolean       @default(false) @map("protection_eligible")
+  isPublic           Boolean       @default(true) @map("is_public")
+  filingsThisMonth   Int           @default(0) @map("filings_this_month")
+  createdAt          DateTime      @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt          DateTime      @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  @@map("services")
+}
+
+model StaffUser {
+  id         String       @id
+  userId     String?      @unique @map("user_id") @db.Uuid
+  name       String
+  email      String
+  role       StaffRole    @default(viewer)
+  status     MemberStatus @default(active)
+  lastActive DateTime?    @map("last_active") @db.Timestamptz(6)
+  createdAt  DateTime     @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  user        User?              @relation(fields: [userId], references: [id], onDelete: SetNull)
+  permissions StaffPermission[]
+  tickets     SupportTicket[]
+
+  @@map("staff_users")
+}
+
+model PermissionScope {
+  scope       String @id
+  description String @default("")
+
+  staffPermissions StaffPermission[]
+
+  @@map("permission_scopes")
+}
+
+model StaffPermission {
+  staffUserId String @map("staff_user_id")
+  scope       String
+
+  staffUser StaffUser       @relation(fields: [staffUserId], references: [id], onDelete: Cascade)
+  scopeRef  PermissionScope @relation(fields: [scope], references: [scope], onDelete: Cascade)
+
+  @@id([staffUserId, scope])
+  @@map("staff_permissions")
+}
+
+model SupportTicket {
+  id              String         @id
+  workspaceId     String?        @map("workspace_id") @db.Uuid
+  subject         String
+  category        String
+  status          TicketStatus   @default(open)
+  priority        TicketPriority @default(medium)
+  requesterName   String         @map("requester_name")
+  requesterEmail  String         @map("requester_email")
+  entityName      String?        @map("entity_name")
+  assigneeStaffId String?        @map("assignee_staff_id")
+  body            String?
+  createdAt       DateTime       @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt       DateTime       @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  workspace Workspace? @relation(fields: [workspaceId], references: [id], onDelete: SetNull)
+  assignee  StaffUser? @relation(fields: [assigneeStaffId], references: [id], onDelete: SetNull)
+
+  @@index([status])
+  @@map("support_tickets")
+}
+
+model ServiceFeeSchedule {
+  category String @id
+  feeInr   Int    @map("fee_inr")
+
+  @@map("service_fee_schedule")
+}
+
+// ---------------------------------------------------------------------------
+// Codex compliance catalogue (normalized)
+// ---------------------------------------------------------------------------
+
+model CatalogueEntityType {
+  entityTypeId   String   @id @map("entity_type_id")
+  name           String
+  uiGroup        String   @default("") @map("ui_group")
+  displayLabels  String[] @default([]) @map("display_labels")
+
+  ruleEntities CatalogueRuleEntity[]
+
+  @@map("catalogue_entity_types")
+}
+
+model CatalogueTurnoverBand {
+  bandId        String  @id @map("band_id")
+  label         String
+  minInr        Decimal? @map("min_inr") @db.Decimal
+  maxInr        Decimal? @map("max_inr") @db.Decimal
+  minInclusive  Boolean @default(true) @map("min_inclusive")
+  maxInclusive  Boolean @default(false) @map("max_inclusive")
+  usageNote     String  @default("") @map("usage_note")
+
+  @@map("catalogue_turnover_bands")
+}
+
+model CatalogueDepartment {
+  departmentId       String @id @map("department_id")
+  name               String
+  navigationCategory String @default("") @map("navigation_category")
+  taxonomyNote       String @default("") @map("taxonomy_note")
+
+  compliances CatalogueCompliance[]
+
+  @@map("catalogue_departments")
+}
+
+model Jurisdiction {
+  jurisdictionId String  @id @map("jurisdiction_id")
+  name           String
+  level          String
+  parentId       String? @map("parent_id")
+  sourceId       String? @map("source_id")
+
+  parent              Jurisdiction?           @relation("JurisdictionTree", fields: [parentId], references: [jurisdictionId])
+  children            Jurisdiction[]          @relation("JurisdictionTree")
+  authorities         Authority[]
+  ruleVersions        CatalogueRuleVersion[]
+  stateCoverage       StateCoverage[]
+  propertyProfile     StatePropertyProfile?
+  triggers            ComplianceTrigger[]
+
+  @@map("jurisdictions")
+}
+
+model CatalogueSource {
+  sourceId         String    @id @map("source_id")
+  url              String?
+  title            String?
+  sourceType       String?   @map("source_type")
+  supports         String?
+  retrievalMethod  String?   @map("retrieval_method")
+  accessedOn       DateTime? @map("accessed_on") @db.Date
+
+  authorities         Authority[]
+  documentRequirements CatalogueDocumentRequirement[]
+  evidenceAssertions  EvidenceAssertion[]
+  deadlineOverrides   DeadlineOverride[]
+  stateCoverage       StateCoverage[]
+  propertyProfiles    StatePropertyProfile[]  @relation("PropertyPrimarySource")
+  propertyServiceProfiles StatePropertyProfile[] @relation("PropertyServiceSource")
+  corrections         CorrectionLog[]
+
+  @@map("catalogue_sources")
+}
+
+model Authority {
+  authorityId        String  @id @map("authority_id")
+  name               String
+  jurisdictionId     String? @map("jurisdiction_id")
+  websiteUrl         String? @map("website_url")
+  sourceId           String? @map("source_id")
+  verificationStatus String  @default("unverified") @map("verification_status")
+
+  jurisdiction Jurisdiction?    @relation(fields: [jurisdictionId], references: [jurisdictionId])
+  source       CatalogueSource? @relation(fields: [sourceId], references: [sourceId])
+  ruleVersions CatalogueRuleVersion[]
+
+  @@map("authorities")
+}
+
+model AssetClass {
+  assetClassId String @id @map("asset_class_id")
+  name         String
+  scopeNote    String @default("") @map("scope_note")
+
+  ruleScopes CatalogueRuleAssetScope[]
+
+  @@map("asset_classes")
+}
+
+model BusinessProfileField {
+  fieldId     String @id @map("field_id")
+  dataType    String @map("data_type")
+  scope       String @default("")
+  description String @default("")
+  requiredFor String @default("") @map("required_for")
+
+  @@map("business_profile_fields")
+}
+
+model CatalogueCompliance {
+  complianceId   String @id @map("compliance_id")
+  name           String
+  departmentId   String? @map("department_id")
+  obligationKind String  @default("mandatory_if_applicable") @map("obligation_kind")
+  scopeLevel     String  @default("central") @map("scope_level")
+  catalogStatus  String  @default("imported_unverified") @map("catalog_status")
+
+  department   CatalogueDepartment? @relation(fields: [departmentId], references: [departmentId])
+  ruleVersions CatalogueRuleVersion[]
+  triggers     ComplianceTrigger[]
+
+  @@map("compliances")
+}
+
+model CatalogueRuleVersion {
+  ruleId             String    @id @map("rule_id")
+  complianceId       String    @map("compliance_id")
+  jurisdictionId     String?   @map("jurisdiction_id")
+  authorityId        String?   @map("authority_id")
+  governingLaw       String?   @map("governing_law")
+  formCode           String?   @map("form_code")
+  applicabilityText  String?   @map("applicability_text")
+  turnoverBasis      String?   @map("turnover_basis")
+  employeeBasis      String?   @map("employee_basis")
+  effectiveFrom      DateTime? @map("effective_from") @db.Date
+  effectiveTo        DateTime? @map("effective_to") @db.Date
+  taxPeriod          String?   @map("tax_period")
+  frequency          String?
+  deadlineText       String?   @map("deadline_text")
+  deadlineJson       Json      @default("{}") @map("deadline_json")
+  exceptionsText     String?   @map("exceptions_text")
+  verificationStatus String    @default("imported_unverified") @map("verification_status")
+  automationEnabled  Boolean   @default(false) @map("automation_enabled")
+  checkedOn          DateTime? @map("checked_on") @db.Date
+
+  compliance   CatalogueCompliance @relation(fields: [complianceId], references: [complianceId])
+  jurisdiction Jurisdiction?       @relation(fields: [jurisdictionId], references: [jurisdictionId])
+  authority    Authority?          @relation(fields: [authorityId], references: [authorityId])
+  ruleTriggers CatalogueRuleTrigger[]
+  ruleEntities CatalogueRuleEntity[]
+  conditions   ApplicabilityCondition[]
+  documents    CatalogueDocumentRequirement[]
+  process      ProcessProfile?
+  assetScopes  CatalogueRuleAssetScope[]
+  evidence     EvidenceAssertion[]
+  fieldReviews FieldReview[]
+  deadlineOverrides DeadlineOverride[]
+  coverageLinks CoverageRule[]
+  triggers     ComplianceTrigger[]
+
+  @@index([complianceId])
+  @@index([jurisdictionId])
+  @@index([verificationStatus])
+  @@map("rule_versions")
+}
+
+model CatalogueRuleTrigger {
+  ruleTriggerId String @id @map("rule_trigger_id")
+  ruleId        String @map("rule_id")
+  triggerId     String @map("trigger_id")
+
+  rule CatalogueRuleVersion @relation(fields: [ruleId], references: [ruleId], onDelete: Cascade)
+
+  @@unique([ruleId, triggerId])
+  @@map("rule_triggers")
+}
+
+model CatalogueRuleEntity {
+  ruleEntityId  String @id @map("rule_entity_id")
+  ruleId        String @map("rule_id")
+  entityTypeId  String @map("entity_type_id")
+  mappingStatus String @default("candidate") @map("mapping_status")
+
+  rule       CatalogueRuleVersion @relation(fields: [ruleId], references: [ruleId], onDelete: Cascade)
+  entityType CatalogueEntityType  @relation(fields: [entityTypeId], references: [entityTypeId])
+
+  @@unique([ruleId, entityTypeId])
+  @@map("rule_entities")
+}
+
+model ApplicabilityCondition {
+  conditionId        String @id @map("condition_id")
+  ruleId             String @map("rule_id")
+  expressionJson     Json   @default("{}") @map("expression_json")
+  expressionStatus   String @default("candidate_condition_requires_full_rule_review") @map("expression_status")
+  requiredFactsJson  Json   @default("[]") @map("required_facts_json")
+  notes              String?
+
+  rule CatalogueRuleVersion @relation(fields: [ruleId], references: [ruleId], onDelete: Cascade)
+
+  @@map("applicability_conditions")
+}
+
+model CatalogueDocumentRequirement {
+  documentId         String  @id @map("document_id")
+  ruleId             String  @map("rule_id")
+  documentName       String  @map("document_name")
+  entryKind          String  @default("compound_checklist") @map("entry_kind")
+  requirementStatus  String  @default("indicative") @map("requirement_status")
+  conditionText      String? @map("condition_text")
+  sourceId           String? @map("source_id")
+
+  rule   CatalogueRuleVersion @relation(fields: [ruleId], references: [ruleId], onDelete: Cascade)
+  source CatalogueSource?     @relation(fields: [sourceId], references: [sourceId])
+
+  @@map("document_requirements")
+}
+
+model ProcessProfile {
+  processId              String  @id @map("process_id")
+  ruleId                 String  @unique @map("rule_id")
+  applicationUrl         String? @map("application_url")
+  urlRole                String? @map("url_role")
+  filingMode             String  @default("unverified") @map("filing_mode")
+  physicalSubmission     String  @default("unverified") @map("physical_submission")
+  applicantVisit         String  @default("unverified") @map("applicant_visit")
+  inspection             String  @default("unverified")
+  testingOrNotarisation  String  @default("unverified") @map("testing_or_notarisation")
+  processNotes           String? @map("process_notes")
+  verificationStatus     String  @default("unverified") @map("verification_status")
+
+  rule CatalogueRuleVersion @relation(fields: [ruleId], references: [ruleId], onDelete: Cascade)
+
+  @@map("process_profiles")
+}
+
+model CatalogueRuleAssetScope {
+  ruleAssetScopeId String @id @map("rule_asset_scope_id")
+  ruleId           String @map("rule_id")
+  assetClassId     String @map("asset_class_id")
+  actorRole        String @map("actor_role")
+  mappingStatus    String @default("candidate") @map("mapping_status")
+
+  rule       CatalogueRuleVersion @relation(fields: [ruleId], references: [ruleId], onDelete: Cascade)
+  assetClass AssetClass           @relation(fields: [assetClassId], references: [assetClassId])
+
+  @@unique([ruleId, assetClassId, actorRole])
+  @@map("rule_asset_scopes")
+}
+
+model DeadlineOverride {
+  overrideId      String    @id @map("override_id")
+  ruleId          String    @map("rule_id")
+  periodKey       String?   @map("period_key")
+  originalDueDate DateTime? @map("original_due_date") @db.Date
+  overrideDueDate DateTime? @map("override_due_date") @db.Date
+  sourceId        String?   @map("source_id")
+  notes           String?
+
+  rule   CatalogueRuleVersion @relation(fields: [ruleId], references: [ruleId], onDelete: Cascade)
+  source CatalogueSource?     @relation(fields: [sourceId], references: [sourceId])
+
+  @@map("deadline_overrides")
+}
+
+model StateCoverage {
+  coverageId           String  @id @map("coverage_id")
+  jurisdictionId       String  @map("jurisdiction_id")
+  topic                String
+  applicabilityStatus  String? @map("applicability_status")
+  authorityUrl         String? @map("authority_url")
+  applicationUrl       String? @map("application_url")
+  sourceId             String? @map("source_id")
+  coverageStatus       String  @default("discovery_only") @map("coverage_status")
+  nextVerification     String? @map("next_verification")
+
+  jurisdiction Jurisdiction?    @relation(fields: [jurisdictionId], references: [jurisdictionId])
+  source       CatalogueSource? @relation(fields: [sourceId], references: [sourceId])
+  linkedRules  CoverageRule[]
+
+  @@unique([jurisdictionId, topic])
+  @@index([jurisdictionId])
+  @@index([topic])
+  @@map("state_coverage")
+}
+
+model CoverageRule {
+  coverageRuleId String @id @map("coverage_rule_id")
+  coverageId     String @map("coverage_id")
+  ruleId         String @map("rule_id")
+
+  coverage StateCoverage        @relation(fields: [coverageId], references: [coverageId], onDelete: Cascade)
+  rule     CatalogueRuleVersion @relation(fields: [ruleId], references: [ruleId], onDelete: Cascade)
+
+  @@unique([coverageId, ruleId])
+  @@map("coverage_rules")
+}
+
+model StatePropertyProfile {
+  propertyProfileId   String    @id @map("property_profile_id")
+  jurisdictionId      String    @unique @map("jurisdiction_id")
+  recordTerms         String?   @map("record_terms")
+  termsStatus         String?   @map("terms_status")
+  rorUrl              String?   @map("ror_url")
+  registrationUrl     String?   @map("registration_url")
+  mutationUrl         String?   @map("mutation_url")
+  landRevenueUrl      String?   @map("land_revenue_url")
+  sourceId            String?   @map("source_id")
+  serviceSourceId     String?   @map("service_source_id")
+  routeStatus         String?   @map("route_status")
+  physicalStepsStatus String?   @map("physical_steps_status")
+  restrictionReview   String?   @map("restriction_review")
+  titleNote           String?   @map("title_note")
+  checkedOn           DateTime? @map("checked_on") @db.Date
+
+  jurisdiction  Jurisdiction?    @relation(fields: [jurisdictionId], references: [jurisdictionId])
+  source        CatalogueSource? @relation("PropertyPrimarySource", fields: [sourceId], references: [sourceId])
+  serviceSource CatalogueSource? @relation("PropertyServiceSource", fields: [serviceSourceId], references: [sourceId])
+
+  @@map("state_property_profiles")
+}
+
+model EvidenceAssertion {
+  assertionId        String  @id @map("assertion_id")
+  ruleId             String  @map("rule_id")
+  sourceId           String? @map("source_id")
+  fieldName          String? @map("field_name")
+  finding            String?
+  verificationStatus String? @map("verification_status")
+
+  rule   CatalogueRuleVersion @relation(fields: [ruleId], references: [ruleId], onDelete: Cascade)
+  source CatalogueSource?     @relation(fields: [sourceId], references: [sourceId])
+
+  @@index([ruleId])
+  @@map("evidence_assertions")
+}
+
+model FieldReview {
+  reviewId        String @id @map("review_id")
+  ruleId          String @map("rule_id")
+  fieldName       String @map("field_name")
+  reviewStatus    String @default("unreviewed") @map("review_status")
+  evidenceIdsJson Json   @default("[]") @map("evidence_ids_json")
+  reviewNote      String? @map("review_note")
+
+  rule CatalogueRuleVersion @relation(fields: [ruleId], references: [ruleId], onDelete: Cascade)
+
+  @@unique([ruleId, fieldName])
+  @@map("field_reviews")
+}
+
+model CorrectionLog {
+  correctionId         String  @id @map("correction_id")
+  legacyRowId          String? @map("legacy_row_id")
+  fieldName            String? @map("field_name")
+  originalValue        String? @map("original_value")
+  replacementOrAction  String? @map("replacement_or_action")
+  sourceId             String? @map("source_id")
+  status               String?
+
+  source CatalogueSource? @relation(fields: [sourceId], references: [sourceId])
+
+  @@map("correction_log")
+}

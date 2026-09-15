@@ -1,23 +1,23 @@
 import { ExternalLink } from 'lucide-react';
+import { Link } from '@/components/nav/NextNav';
+import { BrandMark } from '@/components/BrandMark';
 
 interface FooterProps {
-  onOpenChecker: () => void;
-  onOpenProtectionModal: () => void;
+  onOpenChecker?: () => void;
+  onOpenProtectionModal?: () => void;
 }
 
 const SUITE_LINK =
   'glass-pill glass-pill-dark hover:!text-white hover:!border-[#B89E6B] transition-colors text-[11px] font-mono uppercase';
 
-export function Footer({ onOpenChecker, onOpenProtectionModal }: FooterProps) {
+export function Footer(_props: FooterProps) {
   return (
     <footer className="bg-[#0E1217] text-[#A8B0BA] text-left border-t border-[#1E2630]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
           <div className="lg:col-span-2 space-y-4">
             <div className="flex items-center space-x-2.5">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#B89E6B] to-[#B89E6B] flex items-center justify-center text-white font-display font-semibold text-xs shadow-[0_4px_12px_-4px_rgba(213,170,109,0.5)]">
-                CE
-              </div>
+              <BrandMark size="xs" />
               <span className="font-display text-lg font-semibold text-white tracking-tight">
                 Compliance<span className="text-[#B89E6B]">Easily</span>
               </span>
@@ -169,13 +169,37 @@ export function Footer({ onOpenChecker, onOpenProtectionModal }: FooterProps) {
                 </a>
               </li>
               <li>
-                <button
-                  type="button"
-                  onClick={onOpenProtectionModal}
-                  className="hover:text-white text-[#B89E6B] font-semibold transition-colors text-left"
+                <Link
+                  to="/protection-guarantee"
+                  className="hover:text-white text-[#B89E6B] font-semibold transition-colors"
                 >
                   Compliance Protection Guarantee
-                </button>
+                </Link>
+              </li>
+              <li>
+                <Link to="/terms" className="hover:text-white transition-colors">
+                  Terms &amp; Conditions
+                </Link>
+              </li>
+              <li>
+                <Link to="/privacy" className="hover:text-white transition-colors">
+                  Privacy Policy
+                </Link>
+              </li>
+              <li>
+                <Link to="/refund-policy" className="hover:text-white transition-colors">
+                  Refund Policy
+                </Link>
+              </li>
+              <li>
+                <Link to="/confidentiality" className="hover:text-white transition-colors">
+                  Confidentiality Policy
+                </Link>
+              </li>
+              <li>
+                <Link to="/disclaimer" className="hover:text-white transition-colors">
+                  Disclaimer
+                </Link>
               </li>
               <li>
                 <a href="#for-professionals" className="hover:text-white transition-colors">
@@ -186,6 +210,16 @@ export function Footer({ onOpenChecker, onOpenProtectionModal }: FooterProps) {
                 <a href="#faq" className="hover:text-white transition-colors">
                   Knowledge Base &amp; FAQ
                 </a>
+              </li>
+              <li>
+                <Link to="/about" className="hover:text-white transition-colors">
+                  About us
+                </Link>
+              </li>
+              <li>
+                <Link to="/contact" className="hover:text-white transition-colors">
+                  Contact us
+                </Link>
               </li>
             </ul>
           </div>
@@ -217,21 +251,33 @@ export function Footer({ onOpenChecker, onOpenProtectionModal }: FooterProps) {
             System.
           </div>
           <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
-            <button type="button" onClick={onOpenChecker} className="hover:text-[#E4E0D8] transition-colors">
-              Terms of Service
-            </button>
+            <Link to="/about" className="hover:text-[#E4E0D8] transition-colors">
+              About
+            </Link>
             <span className="hidden sm:inline">&bull;</span>
-            <button type="button" onClick={onOpenChecker} className="hover:text-[#E4E0D8] transition-colors">
-              Privacy Policy
-            </button>
+            <Link to="/contact" className="hover:text-[#E4E0D8] transition-colors">
+              Contact
+            </Link>
             <span className="hidden sm:inline">&bull;</span>
-            <button
-              type="button"
-              onClick={onOpenProtectionModal}
-              className="hover:text-[#E4E0D8] transition-colors"
-            >
-              Protection Guarantee Terms
-            </button>
+            <Link to="/terms" className="hover:text-[#E4E0D8] transition-colors">
+              Terms
+            </Link>
+            <span className="hidden sm:inline">&bull;</span>
+            <Link to="/privacy" className="hover:text-[#E4E0D8] transition-colors">
+              Privacy
+            </Link>
+            <span className="hidden sm:inline">&bull;</span>
+            <Link to="/refund-policy" className="hover:text-[#E4E0D8] transition-colors">
+              Refunds
+            </Link>
+            <span className="hidden sm:inline">&bull;</span>
+            <Link to="/disclaimer" className="hover:text-[#E4E0D8] transition-colors">
+              Disclaimer
+            </Link>
+            <span className="hidden sm:inline">&bull;</span>
+            <Link to="/protection-guarantee" className="hover:text-[#E4E0D8] transition-colors">
+              Protection Guarantee
+            </Link>
           </div>
         </div>
       </div>

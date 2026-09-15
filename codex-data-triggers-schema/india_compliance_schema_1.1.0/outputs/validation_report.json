@@ -1,0 +1,58 @@
+{
+  "research_as_of": "2026-09-15",
+  "release_status": "RESEARCH_STAGING_NOT_EXHAUSTIVE",
+  "schema_validation": "SQLite in-memory CSV import and foreign-key checks passed",
+  "production_database_modified": false,
+  "states_uts": 36,
+  "department_groups": 36,
+  "trigger_types": 10,
+  "compliance_definitions": 190,
+  "rule_versions": 197,
+  "state_topic_coverage_rows": 648,
+  "source_count": 142,
+  "automated_rules": 0,
+  "rule_verification_counts": {
+    "researched_partial": 165,
+    "imported_unverified": 32
+  },
+  "coverage_counts": {
+    "discovery_only": 502,
+    "partial_rule_research": 16,
+    "authority_directory_confirmed": 106,
+    "imported_unverified": 20,
+    "conflict_flagged": 1,
+    "levy_or_service_evidenced": 3
+  },
+  "csv_row_counts": {
+    "departments": 36,
+    "jurisdictions": 39,
+    "entity_types": 9,
+    "turnover_bands": 6,
+    "trigger_types": 10,
+    "sources": 142,
+    "authorities": 91,
+    "compliances": 190,
+    "rule_versions": 197,
+    "rule_triggers": 303,
+    "rule_entities": 1254,
+    "applicability_conditions": 7,
+    "document_requirements": 197,
+    "process_profiles": 197,
+    "evidence_assertions": 244,
+    "state_coverage": 648,
+    "coverage_rules": 18,
+    "legacy_rows": 133,
+    "correction_log": 64,
+    "deadline_overrides": 1,
+    "business_profile_fields": 42,
+    "field_reviews": 2167
+  },
+  "inputs": {
+    "india_compliance_master.csv": "44c1517d2b931c8c02fb803d05a33344f8fa7acba6d181a9db868bcc76bef138",
+    "india_state_compliance_matrix.csv": "1b6b64feccab1f926f450978615b2413522db552e4e5f2056f0c0c9597a5ee84"
+  },
+  "data_release": "1.1.0",
+  "base_research_as_of": "2026-09-14",
+  "indiafilings_additions": 16,
+  "indiafilings_reviewed_topics": 22
+}

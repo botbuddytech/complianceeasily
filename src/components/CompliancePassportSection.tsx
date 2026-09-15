@@ -27,7 +27,7 @@ export function CompliancePassportSection({ onOpenChecker }: CompliancePassportS
   ];
 
   return (
-    <Section tone="espresso" withGrid withGlow id="compliance-passport" className="space-y-12">
+    <Section tone="cream" withGrid id="compliance-passport" className="space-y-12">
       <Reveal>
         <SectionHeader
           eyebrow={
@@ -50,11 +50,11 @@ export function CompliancePassportSection({ onOpenChecker }: CompliancePassportS
 
       <div className="space-y-4 text-left max-w-5xl mx-auto">
         <Reveal>
-          <div className="border-b border-[#1E2630] pb-2 text-center sm:text-left">
-            <h4 className="font-display text-base font-semibold text-white">
+          <div className="border-b border-[#D5D0C6] pb-2 text-center sm:text-left">
+            <h4 className="font-display text-base font-semibold text-[#0E1217]">
               What Lives Inside Every Compliance Passport
             </h4>
-            <p className="text-xs text-[#A8B0BA]">
+            <p className="text-xs text-[#5C6570]">
               A unified architecture structured to withstand diligence, bank scrutiny, and government
               inspections.
             </p>

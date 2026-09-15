@@ -1,0 +1,6 @@
+asset_class_id,name,scope_note
+listed_security,Listed securities,"Equity, debt and units need instrument-specific tax treatment"
+foreign_security,Foreign securities,"Residency, OPI/ODI and remittance route matter"
+land,Land parcel,Agricultural/urban/tribal/leasehold classifications are separate facts
+building,Building or unit,Underlying land and local approvals also require review
+liquor_premises,Liquor-related premises/activity,Licence class and permitted products are state-specific

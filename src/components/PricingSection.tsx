@@ -25,7 +25,7 @@ export function PricingSection({ onOpenChecker, onOpenProtectionModal }: Pricing
   const [billingPeriod, setBillingPeriod] = useState<'monthly' | 'annual'>('monthly');
 
   return (
-    <Section tone="espresso" withGrid withGlow id="pricing">
+    <Section tone="cream" withGrid id="pricing">
       <div className="space-y-14">
       <Reveal>
         <SectionHeader
@@ -49,7 +49,7 @@ export function PricingSection({ onOpenChecker, onOpenProtectionModal }: Pricing
         <div className="flex items-center justify-center space-x-3 pt-6 font-mono">
           <span
             className={`text-xs font-bold uppercase tracking-wider ${
-              billingPeriod === 'monthly' ? 'text-white' : 'text-[#8B95A1]'
+              billingPeriod === 'monthly' ? 'text-[#0E1217]' : 'text-[#6B7580]'
             }`}
           >
             Monthly
@@ -69,11 +69,11 @@ export function PricingSection({ onOpenChecker, onOpenProtectionModal }: Pricing
           </button>
           <span
             className={`text-xs font-bold uppercase tracking-wider flex items-center ${
-              billingPeriod === 'annual' ? 'text-[#B89E6B]' : 'text-[#8B95A1]'
+              billingPeriod === 'annual' ? 'text-[#B89E6B]' : 'text-[#6B7580]'
             }`}
           >
             <span>Annual</span>
-            <span className="ml-1.5 px-2 py-0.5 rounded-full text-[9px] bg-[#1E2630] border border-[#1E2630] text-[#B89E6B] font-bold uppercase tracking-widest">
+            <span className="ml-1.5 px-2 py-0.5 rounded-full text-[9px] bg-[#EBE8E2] border border-[#D5D0C6] text-[#B89E6B] font-bold uppercase tracking-widest">
               Save 20%
             </span>
           </span>

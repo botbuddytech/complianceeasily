@@ -48,7 +48,7 @@ export function RiskPenaltyExplorer({ onOpenChecker }: RiskPenaltyExplorerProps)
   });
 
   return (
-    <Section tone="espresso" withGrid withGlow id="risk-explorer" className="space-y-12">
+    <Section tone="cream" withGrid id="risk-explorer" className="space-y-12">
       <Reveal>
         <SectionHeader
           eyebrow={

@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
 import { Link } from '@/components/nav/NextNav';
 import { ShieldCheck, MessageSquare, FileCheck, ArrowLeft } from 'lucide-react';
+import { BrandMark } from '@/components/BrandMark';
 
 interface AuthShellProps {
   children: ReactNode;
@@ -52,9 +53,7 @@ export function AuthShell({ children, title, subtitle }: AuthShellProps) {
 
           <div className="relative z-10">
             <Link to="/" className="inline-flex items-center gap-2.5 group">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#B89E6B] to-[#8A7349] flex items-center justify-center text-white font-display font-semibold text-sm shadow-[0_4px_12px_-4px_rgba(184,158,107,0.45)]">
-                CE
-              </div>
+              <BrandMark size="md" priority />
               <div>
                 <div className="font-display text-xl font-semibold tracking-tight">
                   Compliance<span className="text-[#B89E6B]">Easily</span>
@@ -104,19 +103,18 @@ export function AuthShell({ children, title, subtitle }: AuthShellProps) {
           <div className="absolute inset-0 pointer-events-none bg-dot-grid-light opacity-25" aria-hidden />
 
           <div className="relative z-10 w-full max-w-md mx-auto">
-            <div className="flex items-center justify-between mb-8 lg:mb-10">
+            <div className="flex items-center justify-between mb-8 lg:mb-10 gap-3">
               <Link
                 to="/"
-                className="inline-flex items-center gap-1.5 text-sm font-medium text-[#5C6570] hover:text-[#0E1217] transition-colors"
+                className="inline-flex items-center gap-1.5 text-sm font-medium text-[#5C6570] hover:text-[#0E1217] transition-colors shrink-0"
               >
                 <ArrowLeft className="w-4 h-4" />
-                Back to home
+                <span className="hidden sm:inline">Back to home</span>
+                <span className="sm:hidden">Back</span>
               </Link>
-              <Link to="/" className="lg:hidden inline-flex items-center gap-2">
-                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#B89E6B] to-[#8A7349] flex items-center justify-center text-white font-display font-semibold text-xs">
-                  CE
-                </div>
-                <span className="font-display font-semibold text-[#0E1217]">
+              <Link to="/" className="lg:hidden inline-flex items-center gap-2 min-w-0">
+                <BrandMark size="xs" />
+                <span className="font-display font-semibold text-[#0E1217] truncate">
                   Compliance<span className="text-[#B89E6B]">Easily</span>
                 </span>
               </Link>

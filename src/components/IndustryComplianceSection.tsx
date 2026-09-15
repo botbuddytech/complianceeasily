@@ -94,7 +94,7 @@ export function IndustryComplianceSection({ onOpenChecker }: IndustryComplianceS
   };
 
   return (
-    <Section tone="cream" id="industries">
+    <Section tone="espresso" withGrid withGlow id="industries">
       <Reveal>
         <SectionHeader
           className="mb-14"

@@ -1,0 +1,234 @@
+compliance_id,name,department_id,obligation_kind,scope_level,catalog_status
+C001,GST Registration,GST,mandatory_if_applicable,central,researched_partial
+C002,GSTR-1 (Outward Supplies),GST,mandatory_if_applicable,central,researched_partial
+C003,GSTR-3B (Summary Return & Tax Payment),GST,mandatory_if_applicable,central,researched_partial
+C004,PMT-06 (QRMP Monthly Tax Payment),GST,mandatory_if_applicable,central,imported_unverified
+C005,CMP-08 (Composition Scheme Statement),GST,mandatory_if_applicable,central,imported_unverified
+C006,GSTR-4 (Composition Annual Return),GST,mandatory_if_applicable,central,researched_partial
+C007,GSTR-9 (Annual Return),GST,mandatory_if_applicable,central,researched_partial
+C008,GSTR-9C (Reconciliation Statement),GST,mandatory_if_applicable,central,researched_partial
+C009,GSTR-7 (TDS under GST),GST,mandatory_if_applicable,central,imported_unverified
+C010,GSTR-8 (TCS by E-commerce Operators),GST,mandatory_if_applicable,central,imported_unverified
+C011,E-Invoicing (IRN Generation),GST,mandatory_if_applicable,central,researched_partial
+C012,GST Registration Amendment / Additional Place of Business (APOB),GST,mandatory_if_applicable,central,imported_unverified
+C013,LUT for Exports (RFD-11),GST,mandatory_if_applicable,central,imported_unverified
+C014,E-Way Bill,GST,mandatory_if_applicable,central,imported_unverified
+C015,Name Reservation (Part A of SPICe+ / RUN),MCA,mandatory_if_applicable,central,researched_partial
+C016,Company Incorporation (SPICe+ Part B + AGILE-PRO-S),MCA,mandatory_if_applicable,central,researched_partial
+C017,INC-20A (Commencement of Business),MCA,mandatory_if_applicable,central,researched_partial
+C018,First Board Meeting & Statutory Registers,MCA,mandatory_if_applicable,central,imported_unverified
+C019,ADT-1 (Auditor Appointment),MCA,mandatory_if_applicable,central,researched_partial
+C020,AOC-4 (Financial Statements),MCA,mandatory_if_applicable,central,researched_partial
+C021,MGT-7 / MGT-7A (Annual Return),MCA,mandatory_if_applicable,central,researched_partial
+C022,Annual General Meeting (AGM),MCA,mandatory_if_applicable,central,imported_unverified
+C023,Director DIN KYC / particulars update,MCA,mandatory_if_applicable,central,researched_partial
+C024,DPT-3 (Return of Deposits),MCA,mandatory_if_applicable,central,researched_partial
+C025,MSME-1 (Outstanding Dues to MSME Suppliers),MCA,mandatory_if_applicable,central,researched_partial
+C026,CHG-1 (Creation/Modification of Charge),MCA,mandatory_if_applicable,central,researched_partial
+C027,PAS-3 (Return of Allotment),MCA,mandatory_if_applicable,central,researched_partial
+C028,DIR-12 (Director Appointment/Cessation),MCA,mandatory_if_applicable,central,researched_partial
+C029,INC-22 (Change of Registered Office),MCA,mandatory_if_applicable,central,researched_partial
+C030,Statutory Financial Audit,AUDIT,mandatory_if_applicable,central,researched_partial
+C031,Secretarial Audit (MR-3),AUDIT,mandatory_if_applicable,central,imported_unverified
+C032,LLP Incorporation (FiLLiP),LLP,mandatory_if_applicable,central,researched_partial
+C033,LLP Form 11 (Annual Return),LLP,mandatory_if_applicable,central,researched_partial
+C034,LLP Form 8 (Statement of Account & Solvency),LLP,mandatory_if_applicable,central,researched_partial
+C035,LLP ITR-5,INCOME_TAX,mandatory_if_applicable,central,researched_partial
+C036,Partnership Firm Registration,MCA,conditional_registration_or_legal_effect,state_framework,imported_unverified
+C037,Partnership Deed Amendment Intimation,MCA,mandatory_if_applicable,state_framework,imported_unverified
+C038,Trust Deed Registration,NGO,mandatory_if_applicable,state_framework,imported_unverified
+C039,Society Registration,NGO,mandatory_if_applicable,state_framework,imported_unverified
+C040,Section 8 Company Incorporation,NGO,mandatory_if_applicable,central,researched_partial
+C041,12A/12AB Registration (Income Tax Exemption),INCOME_TAX,mandatory_if_applicable,central,researched_partial
+C042,80G Registration (Donor Tax Benefit),INCOME_TAX,mandatory_if_applicable,central,researched_partial
+C043,Form 10B / 10BB (NGO Audit Report),INCOME_TAX,mandatory_if_applicable,central,researched_partial
+C044,ITR-7 (NGO Annual Return),INCOME_TAX,mandatory_if_applicable,central,researched_partial
+C045,FCRA registration / prior permission before foreign contribution,NGO,mandatory_if_applicable,central,imported_unverified
+C046,PAN Application,INCOME_TAX,mandatory_if_applicable,central,researched_partial
+C047,TAN Application,INCOME_TAX,mandatory_if_applicable,central,researched_partial
+C048,ITR Filing (Non-Audit Cases),INCOME_TAX,mandatory_if_applicable,central,researched_partial
+C049,ITR Filing (Audit Cases),INCOME_TAX,mandatory_if_applicable,central,researched_partial
+C050,Income-tax audit report,INCOME_TAX,mandatory_if_applicable,central,researched_partial
+C051,Transfer Pricing Report (Form 3CEB),INCOME_TAX,mandatory_if_applicable,central,researched_partial
+C052,Advance Tax (4 Instalments),INCOME_TAX,mandatory_if_applicable,central,researched_partial
+C053,TDS Deposit (Monthly Challan),TDS_TCS,mandatory_if_applicable,central,researched_partial
+C054,Quarterly salary TDS statement,TDS_TCS,mandatory_if_applicable,central,researched_partial
+C055,Quarterly resident non-salary TDS statement,TDS_TCS,mandatory_if_applicable,central,researched_partial
+C056,Quarterly non-resident TDS statement,TDS_TCS,mandatory_if_applicable,central,researched_partial
+C057,Quarterly TCS statement,TDS_TCS,mandatory_if_applicable,central,researched_partial
+C058,Form 16 (Salary TDS Certificate),TDS_TCS,mandatory_if_applicable,central,researched_partial
+C059,Form 16A (Non-Salary TDS Certificate),TDS_TCS,mandatory_if_applicable,central,researched_partial
+C060,Specified property payment deduction and statement,TDS_TCS,mandatory_if_applicable,central,researched_partial
+C061,Foreign remittance information / accountant certificate,TDS_TCS,mandatory_if_applicable,central,researched_partial
+C062,Form 61A (Statement of Financial Transactions - SFT),TDS_TCS,mandatory_if_applicable,central,researched_partial
+C063,EPF Registration,EPFO,mandatory_if_applicable,central,researched_partial
+C064,EPF Monthly ECR (Electronic Challan-cum-Return),EPFO,mandatory_if_applicable,central,researched_partial
+C065,EPF Annual Return (Form 3A/6A),EPFO,mandatory_if_applicable,central,researched_partial
+C066,ESIC Registration,ESIC,mandatory_if_applicable,central,researched_partial
+C067,ESIC Monthly Contribution & Return,ESIC,mandatory_if_applicable,central,researched_partial
+C068,Professional Tax Registration (PTRC/PTEC),PT,mandatory_if_applicable,state_framework,imported_unverified
+C069,Professional Tax Return Filing,PT,mandatory_if_applicable,state_framework,imported_unverified
+C070,POSH Internal Committee + Annual Report,POSH,mandatory_if_applicable,central,researched_partial
+C071,Payment of Gratuity Act Compliance,LABOUR,mandatory_if_applicable,central,researched_partial
+C072,Labour Welfare Fund Contribution,LWF,mandatory_if_applicable,state_framework,imported_unverified
+C073,Minimum Wages Compliance & Registers,LABOUR,mandatory_if_applicable,central,researched_partial
+C074,Contract Labour Licence (Principal Employer & Contractor),LABOUR,mandatory_if_applicable,central,researched_partial
+C075,FSSAI Basic Registration,FSSAI,mandatory_if_applicable,central,researched_partial
+C076,FSSAI State Licence,FSSAI,mandatory_if_applicable,central,researched_partial
+C077,FSSAI Central Licence,FSSAI,mandatory_if_applicable,central,researched_partial
+C078,IEC (Import Export Code),DGFT,mandatory_if_applicable,central,researched_partial
+C079,IEC Annual Updation,DGFT,mandatory_if_applicable,central,researched_partial
+C080,RCMC (Registration-Cum-Membership Certificate),DGFT,optional_benefit,central,imported_unverified
+C081,AD Code Registration (Bank),DGFT,mandatory_if_applicable,central,imported_unverified
+C082,EPCG / Advance Authorization Scheme,DGFT,mandatory_if_applicable,central,imported_unverified
+C083,MSME / Udyam Registration,MSME,optional_benefit,central,researched_partial
+C084,Trade Licence (Municipal Corporation),MUNICIPAL,mandatory_if_applicable,state_framework,imported_unverified
+C085,Fire NOC (Fire Safety Certificate),FIRE,mandatory_if_applicable,state_framework,imported_unverified
+C086,Factory Licence,FACTORY,mandatory_if_applicable,state_framework,researched_partial
+C087,Factory Licence Renewal,FACTORY,mandatory_if_applicable,state_framework,researched_partial
+C088,Consent to Establish (CTE),POLLUTION,mandatory_if_applicable,state_framework,imported_unverified
+C089,Consent to Operate (CTO),POLLUTION,mandatory_if_applicable,state_framework,imported_unverified
+C090,Hazardous Waste Authorization,WASTE,mandatory_if_applicable,state_framework,imported_unverified
+C092,Internal Audit,AUDIT,mandatory_if_applicable,central,researched_partial
+C093,Cost Audit,AUDIT,mandatory_if_applicable,central,imported_unverified
+C094,Trademark Registration,IP,optional_benefit,central,researched_partial
+C095,Trademark Renewal,IP,mandatory_if_applicable,central,researched_partial
+C096,Copyright Registration,IP,optional_benefit,central,imported_unverified
+C097,Patent Application,IP,optional_benefit,central,researched_partial
+C098,Design Registration,IP,optional_benefit,central,researched_partial
+C099,Statutory Books of Accounts (Companies Act),BOOKS,mandatory_if_applicable,central,imported_unverified
+C100,Statutory Registers (Companies Act),BOOKS,mandatory_if_applicable,central,imported_unverified
+C101,"Books of Accounts (Income Tax Act, Sec 44AA)",BOOKS,mandatory_if_applicable,central,researched_partial
+C102,Invoice & E-way Bill Record Retention,BOOKS,mandatory_if_applicable,central,imported_unverified
+C103,GST Show Cause Notice (SCN) Response,GST,mandatory_if_applicable,central,researched_partial
+C104,GST Registration Suspension/Cancellation Notice Response,GST,mandatory_if_applicable,central,imported_unverified
+C105,Income Tax Intimation u/s 143(1),INCOME_TAX,mandatory_if_applicable,central,researched_partial
+C106,Income Tax Scrutiny Notice u/s 143(2)/142(1),INCOME_TAX,mandatory_if_applicable,central,researched_partial
+C107,EPFO Inspection / Notice Response,EPFO,mandatory_if_applicable,central,researched_partial
+C108,MCA / ROC Adjudication or Show Cause Notice,MCA,mandatory_if_applicable,central,researched_partial
+N001,"CSR applicability, governance and spending",MCA,mandatory_if_applicable,central,researched_partial
+N002,TReDS mandatory onboarding,MSME,mandatory_if_applicable,central,researched_partial
+N003,LLP agreement filing / changes — Form 3,LLP,mandatory_if_applicable,central,researched_partial
+N004,LLP partner appointment / cessation / particulars — Form 4,LLP,mandatory_if_applicable,central,researched_partial
+N005,Company resolutions filing — MGT-14,MCA,mandatory_if_applicable,central,researched_partial
+N006,Beneficial ownership declarations and reporting,MCA,mandatory_if_applicable,central,researched_partial
+N007,FCRA annual return — FC-4,NGO,mandatory_if_applicable,central,researched_partial
+N008,"Donation reporting and donor certificate — 10BD/10BE, new 113/114",INCOME_TAX,mandatory_if_applicable,central,researched_partial
+N009,FSSAI annual return — applicable manufacturers and importers,FSSAI,mandatory_if_applicable,central,researched_partial
+N010,FSSAI modification after business / product / premises changes,FSSAI,mandatory_if_applicable,central,researched_partial
+N011,FSSAI food recall and traceability response,FSSAI,mandatory_if_applicable,central,researched_partial
+N012,Plastic packaging EPR registration,WASTE,mandatory_if_applicable,central,researched_partial
+N013,Battery producer / recycler / refurbisher registration,WASTE,mandatory_if_applicable,central,researched_partial
+N014,E-waste registration and recycling targets,WASTE,mandatory_if_applicable,central,researched_partial
+N015,Waste tyre EPR fulfilment and certificates,WASTE,mandatory_if_applicable,central,researched_partial
+N016,Used-oil EPR registration and obligations,WASTE,mandatory_if_applicable,central,researched_partial
+N017,Construction and demolition waste registration / EPR,WASTE,mandatory_if_applicable,central,researched_partial
+N018,Prior environmental clearance,POLLUTION,mandatory_if_applicable,central,researched_partial
+N019,Forest diversion approval,POLLUTION,mandatory_if_applicable,central,researched_partial
+N020,CRZ / wildlife clearance assessment,POLLUTION,mandatory_if_applicable,central,researched_partial
+N021,Groundwater abstraction NOC,POLLUTION,mandatory_if_applicable,central_or_state,researched_partial
+N022,Customs import declaration and supporting documents,CUSTOMS,mandatory_if_applicable,central,researched_partial
+N023,Customs export declaration and supporting documents,CUSTOMS,mandatory_if_applicable,central,researched_partial
+N024,FDI share issue reporting — FC-GPR,FEMA,mandatory_if_applicable,central,researched_partial
+N025,Resident / non-resident transfer reporting — FC-TRS,FEMA,mandatory_if_applicable,central,researched_partial
+N026,Foreign investment in LLP — LLP-I / LLP-II,FEMA,mandatory_if_applicable,central,researched_partial
+N027,Convertible-note foreign-investment reporting — CN,FEMA,mandatory_if_applicable,central,researched_partial
+N028,Packaged-commodity manufacturer / packer / importer registration,LEGAL_METROLOGY,mandatory_if_applicable,central_or_state,researched_partial
+N029,Packaged-commodity label and online declarations,LEGAL_METROLOGY,ongoing_duty,central,researched_partial
+N030,Weighing / measuring instrument model approval and verification,LEGAL_METROLOGY,mandatory_if_applicable,central_or_state,researched_partial
+N031,BIS certification for QCO-covered products,BIS,mandatory_if_applicable,central,researched_partial
+N032,BIS certification testing / surveillance duties,BIS,ongoing_duty,central,researched_partial
+N033,Drug import / manufacture / sale permission assessment,DRUGS_HEALTH,mandatory_if_applicable,central_or_state,researched_partial
+N034,Medical-device licensing by risk class and activity,DRUGS_HEALTH,mandatory_if_applicable,central_or_state,researched_partial
+N035,Cosmetics import registration,DRUGS_HEALTH,mandatory_if_applicable,central,researched_partial
+N036,Petroleum storage / installation licence,ENERGY_PESO,mandatory_if_applicable,central,researched_partial
+N037,CERT-In specified cyber-incident reporting,DATA_CYBER,incident_duty,central,researched_partial
+N038,CERT-In ICT log retention / point of contact,DATA_CYBER,ongoing_duty,central,researched_partial
+N039,DPDP commencement and applicability assessment,DATA_CYBER,law_change_review,central,researched_partial
+N040,Transport-vehicle permit,TRANSPORT,mandatory_if_applicable,state_framework,researched_partial
+N041,Transport vehicle fitness certificate,TRANSPORT,mandatory_if_applicable,state_framework,researched_partial
+N042,Wireless equipment type approval,TELECOM,mandatory_if_applicable,central,researched_partial
+N043,Telecom / radio authorisation assessment,TELECOM,mandatory_if_applicable,central,researched_partial
+N044,Mine opening / safety notices,AGRI_MINING,mandatory_if_applicable,central,researched_partial
+N045,Pesticide registration / import permission,AGRI_MINING,mandatory_if_applicable,central,researched_partial
+N046,Plant quarantine clearance / phytosanitary certification,AGRI_MINING,mandatory_if_applicable,central,researched_partial
+N047,Private security agency licence,LABOUR,mandatory_if_applicable,state_framework,researched_partial
+N048,RERA project / agent registration framework,RERA,mandatory_if_applicable,state_framework,researched_partial
+N049,Labour-code transition review for each establishment,LABOUR,law_change_review,central_or_state,researched_partial
+S-PB-PSDT-REG,Punjab development tax registration,PT,mandatory_if_applicable,state,researched_partial
+S-PB-PSDT-ELECT,Punjab development tax lump-sum election,PT,optional_scheme,state,researched_partial
+S-MH-PT-REG,Maharashtra profession tax registration / enrolment,PT,mandatory_if_applicable,state,researched_partial
+S-KA-PT-REG,Karnataka profession tax registration / enrolment,PT,mandatory_if_applicable,state,researched_partial
+S-MN-PT-REG,Manipur profession tax registration / enrolment,PT,mandatory_if_applicable,state,researched_partial
+S-NL-PT-REG,Nagaland profession tax registration / enrolment,PT,mandatory_if_applicable,state,researched_partial
+S-ML-PT-REG,Meghalaya profession tax registration / enrolment,PT,mandatory_if_applicable,state,researched_partial
+S-WB-PT-ENROL,West Bengal profession tax enrolment,PT,mandatory_if_applicable,state,researched_partial
+S-WB-PT-RETURN,West Bengal employer profession tax return,PT,mandatory_if_applicable,state,researched_partial
+S-TN-SHOPS-REG,Tamil Nadu shops and establishments registration,SHOPS,mandatory_if_applicable,state,researched_partial
+S-AN-SHOPS,Andaman and Nicobar shops registration / renewal,SHOPS,mandatory_if_applicable,state,researched_partial
+S-GA-LM-REG,Goa manufacturer / packer / importer registration,LEGAL_METROLOGY,mandatory_if_applicable,state,researched_partial
+S-LA-CTE,Ladakh consent to establish,POLLUTION,mandatory_if_applicable,state,researched_partial
+S-LA-CTO,Ladakh consent to operate,POLLUTION,mandatory_if_applicable,state,researched_partial
+S-ML-EXCISE,Meghalaya excise licence for controlled liquor activity,EXCISE,mandatory_if_applicable,state,researched_partial
+S-KL-RERA,Kerala RERA project registration,RERA,mandatory_if_applicable,state,researched_partial
+S-DL-MCD-GTL,MCD general trade / storage licence,MUNICIPAL,mandatory_if_applicable,local,researched_partial
+S-TN-GCC-TRADE,Greater Chennai trade licence,MUNICIPAL,mandatory_if_applicable,local,researched_partial
+IF001,Annual foreign liabilities and assets return,FEMA,mandatory_if_applicable,central,researched_partial
+IF002,Half-yearly share capital reconciliation — PAS-6,MCA,mandatory_if_applicable,central,researched_partial
+IF003,Notice of alteration of share capital,MCA,mandatory_if_applicable,central,researched_partial
+IF004,Auditor resignation notice,AUDIT,mandatory_if_applicable,central,researched_partial
+IF005,APEDA scheduled-product exporter registration / renewal,DGFT,mandatory_if_applicable,central,researched_partial
+IF006,NGO / NPO Darpan unique ID,NGO,mandatory_if_applicable,central,researched_partial
+IF007,GST registration cancellation application,GST,mandatory_if_applicable,central,researched_partial
+IF008,GST final return after cancellation,GST,mandatory_if_applicable,central,researched_partial
+IF009,LLP voluntary strike-off application,LLP,optional_exit_procedure,central,researched_partial
+IF010,Company voluntary strike-off application,MCA,optional_exit_procedure,central,researched_partial
+IF011,Apply for dormant company status,MCA,optional_status_procedure,central,researched_partial
+IF012,Dormant company annual return,MCA,mandatory_if_applicable,central,researched_partial
+IF013,Trademark examination-report response,IP,mandatory_if_applicable,central,researched_partial
+IF014,Trademark opposition counterstatement,IP,mandatory_if_applicable,central,researched_partial
+IF015,DPIIT startup recognition,MSME,optional_benefit,central,researched_partial
+IF016,Restoration of struck-off company / order filing,MCA,optional_remedial_procedure,central,researched_partial
+AX001,Securities account opening and KYC updates,SECURITIES,mandatory_if_applicable,central,researched_partial
+AX002,Report securities sale income and calculate applicable tax,INCOME_TAX,mandatory_if_applicable,central,researched_partial
+AX003,Foreign asset and income disclosure review,INCOME_TAX,mandatory_if_applicable,central,researched_partial
+AX004,Resident individual overseas investment remittance screening,FEMA,mandatory_if_applicable,central,researched_partial
+AX005,Insider trading and UPSI conduct restrictions,SECURITIES,conduct_restriction,central,researched_partial
+AX006,Designated-person trading window and pre-clearance,SECURITIES,mandatory_if_applicable,central,researched_partial
+AX007,Substantial shareholding acquisition/disposal disclosure review,SECURITIES,mandatory_if_applicable,central,researched_partial
+AX008,Acquisition of control / open offer screening,SECURITIES,mandatory_if_applicable,central,researched_partial
+AX009,Investment adviser registration and conditions,SECURITIES,mandatory_if_applicable,central,researched_partial
+AX010,Research analyst registration and conditions,SECURITIES,mandatory_if_applicable,central,researched_partial
+AX011,Property title and competing-rights due diligence,PROPERTY_REGISTRATION,due_diligence,central,researched_partial
+AX012,Deed registration and state stamp-duty assessment,PROPERTY_REGISTRATION,mandatory_if_applicable,central,researched_partial
+AX013,Land-use and purchaser eligibility screening,LAND_RECORDS,due_diligence,central,researched_partial
+AX014,NRI / OCI immovable property acquisition eligibility,FEMA,mandatory_if_applicable,central,researched_partial
+AX015,West Bengal mutation of land records,LAND_RECORDS,mandatory_if_applicable,state,researched_partial
+AX016,West Bengal land revenue / Khajna application and payment,LAND_RECORDS,mandatory_if_applicable,state,researched_partial
+AX017,Bihar mutation application,LAND_RECORDS,mandatory_if_applicable,state,researched_partial
+AX018,Bihar Bhu Lagan land revenue payment,LAND_RECORDS,mandatory_if_applicable,state,researched_partial
+AX019,Bihar Jamabandi correction / Parimarjan,LAND_RECORDS,conditional_service,state,researched_partial
+AX020,Bihar land possession certificate,LAND_RECORDS,conditional_service,state,researched_partial
+AX021,Bihar land conversion application,LAND_RECORDS,mandatory_if_applicable,state,researched_partial
+AX022,Maharashtra digitally signed land-record extracts,LAND_RECORDS,due_diligence,state,researched_partial
+AX023,Maharashtra e-Hakk mutation application,LAND_RECORDS,mandatory_if_applicable,state,researched_partial
+AX024,Karnataka RTC mutation and record review,LAND_RECORDS,mandatory_if_applicable,state,researched_partial
+AX025,Tamil Nadu integrated record and patta-history review,LAND_RECORDS,due_diligence,state,researched_partial
+AX026,Kerala land revenue assessment and remittance,LAND_RECORDS,mandatory_if_applicable,state,researched_partial
+AX027,Telangana Bhu Bharati pending mutation,LAND_RECORDS,mandatory_if_applicable,state,researched_partial
+AX028,Telangana prohibited-property check for registration,LAND_RECORDS,due_diligence,state,researched_partial
+AX029,Himachal section 118 permission screening,LAND_RECORDS,mandatory_if_applicable,state,researched_partial
+AX030,Delhi hotel / club liquor licence selection,EXCISE,mandatory_if_applicable,state,researched_partial
+AX031,Maharashtra FL-II retail liquor licence,EXCISE,mandatory_if_applicable,state,researched_partial
+AX032,Chhattisgarh restaurant / hotel bar licence,EXCISE,mandatory_if_applicable,state,researched_partial
+AX033,Bihar prohibition and permitted-activity screening,EXCISE,conduct_restriction,state,researched_partial
+AX034,West Bengal excise grant / renewal,EXCISE,mandatory_if_applicable,state,researched_partial
+AX035,West Bengal liquor brand / label registration,EXCISE,mandatory_if_applicable,state,researched_partial
+AX036,West Bengal excise import / movement permit,EXCISE,mandatory_if_applicable,state,researched_partial
+AX037,West Bengal temporary bar permission,EXCISE,mandatory_if_applicable,state,researched_partial
+AX038,Arunachal land possession certificate application,LAND_RECORDS,conditional_service,state,researched_partial
+AX039,Meghalaya mutation / inheritance record-change application,LAND_RECORDS,mandatory_if_applicable,state,researched_partial
+AX040,Meghalaya land-transfer prior-sanction review,LAND_RECORDS,mandatory_if_applicable,state,researched_partial
+AX041,Mizoram mutation / partition and settlement-record update,LAND_RECORDS,mandatory_if_applicable,state,researched_partial
+AX042,"MCD property-tax assessment, return and payment",MUNICIPAL,mandatory_if_applicable,local,researched_partial
+AX043,West Bengal deed e-Requisition and stamp assessment,PROPERTY_REGISTRATION,mandatory_if_applicable,state,researched_partial

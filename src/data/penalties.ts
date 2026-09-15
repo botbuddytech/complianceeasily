@@ -70,7 +70,7 @@ export const RISK_PENALTY_DATA: PenaltyItem[] = [
     ],
     protectionEligibility: 'Eligible for Compliance Protection Guarantee on Managed plans',
     source: 'Income Tax Act 1961, Section 234F & Section 234A',
-    sourceUrl: 'https://incometax.gov.in',
+    sourceUrl: 'https://www.incometax.gov.in',
     lastVerified: '2026-04-01',
     legalNotes: 'Prosecution under Section 276CC may be initiated only in willful failure cases where tax payable exceeds statutory limits (post-amendment thresholds).',
     illustrativeAction: {
@@ -107,7 +107,7 @@ export const RISK_PENALTY_DATA: PenaltyItem[] = [
     ],
     protectionEligibility: 'Eligible for Compliance Protection Guarantee on Managed plans',
     source: 'Income Tax Act 1961, Section 234E, Section 201(1A) and Section 271H',
-    sourceUrl: 'https://tdscpc.gov.in',
+    sourceUrl: 'https://www.tdscpc.gov.in',
     lastVerified: '2026-04-01',
     legalNotes: 'Late fee under Section 234E cannot exceed the total TDS amount deductible for the respective quarter.',
     illustrativeAction: {
@@ -145,7 +145,7 @@ export const RISK_PENALTY_DATA: PenaltyItem[] = [
     ],
     protectionEligibility: 'Eligible for Compliance Protection Guarantee on Managed plans',
     source: 'Companies Act 2013, Section 92, Section 137, Section 403 read with Companies (Registration Offices and Fees) Rules 2014',
-    sourceUrl: 'https://mca.gov.in',
+    sourceUrl: 'https://www.mca.gov.in',
     lastVerified: '2026-04-01',
     legalNotes: 'The ₹100 per day additional fee runs continuously for each form (AOC-4 and MGT-7 separately) until rectified.',
     illustrativeAction: {
@@ -183,7 +183,7 @@ export const RISK_PENALTY_DATA: PenaltyItem[] = [
     ],
     protectionEligibility: 'Eligible for Compliance Protection Guarantee on Managed plans',
     source: 'Employees Provident Funds and Miscellaneous Provisions Act 1952, Sections 7Q & 14B',
-    sourceUrl: 'https://epfindia.gov.in',
+    sourceUrl: 'https://www.epfindia.gov.in',
     lastVerified: '2026-04-01',
     legalNotes: 'Supreme Court ruling in Checkmate Services confirmed that delayed deposit of employee contribution cannot be allowed as an expense even if paid before ITR filing.',
     illustrativeAction: {
@@ -220,7 +220,7 @@ export const RISK_PENALTY_DATA: PenaltyItem[] = [
     ],
     protectionEligibility: 'Eligible for Compliance Protection Guarantee on Managed plans',
     source: 'Employees State Insurance Act 1948 read with ESI (General) Regulations 1950, Reg 31A & 31C',
-    sourceUrl: 'https://esic.gov.in',
+    sourceUrl: 'https://www.esic.in',
     lastVerified: '2026-04-01',
     legalNotes: 'Employers are strictly prohibited from deducting the employer portion of ESI from employees gross wages.',
     illustrativeAction: {
@@ -295,7 +295,7 @@ export const RISK_PENALTY_DATA: PenaltyItem[] = [
     ],
     protectionEligibility: 'Eligible for Compliance Protection Guarantee on Managed plans',
     source: 'State Shops and Commercial Establishments Acts (e.g., West Bengal Shops & Establishments Act 1963)',
-    sourceUrl: 'https://wblc.gov.in',
+    sourceUrl: 'https://labour.wb.gov.in',
     lastVerified: '2026-04-01',
     legalNotes: 'Certain States (like Maharashtra & Gujarat) have exempted establishments with under 10 workers from renewal, requiring only intimation.',
     illustrativeAction: {
@@ -369,7 +369,7 @@ export const RISK_PENALTY_DATA: PenaltyItem[] = [
     ],
     protectionEligibility: 'Eligible for Compliance Protection Guarantee on Managed plans',
     source: 'State Municipal Corporation Acts (e.g., Kolkata Municipal Corporation Act 1980 / MMC Act 1888)',
-    sourceUrl: 'https://kmcgov.in',
+    sourceUrl: 'https://www.kmcgov.in',
     lastVerified: '2026-04-01',
     legalNotes: 'Commercial banks frequently freeze merchant QR codes if municipal licences lapse past 6 months.',
     illustrativeAction: {
@@ -517,7 +517,7 @@ export const RISK_PENALTY_DATA: PenaltyItem[] = [
     ],
     protectionEligibility: 'Eligible for Compliance Protection Guarantee on Managed plans',
     source: 'Companies Act 2013, Rule 12A of Companies (Appointment and Qualification of Directors) Rules 2014',
-    sourceUrl: 'https://mca.gov.in',
+    sourceUrl: 'https://www.mca.gov.in',
     lastVerified: '2026-04-01',
     legalNotes: 'KYC must be filed every year even if no details have changed since the previous filing; a fresh DSC-based e-form is mandatory.',
     illustrativeAction: {
@@ -554,7 +554,7 @@ export const RISK_PENALTY_DATA: PenaltyItem[] = [
     ],
     protectionEligibility: 'Eligible for Compliance Protection Guarantee on Managed plans',
     source: 'Companies Act 2013, Section 73, Section 76A, Section 403 read with Companies (Acceptance of Deposits) Rules 2014',
-    sourceUrl: 'https://mca.gov.in',
+    sourceUrl: 'https://www.mca.gov.in',
     lastVerified: '2026-04-01',
     legalNotes: 'DPT-3 is required even for companies with a "Nil" return if they have any outstanding loans from directors or unsecured creditors.',
     illustrativeAction: {
@@ -591,7 +591,7 @@ export const RISK_PENALTY_DATA: PenaltyItem[] = [
     ],
     protectionEligibility: 'Eligible for Compliance Protection Guarantee on Managed plans',
     source: 'Limited Liability Partnership Act 2008, Rule 29 of LLP Rules 2009 (as amended in 2022)',
-    sourceUrl: 'https://mca.gov.in',
+    sourceUrl: 'https://www.mca.gov.in',
     lastVerified: '2026-04-01',
     legalNotes: 'The removal of the fee cap in 2022 means even a short delay can compound into a very large additional fee if left unresolved for months.',
     illustrativeAction: {
@@ -628,7 +628,7 @@ export const RISK_PENALTY_DATA: PenaltyItem[] = [
     ],
     protectionEligibility: 'Eligible for Compliance Protection Guarantee on Managed plans',
     source: 'Income Tax Act 1961, Section 44AB and Section 271B',
-    sourceUrl: 'https://incometax.gov.in',
+    sourceUrl: 'https://www.incometax.gov.in',
     lastVerified: '2026-04-01',
     legalNotes: 'Penalty under Section 271B can be waived if the assessee proves "reasonable cause" for the delay under Section 273B, subject to Assessing Officer discretion.',
     illustrativeAction: {
@@ -665,7 +665,7 @@ export const RISK_PENALTY_DATA: PenaltyItem[] = [
     ],
     protectionEligibility: 'Eligible for Compliance Protection Guarantee on Managed plans',
     source: 'Income Tax Act 1961, Section 201(1A) and Section 276B',
-    sourceUrl: 'https://tdscpc.gov.in',
+    sourceUrl: 'https://www.tdscpc.gov.in',
     lastVerified: '2026-04-01',
     legalNotes: 'Courts have held that depositing the TDS amount (even belatedly) before prosecution is launched can be a mitigating factor, but does not automatically bar prosecution.',
     illustrativeAction: {
@@ -702,7 +702,7 @@ export const RISK_PENALTY_DATA: PenaltyItem[] = [
     ],
     protectionEligibility: 'Eligible for Compliance Protection Guarantee on Managed plans',
     source: 'Income Tax Act 1961, Section 195, Section 271-I and Rule 37BB',
-    sourceUrl: 'https://incometax.gov.in',
+    sourceUrl: 'https://www.incometax.gov.in',
     lastVerified: '2026-04-01',
     legalNotes: 'Certain remittances (e.g., below prescribed thresholds or on the RBI/CBDT specified exempt list) do not require Form 15CB \u2014 always confirm applicability first.',
     illustrativeAction: {
@@ -739,7 +739,7 @@ export const RISK_PENALTY_DATA: PenaltyItem[] = [
     ],
     protectionEligibility: 'Eligible for Compliance Protection Guarantee on Managed plans',
     source: 'Sexual Harassment of Women at Workplace (Prevention, Prohibition and Redressal) Act 2013, Section 26',
-    sourceUrl: 'https://wcd.nic.in',
+    sourceUrl: 'https://www.wcd.gov.in',
     lastVerified: '2026-04-01',
     legalNotes: 'The 10-employee threshold counts all employees, including contractual and temporary staff, across the establishment.',
     illustrativeAction: {
@@ -813,7 +813,7 @@ export const RISK_PENALTY_DATA: PenaltyItem[] = [
     ],
     protectionEligibility: 'Eligible for Compliance Protection Guarantee on Managed plans',
     source: 'Employees State Insurance Act 1948, Section 2A and ESI (General) Regulations 1950',
-    sourceUrl: 'https://esic.gov.in',
+    sourceUrl: 'https://www.esic.in',
     lastVerified: '2026-04-01',
     legalNotes: 'Coverage thresholds and wage ceilings are revised periodically by government notification; always confirm the currently applicable wage limit.',
     illustrativeAction: {

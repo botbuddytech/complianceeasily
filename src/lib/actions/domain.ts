@@ -1,10 +1,18 @@
 'use server';
 
 import { revalidatePath } from 'next/cache';
-import { createClient } from '@/lib/supabase/server';
-import { isSupabaseConfigured, createServiceClient } from '@/lib/supabase/admin';
+import { prisma, isPrismaConfigured } from '@/lib/prisma';
 import { materializeEntity } from '@/lib/compliance/actions';
 import type { Filing, ClaimStatus } from '@/types/dashboard';
+import type {
+  ClaimStatus as PrismaClaimStatus,
+  DocumentStatus,
+  FilingStatus,
+  PlanId,
+  ServiceStatus,
+  StaffRole,
+  TicketPriority,
+} from '@prisma/client';
 
 export type CreateEntityInput = {
   workspaceId: string;
@@ -25,36 +33,47 @@ export type CreateEntityInput = {
   planId?: 'free' | 'pro' | 'managed';
 };
 
-export async function createEntity(input: CreateEntityInput): Promise<{ id: string } | { error: string }> {
-  if (!isSupabaseConfigured()) {
-    return { error: 'Supabase is not configured. Set env vars to persist entities.' };
+function requireDb(): { error: string } | null {
+  if (!isPrismaConfigured()) {
+    return { error: 'Database is not configured. Set DATABASE_URL (and DIRECT_URL) to persist data.' };
   }
+  return null;
+}
+
+export async function createEntity(input: CreateEntityInput): Promise<{ id: string } | { error: string }> {
+  const cfg = requireDb();
+  if (cfg) return cfg;
+
   const id = `ent-${input.shortName.toLowerCase().replace(/[^a-z0-9]+/g, '-').slice(0, 24)}-${Date.now().toString(36)}`;
-  const supabase = await createClient();
-  const { error } = await supabase.from('entities').insert({
-    id,
-    client_id: input.clientId,
-    workspace_id: input.workspaceId,
-    name: input.name,
-    short_name: input.shortName,
-    entity_type: input.entityType,
-    state: input.state,
-    industry: input.industry,
-    locations: input.locations ?? 1,
-    gstin: input.gstin,
-    pan: input.pan,
-    cin: input.cin,
-    employees: input.employees,
-    annual_turnover_inr: input.annualTurnoverInr,
-    registrations: input.registrations ?? [],
-    activities: input.activities ?? [],
-    plan_id: input.planId ?? 'free',
-    health_score: 50,
-    health_label: 'New',
-    protection_active: input.planId === 'managed',
-    radar_active: true,
-  });
-  if (error) return { error: error.message };
+  try {
+    await prisma.entity.create({
+      data: {
+        id,
+        clientId: input.clientId,
+        workspaceId: input.workspaceId,
+        name: input.name,
+        shortName: input.shortName,
+        entityType: input.entityType,
+        state: input.state,
+        industry: input.industry,
+        locations: input.locations ?? 1,
+        gstin: input.gstin,
+        pan: input.pan,
+        cin: input.cin,
+        employees: input.employees,
+        annualTurnoverInr: input.annualTurnoverInr != null ? BigInt(input.annualTurnoverInr) : null,
+        registrations: input.registrations ?? [],
+        activities: input.activities ?? [],
+        planId: (input.planId ?? 'free') as PlanId,
+        healthScore: 50,
+        healthLabel: 'New',
+        protectionActive: input.planId === 'managed',
+        radarActive: true,
+      },
+    });
+  } catch (e) {
+    return { error: e instanceof Error ? e.message : 'Failed to create entity' };
+  }
 
   await materializeEntity(id);
   revalidatePath('/dashboard/entities');
@@ -66,28 +85,35 @@ export async function updateEntity(
   entityId: string,
   patch: Partial<CreateEntityInput>,
 ): Promise<{ ok: true } | { error: string }> {
-  if (!isSupabaseConfigured()) return { error: 'Supabase is not configured' };
-  const supabase = await createClient();
-  const { error } = await supabase
-    .from('entities')
-    .update({
-      name: patch.name,
-      short_name: patch.shortName,
-      entity_type: patch.entityType,
-      state: patch.state,
-      industry: patch.industry,
-      locations: patch.locations,
-      gstin: patch.gstin,
-      pan: patch.pan,
-      cin: patch.cin,
-      employees: patch.employees,
-      annual_turnover_inr: patch.annualTurnoverInr,
-      registrations: patch.registrations,
-      activities: patch.activities,
-      plan_id: patch.planId,
-    })
-    .eq('id', entityId);
-  if (error) return { error: error.message };
+  const cfg = requireDb();
+  if (cfg) return cfg;
+
+  try {
+    await prisma.entity.update({
+      where: { id: entityId },
+      data: {
+        ...(patch.name != null && { name: patch.name }),
+        ...(patch.shortName != null && { shortName: patch.shortName }),
+        ...(patch.entityType != null && { entityType: patch.entityType }),
+        ...(patch.state != null && { state: patch.state }),
+        ...(patch.industry != null && { industry: patch.industry }),
+        ...(patch.locations != null && { locations: patch.locations }),
+        ...(patch.gstin !== undefined && { gstin: patch.gstin }),
+        ...(patch.pan !== undefined && { pan: patch.pan }),
+        ...(patch.cin !== undefined && { cin: patch.cin }),
+        ...(patch.employees !== undefined && { employees: patch.employees }),
+        ...(patch.annualTurnoverInr !== undefined && {
+          annualTurnoverInr: patch.annualTurnoverInr != null ? BigInt(patch.annualTurnoverInr) : null,
+        }),
+        ...(patch.registrations != null && { registrations: patch.registrations }),
+        ...(patch.activities != null && { activities: patch.activities }),
+        ...(patch.planId != null && { planId: patch.planId as PlanId }),
+      },
+    });
+  } catch (e) {
+    return { error: e instanceof Error ? e.message : 'Failed to update entity' };
+  }
+
   await materializeEntity(entityId);
   revalidatePath('/dashboard/entities');
   return { ok: true };
@@ -97,27 +123,36 @@ export async function assignProfessionalToFiling(
   filingId: string,
   professionalId: string | null,
 ): Promise<{ ok: true } | { error: string }> {
-  if (!isSupabaseConfigured()) return { error: 'Supabase is not configured' };
-  const supabase = await createClient();
-  const { error } = await supabase
-    .from('filings')
-    .update({ professional_id: professionalId })
-    .eq('id', filingId);
-  if (error) return { error: error.message };
+  const cfg = requireDb();
+  if (cfg) return cfg;
 
-  if (professionalId) {
-    const { data: filing } = await supabase.from('filings').select('entity_id').eq('id', filingId).maybeSingle();
-    if (filing?.entity_id) {
-      await supabase.from('professional_assignments').upsert(
-        {
-          professional_id: professionalId,
-          entity_id: filing.entity_id,
+  try {
+    const filing = await prisma.filing.update({
+      where: { id: filingId },
+      data: { professionalId },
+      select: { entityId: true },
+    });
+
+    if (professionalId) {
+      await prisma.professionalAssignment.upsert({
+        where: {
+          professionalId_entityId: {
+            professionalId,
+            entityId: filing.entityId,
+          },
+        },
+        create: {
+          professionalId,
+          entityId: filing.entityId,
           active: true,
         },
-        { onConflict: 'professional_id,entity_id' },
-      );
+        update: { active: true },
+      });
     }
+  } catch (e) {
+    return { error: e instanceof Error ? e.message : 'Failed to assign professional' };
   }
+
   revalidatePath('/admin/filing-queue');
   revalidatePath('/professional/queue');
   return { ok: true };
@@ -128,13 +163,21 @@ export async function updateFilingStatus(
   status: Filing['status'],
   notes?: string,
 ): Promise<{ ok: true } | { error: string }> {
-  if (!isSupabaseConfigured()) return { error: 'Supabase is not configured' };
-  const supabase = await createClient();
-  const { error } = await supabase
-    .from('filings')
-    .update({ status, notes: notes ?? undefined })
-    .eq('id', filingId);
-  if (error) return { error: error.message };
+  const cfg = requireDb();
+  if (cfg) return cfg;
+
+  try {
+    await prisma.filing.update({
+      where: { id: filingId },
+      data: {
+        status: status as FilingStatus,
+        ...(notes !== undefined && { notes }),
+      },
+    });
+  } catch (e) {
+    return { error: e instanceof Error ? e.message : 'Failed to update filing' };
+  }
+
   revalidatePath('/dashboard/filings');
   revalidatePath('/professional/queue');
   return { ok: true };
@@ -144,10 +187,18 @@ export async function reviewDocument(
   documentId: string,
   status: 'approved' | 'rejected',
 ): Promise<{ ok: true } | { error: string }> {
-  if (!isSupabaseConfigured()) return { error: 'Supabase is not configured' };
-  const supabase = await createClient();
-  const { error } = await supabase.from('documents').update({ status }).eq('id', documentId);
-  if (error) return { error: error.message };
+  const cfg = requireDb();
+  if (cfg) return cfg;
+
+  try {
+    await prisma.document.update({
+      where: { id: documentId },
+      data: { status: status as DocumentStatus },
+    });
+  } catch (e) {
+    return { error: e instanceof Error ? e.message : 'Failed to review document' };
+  }
+
   revalidatePath('/professional/document-review');
   revalidatePath('/dashboard/documents');
   return { ok: true };
@@ -164,23 +215,30 @@ export async function uploadDocumentMeta(input: {
   uploadedBy: string;
   reviewerProfessionalId?: string;
 }): Promise<{ id: string } | { error: string }> {
-  if (!isSupabaseConfigured()) return { error: 'Supabase is not configured' };
+  const cfg = requireDb();
+  if (cfg) return cfg;
+
   const id = `doc-${Date.now().toString(36)}`;
-  const supabase = await createClient();
-  const { error } = await supabase.from('documents').insert({
-    id,
-    workspace_id: input.workspaceId,
-    entity_id: input.entityId,
-    name: input.name,
-    category: input.category,
-    file_type: input.fileType,
-    size_bytes: input.sizeBytes,
-    storage_path: input.storagePath,
-    status: 'pending_review',
-    uploaded_by: input.uploadedBy,
-    reviewer_professional_id: input.reviewerProfessionalId,
-  });
-  if (error) return { error: error.message };
+  try {
+    await prisma.document.create({
+      data: {
+        id,
+        workspaceId: input.workspaceId,
+        entityId: input.entityId,
+        name: input.name,
+        category: input.category,
+        fileType: input.fileType,
+        sizeBytes: BigInt(input.sizeBytes),
+        storagePath: input.storagePath,
+        status: 'pending_review',
+        uploadedBy: input.uploadedBy,
+        reviewerProfessionalId: input.reviewerProfessionalId,
+      },
+    });
+  } catch (e) {
+    return { error: e instanceof Error ? e.message : 'Failed to save document meta' };
+  }
+
   revalidatePath('/dashboard/documents');
   return { id };
 }
@@ -194,21 +252,28 @@ export async function submitProtectionClaim(input: {
   reason: string;
   evidenceDocumentIds?: string[];
 }): Promise<{ id: string } | { error: string }> {
-  if (!isSupabaseConfigured()) return { error: 'Supabase is not configured' };
+  const cfg = requireDb();
+  if (cfg) return cfg;
+
   const id = `clm-${Date.now().toString(36)}`;
-  const supabase = await createClient();
-  const { error } = await supabase.from('protection_claims').insert({
-    id,
-    workspace_id: input.workspaceId,
-    entity_id: input.entityId,
-    filing_id: input.filingId,
-    filing_name: input.filingName,
-    amount_claimed: input.amountClaimed,
-    reason: input.reason,
-    status: 'submitted',
-    evidence_document_ids: input.evidenceDocumentIds ?? [],
-  });
-  if (error) return { error: error.message };
+  try {
+    await prisma.protectionClaim.create({
+      data: {
+        id,
+        workspaceId: input.workspaceId,
+        entityId: input.entityId,
+        filingId: input.filingId,
+        filingName: input.filingName,
+        amountClaimed: input.amountClaimed,
+        reason: input.reason,
+        status: 'submitted',
+        evidenceDocumentIds: input.evidenceDocumentIds ?? [],
+      },
+    });
+  } catch (e) {
+    return { error: e instanceof Error ? e.message : 'Failed to submit claim' };
+  }
+
   revalidatePath('/dashboard/protection');
   revalidatePath('/admin/protection-claims');
   return { id };
@@ -220,17 +285,22 @@ export async function reviewProtectionClaim(
   reviewedBy: string,
   reviewNote?: string,
 ): Promise<{ ok: true } | { error: string }> {
-  if (!isSupabaseConfigured()) return { error: 'Supabase is not configured' };
-  const supabase = await createClient();
-  const { error } = await supabase
-    .from('protection_claims')
-    .update({
-      status,
-      reviewed_by: reviewedBy,
-      review_note: reviewNote,
-    })
-    .eq('id', claimId);
-  if (error) return { error: error.message };
+  const cfg = requireDb();
+  if (cfg) return cfg;
+
+  try {
+    await prisma.protectionClaim.update({
+      where: { id: claimId },
+      data: {
+        status: status as PrismaClaimStatus,
+        reviewedBy,
+        reviewNote,
+      },
+    });
+  } catch (e) {
+    return { error: e instanceof Error ? e.message : 'Failed to review claim' };
+  }
+
   revalidatePath('/admin/protection-claims');
   return { ok: true };
 }
@@ -241,22 +311,26 @@ export async function updateNotificationPreference(input: {
   eventId?: string;
   eventEnabled?: boolean;
 }): Promise<{ ok: true } | { error: string }> {
-  if (!isSupabaseConfigured()) return { error: 'Supabase is not configured' };
-  const supabase = await createClient();
-  if (input.enabled != null) {
-    const { error } = await supabase
-      .from('notification_preferences')
-      .update({ enabled: input.enabled })
-      .eq('id', input.preferenceId);
-    if (error) return { error: error.message };
+  const cfg = requireDb();
+  if (cfg) return cfg;
+
+  try {
+    if (input.enabled != null) {
+      await prisma.notificationPreference.update({
+        where: { id: input.preferenceId },
+        data: { enabled: input.enabled },
+      });
+    }
+    if (input.eventId != null && input.eventEnabled != null) {
+      await prisma.notificationPreferenceEvent.update({
+        where: { id: input.eventId },
+        data: { enabled: input.eventEnabled },
+      });
+    }
+  } catch (e) {
+    return { error: e instanceof Error ? e.message : 'Failed to update preferences' };
   }
-  if (input.eventId != null && input.eventEnabled != null) {
-    const { error } = await supabase
-      .from('notification_preference_events')
-      .update({ enabled: input.eventEnabled })
-      .eq('id', input.eventId);
-    if (error) return { error: error.message };
-  }
+
   revalidatePath('/dashboard/notifications');
   return { ok: true };
 }
@@ -271,22 +345,29 @@ export async function createSupportTicket(input: {
   entityName?: string;
   body?: string;
 }): Promise<{ id: string } | { error: string }> {
-  if (!isSupabaseConfigured()) return { error: 'Supabase is not configured' };
+  const cfg = requireDb();
+  if (cfg) return cfg;
+
   const id = `tkt-${Date.now().toString(36)}`;
-  const supabase = await createClient();
-  const { error } = await supabase.from('support_tickets').insert({
-    id,
-    workspace_id: input.workspaceId,
-    subject: input.subject,
-    category: input.category,
-    priority: input.priority,
-    requester_name: input.requesterName,
-    requester_email: input.requesterEmail,
-    entity_name: input.entityName,
-    body: input.body,
-    status: 'open',
-  });
-  if (error) return { error: error.message };
+  try {
+    await prisma.supportTicket.create({
+      data: {
+        id,
+        workspaceId: input.workspaceId,
+        subject: input.subject,
+        category: input.category,
+        priority: input.priority as TicketPriority,
+        requesterName: input.requesterName,
+        requesterEmail: input.requesterEmail,
+        entityName: input.entityName,
+        body: input.body,
+        status: 'open',
+      },
+    });
+  } catch (e) {
+    return { error: e instanceof Error ? e.message : 'Failed to create ticket' };
+  }
+
   revalidatePath('/dashboard/support');
   revalidatePath('/admin/support');
   return { id };
@@ -298,22 +379,29 @@ export async function inviteStaffUser(input: {
   role: 'super_admin' | 'ops_manager' | 'reviewer' | 'support' | 'viewer';
   scopes: string[];
 }): Promise<{ id: string } | { error: string }> {
-  if (!isSupabaseConfigured()) return { error: 'Supabase is not configured' };
+  const cfg = requireDb();
+  if (cfg) return cfg;
+
   const id = `staff-${Date.now().toString(36)}`;
-  const admin = createServiceClient();
-  const { error } = await admin.from('staff_users').insert({
-    id,
-    name: input.name,
-    email: input.email,
-    role: input.role,
-    status: 'invited',
-  });
-  if (error) return { error: error.message };
-  if (input.scopes.length) {
-    await admin.from('staff_permissions').insert(
-      input.scopes.map((scope) => ({ staff_user_id: id, scope })),
-    );
+  try {
+    await prisma.staffUser.create({
+      data: {
+        id,
+        name: input.name,
+        email: input.email,
+        role: input.role as StaffRole,
+        status: 'invited',
+        permissions: input.scopes.length
+          ? {
+              create: input.scopes.map((scope) => ({ scope })),
+            }
+          : undefined,
+      },
+    });
+  } catch (e) {
+    return { error: e instanceof Error ? e.message : 'Failed to invite staff' };
   }
+
   revalidatePath('/admin/users');
   return { id };
 }
@@ -330,22 +418,41 @@ export async function upsertService(input: {
   protectionEligible: boolean;
   isPublic?: boolean;
 }): Promise<{ id: string } | { error: string }> {
-  if (!isSupabaseConfigured()) return { error: 'Supabase is not configured' };
+  const cfg = requireDb();
+  if (cfg) return cfg;
+
   const id = input.id ?? `svc-${Date.now().toString(36)}`;
-  const supabase = await createClient();
-  const { error } = await supabase.from('services').upsert({
-    id,
-    name: input.name,
-    short_name: input.shortName,
-    category: input.category,
-    department: input.department,
-    price: input.price,
-    government_fees: input.governmentFees,
-    status: input.status,
-    protection_eligible: input.protectionEligible,
-    is_public: input.isPublic ?? true,
-  });
-  if (error) return { error: error.message };
+  try {
+    await prisma.service.upsert({
+      where: { id },
+      create: {
+        id,
+        name: input.name,
+        shortName: input.shortName,
+        category: input.category,
+        department: input.department,
+        price: input.price,
+        governmentFees: input.governmentFees,
+        status: input.status as ServiceStatus,
+        protectionEligible: input.protectionEligible,
+        isPublic: input.isPublic ?? true,
+      },
+      update: {
+        name: input.name,
+        shortName: input.shortName,
+        category: input.category,
+        department: input.department,
+        price: input.price,
+        governmentFees: input.governmentFees,
+        status: input.status as ServiceStatus,
+        protectionEligible: input.protectionEligible,
+        isPublic: input.isPublic ?? true,
+      },
+    });
+  } catch (e) {
+    return { error: e instanceof Error ? e.message : 'Failed to upsert service' };
+  }
+
   revalidatePath('/admin/catalogue');
   return { id };
 }

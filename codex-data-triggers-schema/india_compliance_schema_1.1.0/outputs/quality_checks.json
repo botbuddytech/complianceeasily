@@ -1,0 +1,17 @@
+{
+  "result": "PASS",
+  "candidate_condition_assertions": 24,
+  "csv_headers_and_sql_import": "PASS",
+  "foreign_keys": "PASS",
+  "all_36_department_groups_have_catalog_entries": "PASS",
+  "all_36_states_uts_have_coverage": "PASS",
+  "all_133_input_rows_preserved": "PASS",
+  "cross_business_establishment_fk": "PASS",
+  "perpetual_licence_expiry_constraint": "PASS",
+  "automation_disabled": "PASS",
+  "database_engine_tested": "SQLite only; PostgreSQL script not server-tested",
+  "legal_completeness": "NOT VERIFIED; see field_reviews and state_coverage",
+  "indiafilings_new_entries": 16,
+  "each_new_entry_has_official_evidence": "PASS",
+  "commercial_sources_kept_secondary": "PASS"
+}

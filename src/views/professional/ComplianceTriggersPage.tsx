@@ -45,8 +45,12 @@ export function ProfessionalComplianceTriggersPage() {
       <PageHeader
         variant="admin"
         title="Compliance Triggers"
-        description={`Triggers mapped to your type (${pro.type}) and your assigned client entities — used for reminder planning.`}
+        description={`Triggers mapped to your type (${pro.type}) and assigned entities. Catalogue is research-staging — no rule is automation-enabled.`}
       />
+
+      <div className="mb-4 rounded-xl border border-amber-200 bg-amber-50/80 px-3 py-2 text-xs text-amber-900">
+        Research staging dataset v{dataset.meta.version}. Review required before any filing.
+      </div>
 
       <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center">
         <div className="flex flex-1 items-center gap-2 rounded-xl border border-admin-border bg-admin-surface px-3 py-2">

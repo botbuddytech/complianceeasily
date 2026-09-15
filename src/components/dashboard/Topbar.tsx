@@ -67,7 +67,7 @@ export function Topbar({ variant, title, onOpenMobile }: TopbarProps) {
         <RoleSwitcher variant={variant} />
       </div>
 
-      <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#B89E6B] text-xs font-bold text-white shrink-0">
+      <div className="hidden h-8 w-8 items-center justify-center rounded-full bg-[#B89E6B] text-xs font-bold text-white shrink-0 sm:flex">
         {avatar}
       </div>
     </header>

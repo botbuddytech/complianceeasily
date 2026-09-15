@@ -1,0 +1,60 @@
+field_id,data_type,scope,description,required_for
+investor_tax_residency,enum,person/period,Tax resident/NR/RNOR category; distinct from FEMA residence,Asset/investor/property/excise assessment; profile must identify the correct legal person
+fema_residency,enum,person/date,FEMA residence and relevant change date,Asset/investor/property/excise assessment; profile must identify the correct legal person
+citizenship_oci_status,enum,person/date,Citizenship/OCI and relevant permission category,Asset/investor/property/excise assessment; profile must identify the correct legal person
+investor_role,enum,person/account,"Retail holder, insider, designated person, adviser, analyst or acquirer",Asset/investor/property/excise assessment; profile must identify the correct legal person
+security_instrument_class,enum,asset,"Equity, debt, unit, derivative or other instrument",Asset/investor/property/excise assessment; profile must identify the correct legal person
+security_trade_records,json,asset/transaction,"Acquisition/sale dates and costs, proceeds, STT and corporate actions",Asset/investor/property/excise assessment; profile must identify the correct legal person
+shareholding_pac_history,json,issuer/date,"Voting rights, holdings and persons acting in concert",Asset/investor/property/excise assessment; profile must identify the correct legal person
+lrs_fy_remitted_usd,decimal,person/financial_year,Aggregate remittances for all LRS purposes,Asset/investor/property/excise assessment; profile must identify the correct legal person
+property_local_identifiers,json,property,"District, tehsil/taluk, village/mouza, khata/khatian, dag/khasra/survey, subdivision and ULPIN when available",Asset/investor/property/excise assessment; profile must identify the correct legal person
+property_tenure_class,enum,property/date,"Freehold, leasehold, grant or other tenure; not inferred from a tax receipt",Asset/investor/property/excise assessment; profile must identify the correct legal person
+property_land_use,enum,property/date,Revenue classification and actual/proposed use recorded separately,Asset/investor/property/excise assessment; profile must identify the correct legal person
+property_title_evidence,json,property,"Deed chain, seller authority, encumbrances, litigation and possession checks",Asset/investor/property/excise assessment; profile must identify the correct legal person
+property_mutation_status,enum,property/event,"Pending, ordered, appealed, rejected or record-updated; does not certify title",Asset/investor/property/excise assessment; profile must identify the correct legal person
+property_revenue_demands,json,property/period,"Demand type, assessed period, payer, amount and receipt; land revenue separate from municipal tax",Asset/investor/property/excise assessment; profile must identify the correct legal person
+property_permission_conditions,json,property,"Buyer/use eligibility, authority order and continuing conditions",Asset/investor/property/excise assessment; profile must identify the correct legal person
+excise_activity_class,enum,premises,"Retail, wholesale, manufacture, storage, event or movement",Asset/investor/property/excise assessment; profile must identify the correct legal person
+excise_product_and_route,json,premises/transaction,Product class; origin/destination; permit and licence details,Asset/investor/property/excise assessment; profile must identify the correct legal person
+entity_type,enum,legal_entity,"Legal form, separate from charitable/tax registration status",All
+financial_year,string,period,Relevant reporting year; distinguish FY/AY from new Tax Year,All
+pan_aggregate_turnover_inr,decimal,PAN/year,GST aggregate turnover across India; not profit or only this branch sales,GST
+gst_max_aato_since_2017_inr,decimal,PAN/history,Maximum aggregate turnover in any relevant preceding FY since 2017-18,E-invoice
+business_turnover_inr,decimal,entity/year,Income-tax business sales/turnover/gross receipts,Tax audit
+professional_receipts_inr,decimal,entity/year,Gross professional receipts separate from business turnover,Tax audit
+cash_receipts_pct,decimal,entity/year,Cash receipts percentage 0-100 using statutory definition,Tax audit
+cash_payments_pct,decimal,entity/year,Cash payment percentage 0-100 using statutory definition,Tax audit
+paid_up_capital_inr,decimal,entity/date,Paid-up share capital; not authorised capital,MCA
+bank_pfi_borrowings_inr,decimal,entity/date,Outstanding borrowings; maximum during relevant year where prescribed,Audit
+net_worth_inr,decimal,entity/year,Statutory net worth,CSR
+net_profit_inr,decimal,entity/year,Statutory profit calculation,CSR
+company_turnover_inr,decimal,entity/year,Turnover per applicable Companies Act rule,MCA/TReDS
+is_cpse,boolean,entity,Central public-sector enterprise status,TReDS
+msme_investment_inr,decimal,PAN/year,Investment in plant/machinery/equipment under MSME definition,Udyam
+msme_turnover_ex_exports_inr,decimal,PAN/year,MSME statutory turnover excluding exports,Udyam
+food_turnover_inr,decimal,food_business/year,Turnover for relevant FoSCoS classification,FSSAI
+food_kob,enum,premises/activity,FoSCoS kind of business including mandatory licence categories,FSSAI
+special_fssai_category,boolean,premises/activity,Whether category overrides ordinary turnover tier,FSSAI
+worker_count,integer,establishment/date,Count under relevant labour law; include lookback history,Labour
+employee_count,integer,establishment/date,Count under rule-specific employee definition,EPF/ESI/POSH
+contract_worker_count,integer,establishment/12months,Contract labour threshold with statutory reference period,OSH
+uses_power,boolean,premises,Manufacturing with aid of power,Factory
+monthly_wages_inr,decimal,worker/month,"Rule-specific wage definition, not assumed gross CTC",EPFO/ESIC/PT
+state_ut,enum,establishment,State/UT location for each establishment,State rules
+local_body_id,string,premises,Municipality/panchayat/authority and ward; PIN code alone is insufficient,Municipal/PT
+gst_registered,boolean,GSTIN,Registration status and category per GSTIN,GST returns
+e_invoice_exempt,boolean,entity/activity,Exempt supplier class under current notifications,E-invoice
+estimated_net_tax_inr,decimal,entity/tax_year,Estimated advance tax liability after applicable credits,Advance tax
+is_exempt_senior_citizen,boolean,person/tax_year,Resident senior citizen with no business/professional income,Advance tax
+industry_activities,array,premises,All relevant activities/products; multiple allowed,Industry
+pollution_category,enum,premises,Current SPCB classification and consent exemption,Environment
+licence_expiry,date,licence,"Actual certificate expiry, where expiry applies",Renewal
+notice_received_at,datetime,case,Service timestamp and method,Notices
+notice_deadline,datetime,case,Deadline in actual notice/order,Notices
+transaction_date,date,transaction,Actual transaction trigger date,Transaction
+agm_date,date,entity/year,Actual AGM date; separately record statutory last date,MCA
+incorporation_date,date,entity,Incorporation date and first financial-year end,MCA/LLP
+foreign_investment,boolean,entity/transaction,Foreign investment/inward or outward position,FEMA
+voluntary_scheme_elected,boolean,entity/scheme,Optional scheme chosen; never infer mandatory applicability,Optional benefits
+is_presumptive_eligible,boolean,entity/year,Eligibility under the exact presumptive provision,Tax audit
+is_presumptive_compliant,boolean,entity/year,Correctly declares statutory presumptive income,Tax audit

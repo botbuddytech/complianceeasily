@@ -25,7 +25,7 @@ function HeadlineWords() {
 
   if (prefersReduced) {
     return (
-      <h2 className="font-display text-[2rem] sm:text-5xl lg:text-[3.4rem] font-semibold tracking-tight leading-[1.1] text-[#0E1217]">
+      <h2 className="font-display text-[2rem] sm:text-5xl lg:text-[3.4rem] font-semibold tracking-tight leading-[1.1] text-white">
         AI business compliance for India.
         <br />
         <span className="text-[#B89E6B] italic">Professional accountability.</span>
@@ -35,11 +35,11 @@ function HeadlineWords() {
 
   const lines = [
     [
-      { text: 'AI', className: 'text-[#0E1217]' },
-      { text: 'business', className: 'text-[#0E1217]' },
-      { text: 'compliance', className: 'text-[#0E1217]' },
-      { text: 'for', className: 'text-[#0E1217]' },
-      { text: 'India.', className: 'text-[#0E1217]' },
+      { text: 'AI', className: 'text-white' },
+      { text: 'business', className: 'text-white' },
+      { text: 'compliance', className: 'text-white' },
+      { text: 'for', className: 'text-white' },
+      { text: 'India.', className: 'text-white' },
     ],
     [
       { text: 'Professional', className: 'text-[#B89E6B] italic' },
@@ -80,17 +80,17 @@ function HeadlineWords() {
 
 export function Hero({ onOpenChecker, onOpenProtectionModal }: HeroProps) {
   return (
-    <Section tone="cream" withGrid className="!pt-8 !pb-16 lg:!pt-14 lg:!pb-24">
+    <Section tone="espresso" withGrid withGlow className="!pt-8 !pb-16 lg:!pt-14 lg:!pb-24">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-12 lg:gap-8 items-center min-w-0">
         <Reveal className="lg:col-span-6 space-y-5 sm:space-y-6 text-left min-w-0">
-          <div className="glass-pill">
+          <div className="glass-pill glass-pill-dark">
             <span className="w-2 h-2 rounded-full bg-[#B89E6B] animate-pulse-ring" />
             <span>AI-powered. Professionally verified.</span>
           </div>
 
           <div className="space-y-3">
             <HeadlineWords />
-            <p className="text-lg text-[#5C6570] leading-relaxed">
+            <p className="text-lg text-[#A8B0BA] leading-relaxed">
               Know which GST, MCA, tax, labour and State rules apply to your entity. Get free WhatsApp
               reminders, keep books to accounting standards, and file with a practising CA, CS or
               Advocate one phone call away.
@@ -150,7 +150,7 @@ export function Hero({ onOpenChecker, onOpenProtectionModal }: HeroProps) {
             </div>
           </Card>
 
-          <p className="text-sm sm:text-base text-[#5C6570] leading-relaxed font-normal">
+          <p className="text-sm sm:text-base text-[#A8B0BA] leading-relaxed font-normal">
             ComplianceEasily identifies all Central, State and municipal statutory requirements
             for your entity, delivers proactive reminders on WhatsApp for free, and lets AI agents and
             certified practitioners execute filings when you are ready.
@@ -169,20 +169,20 @@ export function Hero({ onOpenChecker, onOpenProtectionModal }: HeroProps) {
               <button
                 type="button"
                 onClick={onOpenChecker}
-                className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-lg bg-[#EBE8E2] hover:bg-[#D5D0C6] text-[#0E1217] border border-[#D5D0C6] font-semibold text-sm transition-colors w-full sm:w-auto"
+                className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-lg bg-[#1E2630] hover:bg-[#2A3340] text-[#F4F2EE] border border-[#2A3340] font-semibold text-sm transition-colors w-full sm:w-auto"
               >
                 <PhoneCall className="w-4 h-4 text-[#B89E6B] shrink-0" />
                 <span>Talk to an expert in one call</span>
               </button>
             </div>
 
-            <p className="text-xs text-[#6B7580]">
+            <p className="text-xs text-[#8B95A1]">
               No credit card &bull; Takes 2 minutes &bull; One entity free forever
             </p>
           </div>
 
           <RevealGroup
-            className="pt-3 border-t border-[#D5D0C6] grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs font-semibold text-[#5C6570]"
+            className="pt-3 border-t border-[#1E2630] grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs font-semibold text-[#A8B0BA]"
             stagger={0.05}
           >
             <div className="flex items-center space-x-1.5">
@@ -205,7 +205,7 @@ export function Hero({ onOpenChecker, onOpenProtectionModal }: HeroProps) {
         </Reveal>
 
         <Reveal delay={0.15} className="lg:col-span-6 relative min-w-0">
-          <div className="absolute -inset-4 sm:-inset-6 rounded-[2rem] bg-[#B89E6B]/12 blur-3xl pointer-events-none" />
+          <div className="absolute -inset-4 sm:-inset-6 rounded-[2rem] bg-[#B89E6B]/20 blur-3xl pointer-events-none" />
           <div className="relative animate-float min-w-0">
             <CompliancePassportDemo
               onOpenChecker={onOpenChecker}

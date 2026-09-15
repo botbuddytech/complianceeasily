@@ -47,7 +47,7 @@ export function EcosystemSection() {
   ];
 
   return (
-    <Section tone="espresso" withGrid withGlow className="space-y-12">
+    <Section tone="cream" withGrid className="space-y-12">
       <Reveal>
         <SectionHeader
           eyebrow={

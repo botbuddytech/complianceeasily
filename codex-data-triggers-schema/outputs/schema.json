@@ -1,0 +1,1060 @@
+{
+  "schema_version": "1.1.0",
+  "import_order": [
+    "departments",
+    "sources",
+    "jurisdictions",
+    "entity_types",
+    "turnover_bands",
+    "trigger_types",
+    "authorities",
+    "compliances",
+    "rule_versions",
+    "rule_triggers",
+    "rule_entities",
+    "applicability_conditions",
+    "document_requirements",
+    "process_profiles",
+    "evidence_assertions",
+    "legacy_rows",
+    "state_coverage",
+    "coverage_rules",
+    "correction_log",
+    "deadline_overrides",
+    "business_profile_fields",
+    "field_reviews",
+    "asset_classes",
+    "rule_asset_scopes",
+    "state_property_profiles"
+  ],
+  "tables": {
+    "departments": [
+      {
+        "name": "department_id",
+        "sql_type": "TEXT",
+        "primary_key": true,
+        "references": null
+      },
+      {
+        "name": "name",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      },
+      {
+        "name": "navigation_category",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      },
+      {
+        "name": "taxonomy_note",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      }
+    ],
+    "jurisdictions": [
+      {
+        "name": "jurisdiction_id",
+        "sql_type": "TEXT",
+        "primary_key": true,
+        "references": null
+      },
+      {
+        "name": "name",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      },
+      {
+        "name": "level",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      },
+      {
+        "name": "parent_id",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": "jurisdictions.jurisdiction_id"
+      },
+      {
+        "name": "source_id",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": "sources.source_id"
+      }
+    ],
+    "entity_types": [
+      {
+        "name": "entity_type_id",
+        "sql_type": "TEXT",
+        "primary_key": true,
+        "references": null
+      },
+      {
+        "name": "name",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      },
+      {
+        "name": "ui_group",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      }
+    ],
+    "turnover_bands": [
+      {
+        "name": "band_id",
+        "sql_type": "TEXT",
+        "primary_key": true,
+        "references": null
+      },
+      {
+        "name": "label",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      },
+      {
+        "name": "min_inr",
+        "sql_type": "NUMERIC",
+        "primary_key": false,
+        "references": null
+      },
+      {
+        "name": "max_inr",
+        "sql_type": "NUMERIC",
+        "primary_key": false,
+        "references": null
+      },
+      {
+        "name": "min_inclusive",
+        "sql_type": "INTEGER",
+        "primary_key": false,
+        "references": null
+      },
+      {
+        "name": "max_inclusive",
+        "sql_type": "INTEGER",
+        "primary_key": false,
+        "references": null
+      },
+      {
+        "name": "usage_note",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      }
+    ],
+    "trigger_types": [
+      {
+        "name": "trigger_id",
+        "sql_type": "TEXT",
+        "primary_key": true,
+        "references": null
+      },
+      {
+        "name": "name",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      },
+      {
+        "name": "description",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      }
+    ],
+    "sources": [
+      {
+        "name": "source_id",
+        "sql_type": "TEXT",
+        "primary_key": true,
+        "references": null
+      },
+      {
+        "name": "url",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      },
+      {
+        "name": "title",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      },
+      {
+        "name": "source_type",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      },
+      {
+        "name": "supports",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      },
+      {
+        "name": "retrieval_method",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      },
+      {
+        "name": "accessed_on",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      }
+    ],
+    "authorities": [
+      {
+        "name": "authority_id",
+        "sql_type": "TEXT",
+        "primary_key": true,
+        "references": null
+      },
+      {
+        "name": "name",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      },
+      {
+        "name": "jurisdiction_id",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": "jurisdictions.jurisdiction_id"
+      },
+      {
+        "name": "website_url",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      },
+      {
+        "name": "source_id",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": "sources.source_id"
+      },
+      {
+        "name": "verification_status",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      }
+    ],
+    "compliances": [
+      {
+        "name": "compliance_id",
+        "sql_type": "TEXT",
+        "primary_key": true,
+        "references": null
+      },
+      {
+        "name": "name",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      },
+      {
+        "name": "department_id",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": "departments.department_id"
+      },
+      {
+        "name": "obligation_kind",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      },
+      {
+        "name": "scope_level",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      },
+      {
+        "name": "catalog_status",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      }
+    ],
+    "rule_versions": [
+      {
+        "name": "rule_id",
+        "sql_type": "TEXT",
+        "primary_key": true,
+        "references": null
+      },
+      {
+        "name": "compliance_id",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": "compliances.compliance_id"
+      },
+      {
+        "name": "jurisdiction_id",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": "jurisdictions.jurisdiction_id"
+      },
+      {
+        "name": "authority_id",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": "authorities.authority_id"
+      },
+      {
+        "name": "governing_law",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      },
+      {
+        "name": "form_code",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      },
+      {
+        "name": "applicability_text",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      },
+      {
+        "name": "turnover_basis",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      },
+      {
+        "name": "employee_basis",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      },
+      {
+        "name": "effective_from",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      },
+      {
+        "name": "effective_to",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      },
+      {
+        "name": "tax_period",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      },
+      {
+        "name": "frequency",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      },
+      {
+        "name": "deadline_text",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      },
+      {
+        "name": "deadline_json",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      },
+      {
+        "name": "exceptions_text",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      },
+      {
+        "name": "verification_status",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      },
+      {
+        "name": "automation_enabled",
+        "sql_type": "INTEGER",
+        "primary_key": false,
+        "references": null
+      },
+      {
+        "name": "checked_on",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      }
+    ],
+    "rule_triggers": [
+      {
+        "name": "rule_trigger_id",
+        "sql_type": "TEXT",
+        "primary_key": true,
+        "references": null
+      },
+      {
+        "name": "rule_id",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": "rule_versions.rule_id"
+      },
+      {
+        "name": "trigger_id",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": "trigger_types.trigger_id"
+      }
+    ],
+    "rule_entities": [
+      {
+        "name": "rule_entity_id",
+        "sql_type": "TEXT",
+        "primary_key": true,
+        "references": null
+      },
+      {
+        "name": "rule_id",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": "rule_versions.rule_id"
+      },
+      {
+        "name": "entity_type_id",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": "entity_types.entity_type_id"
+      },
+      {
+        "name": "mapping_status",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      }
+    ],
+    "applicability_conditions": [
+      {
+        "name": "condition_id",
+        "sql_type": "TEXT",
+        "primary_key": true,
+        "references": null
+      },
+      {
+        "name": "rule_id",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": "rule_versions.rule_id"
+      },
+      {
+        "name": "expression_json",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      },
+      {
+        "name": "expression_status",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      },
+      {
+        "name": "required_facts_json",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      },
+      {
+        "name": "notes",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      }
+    ],
+    "document_requirements": [
+      {
+        "name": "document_id",
+        "sql_type": "TEXT",
+        "primary_key": true,
+        "references": null
+      },
+      {
+        "name": "rule_id",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": "rule_versions.rule_id"
+      },
+      {
+        "name": "document_name",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      },
+      {
+        "name": "entry_kind",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      },
+      {
+        "name": "requirement_status",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      },
+      {
+        "name": "condition_text",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      },
+      {
+        "name": "source_id",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": "sources.source_id"
+      }
+    ],
+    "process_profiles": [
+      {
+        "name": "process_id",
+        "sql_type": "TEXT",
+        "primary_key": true,
+        "references": null
+      },
+      {
+        "name": "rule_id",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": "rule_versions.rule_id"
+      },
+      {
+        "name": "application_url",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      },
+      {
+        "name": "url_role",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      },
+      {
+        "name": "filing_mode",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      },
+      {
+        "name": "physical_submission",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      },
+      {
+        "name": "applicant_visit",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      },
+      {
+        "name": "inspection",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      },
+      {
+        "name": "testing_or_notarisation",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      },
+      {
+        "name": "process_notes",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      },
+      {
+        "name": "verification_status",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      }
+    ],
+    "evidence_assertions": [
+      {
+        "name": "assertion_id",
+        "sql_type": "TEXT",
+        "primary_key": true,
+        "references": null
+      },
+      {
+        "name": "rule_id",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": "rule_versions.rule_id"
+      },
+      {
+        "name": "source_id",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": "sources.source_id"
+      },
+      {
+        "name": "field_name",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      },
+      {
+        "name": "finding",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      },
+      {
+        "name": "verification_status",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      }
+    ],
+    "state_coverage": [
+      {
+        "name": "coverage_id",
+        "sql_type": "TEXT",
+        "primary_key": true,
+        "references": null
+      },
+      {
+        "name": "jurisdiction_id",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": "jurisdictions.jurisdiction_id"
+      },
+      {
+        "name": "topic",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      },
+      {
+        "name": "applicability_status",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      },
+      {
+        "name": "authority_url",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      },
+      {
+        "name": "application_url",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      },
+      {
+        "name": "source_id",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": "sources.source_id"
+      },
+      {
+        "name": "coverage_status",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      },
+      {
+        "name": "next_verification",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      },
+      {
+        "name": "legacy_row_id",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": "legacy_rows.legacy_row_id"
+      }
+    ],
+    "coverage_rules": [
+      {
+        "name": "coverage_rule_id",
+        "sql_type": "TEXT",
+        "primary_key": true,
+        "references": null
+      },
+      {
+        "name": "coverage_id",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": "state_coverage.coverage_id"
+      },
+      {
+        "name": "rule_id",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": "rule_versions.rule_id"
+      }
+    ],
+    "legacy_rows": [
+      {
+        "name": "legacy_row_id",
+        "sql_type": "TEXT",
+        "primary_key": true,
+        "references": null
+      },
+      {
+        "name": "input_file",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      },
+      {
+        "name": "input_row_number",
+        "sql_type": "INTEGER",
+        "primary_key": false,
+        "references": null
+      },
+      {
+        "name": "mapped_compliance_id",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": "compliances.compliance_id"
+      },
+      {
+        "name": "raw_json",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      }
+    ],
+    "correction_log": [
+      {
+        "name": "correction_id",
+        "sql_type": "TEXT",
+        "primary_key": true,
+        "references": null
+      },
+      {
+        "name": "legacy_row_id",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": "legacy_rows.legacy_row_id"
+      },
+      {
+        "name": "field_name",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      },
+      {
+        "name": "original_value",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      },
+      {
+        "name": "replacement_or_action",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      },
+      {
+        "name": "source_id",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": "sources.source_id"
+      },
+      {
+        "name": "status",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      }
+    ],
+    "deadline_overrides": [
+      {
+        "name": "override_id",
+        "sql_type": "TEXT",
+        "primary_key": true,
+        "references": null
+      },
+      {
+        "name": "rule_id",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": "rule_versions.rule_id"
+      },
+      {
+        "name": "period_key",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      },
+      {
+        "name": "original_due_date",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      },
+      {
+        "name": "override_due_date",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      },
+      {
+        "name": "source_id",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": "sources.source_id"
+      },
+      {
+        "name": "notes",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      }
+    ],
+    "business_profile_fields": [
+      {
+        "name": "field_id",
+        "sql_type": "TEXT",
+        "primary_key": true,
+        "references": null
+      },
+      {
+        "name": "data_type",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      },
+      {
+        "name": "scope",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      },
+      {
+        "name": "description",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      },
+      {
+        "name": "required_for",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      }
+    ],
+    "field_reviews": [
+      {
+        "name": "review_id",
+        "sql_type": "TEXT",
+        "primary_key": true,
+        "references": null
+      },
+      {
+        "name": "rule_id",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": "rule_versions.rule_id"
+      },
+      {
+        "name": "field_name",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      },
+      {
+        "name": "review_status",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      },
+      {
+        "name": "evidence_ids_json",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      },
+      {
+        "name": "review_note",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      }
+    ],
+    "asset_classes": [
+      {
+        "name": "asset_class_id",
+        "sql_type": "TEXT",
+        "primary_key": true,
+        "references": null
+      },
+      {
+        "name": "name",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      },
+      {
+        "name": "scope_note",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      }
+    ],
+    "rule_asset_scopes": [
+      {
+        "name": "rule_asset_scope_id",
+        "sql_type": "TEXT",
+        "primary_key": true,
+        "references": null
+      },
+      {
+        "name": "rule_id",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": "rule_versions.rule_id"
+      },
+      {
+        "name": "asset_class_id",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": "asset_classes.asset_class_id"
+      },
+      {
+        "name": "actor_role",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      },
+      {
+        "name": "mapping_status",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      }
+    ],
+    "state_property_profiles": [
+      {
+        "name": "property_profile_id",
+        "sql_type": "TEXT",
+        "primary_key": true,
+        "references": null
+      },
+      {
+        "name": "jurisdiction_id",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": "jurisdictions.jurisdiction_id"
+      },
+      {
+        "name": "record_terms",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      },
+      {
+        "name": "terms_status",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      },
+      {
+        "name": "ror_url",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      },
+      {
+        "name": "registration_url",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      },
+      {
+        "name": "mutation_url",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      },
+      {
+        "name": "land_revenue_url",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      },
+      {
+        "name": "source_id",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": "sources.source_id"
+      },
+      {
+        "name": "service_source_id",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": "sources.source_id"
+      },
+      {
+        "name": "route_status",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      },
+      {
+        "name": "physical_steps_status",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      },
+      {
+        "name": "restriction_review",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      },
+      {
+        "name": "title_note",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      },
+      {
+        "name": "checked_on",
+        "sql_type": "TEXT",
+        "primary_key": false,
+        "references": null
+      }
+    ]
+  }
+}

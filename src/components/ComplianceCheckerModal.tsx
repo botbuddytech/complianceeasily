@@ -1,4 +1,4 @@
-import React, { useState, FormEvent } from 'react';
+import React, { useMemo, useState, FormEvent } from 'react';
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
 import {
   X,
@@ -17,6 +17,52 @@ import {
   AlertTriangle,
 } from 'lucide-react';
 import { INDIAN_STATES_DATA } from '../data/states';
+import rawDataset from '../data/complianceTriggers.json';
+import type { ComplianceTriggerDataset } from '../types/complianceTriggers';
+import {
+  formatDueDate,
+  nextDueDate,
+  triggersGroupedForEntity,
+} from '../lib/compliance/matcher';
+
+const dataset = rawDataset as ComplianceTriggerDataset;
+
+const ENTITY_MAP: Record<string, string> = {
+  'Private Limited': 'Pvt Ltd',
+  'Limited Liability Partnership (LLP)': 'LLP',
+  'One Person Company (OPC)': 'OPC',
+  'Sole Proprietorship': 'Proprietorship',
+  'Partnership Firm': 'Partnership',
+  'Public Limited Company': 'Public Ltd',
+};
+
+const TURNOVER_MAP: Record<string, number> = {
+  'Under ₹20 Lakhs': 1_500_000,
+  '₹20 Lakhs - ₹40 Lakhs': 3_000_000,
+  '₹40L - ₹1.5 Cr': 10_000_000,
+  '₹1.5 Cr - ₹5 Cr': 30_000_000,
+  '₹5 Cr - ₹50 Cr': 200_000_000,
+  'Above ₹50 Cr': 600_000_000,
+};
+
+const EMPLOYEE_MAP: Record<string, number> = {
+  '0 (Founders Only)': 0,
+  '1 - 9 Employees': 5,
+  '10 - 19 Employees': 15,
+  '20 - 49 Employees': 30,
+  '50+ Employees': 60,
+};
+
+const INDUSTRY_MAP: Record<string, string> = {
+  'Food / Restaurant / Cloud Kitchen': 'Food & Restaurants',
+  'SaaS / IT Services / Tech': 'IT & Technology',
+  'Manufacturing / Processing Plant': 'Manufacturing',
+  'Retail / Ecommerce / D2C': 'Retail',
+  'Logistics / Transportation': 'Logistics',
+  'Healthcare / Pharma / Clinic': 'Healthcare',
+  'Professional & Creative Services': 'Professional Services',
+  'Construction / Real Estate': 'Real Estate',
+};
 
 interface ComplianceCheckerModalProps {
   isOpen: boolean;
@@ -80,15 +126,31 @@ export function ComplianceCheckerModal({ isOpen, onClose }: ComplianceCheckerMod
   const selectedStateName =
     INDIAN_STATES_DATA.find((s) => s.code === stateCode)?.name || 'West Bengal';
 
-  // Dynamic calculation for mock report
-  const isCompany = entityType.includes('Limited') || entityType.includes('OPC');
-  const isGstLikely = turnover !== 'Under ₹20 Lakhs';
-  const isPfApplicable = employees === '20 - 49 Employees' || employees === '50+ Employees';
-  const isFood = industry.includes('Food');
-  const isMfg = industry.includes('Manufacturing');
+  const matchGroups = useMemo(() => {
+    const profile = {
+      id: 'checker-preview',
+      name: businessName || 'Preview entity',
+      entityType: ENTITY_MAP[entityType] || 'Pvt Ltd',
+      state: selectedStateName,
+      industry: INDUSTRY_MAP[industry] || industry,
+      employees: EMPLOYEE_MAP[employees] ?? 0,
+      annualTurnoverInr: TURNOVER_MAP[turnover] ?? 0,
+      registrations: turnover !== 'Under ₹20 Lakhs' ? ['GSTIN', 'PAN'] : ['PAN'],
+      activities: [industry],
+    };
+    return triggersGroupedForEntity(profile, dataset);
+  }, [entityType, selectedStateName, industry, employees, turnover, businessName]);
+
+  const applicable = matchGroups.applicable;
+  const needsReview = matchGroups.needs_review;
+  const unknown = matchGroups.unknown;
+  const nextDated = [...applicable, ...needsReview]
+    .map((m) => ({ ...m, due: nextDueDate(m.trigger) }))
+    .filter((m) => m.due)
+    .sort((a, b) => (a.due!.getTime() - b.due!.getTime()))[0];
 
   const handleNext = () => {
-    if (step < 4) setStep((prev) => (prev + 1) as any);
+    if (step < 4) setStep((prev) => (prev + 1) as 1 | 2 | 3 | 4);
   };
 
   const handlePrev = () => {
@@ -383,11 +445,11 @@ export function ComplianceCheckerModal({ isOpen, onClose }: ComplianceCheckerMod
                     <div className="flex items-center space-x-2">
                       <Sparkles className="w-4 h-4 text-[#B89E6B]" />
                       <span className="text-xs font-bold text-[#0E1217] uppercase tracking-wider font-mono">
-                        Custom Roadmap Generated
+                        Catalogue match (research staging)
                       </span>
                     </div>
                     <span className="text-xs font-mono font-bold text-[#B89E6B] bg-[#E4E0D8] border border-[#D5D0C6] px-2 py-0.5 rounded-full">
-                      ~{isCompany ? 18 : 10} Potential Obligations
+                      {applicable.length} applicable · {needsReview.length} review · {unknown.length} unknown
                     </span>
                   </div>
 
@@ -400,30 +462,29 @@ export function ComplianceCheckerModal({ isOpen, onClose }: ComplianceCheckerMod
                       <span className="text-[#6B7580] block text-[10px] font-mono">State Laws:</span>
                       <strong className="text-[#0E1217] font-mono">{selectedStateName}</strong>
                     </div>
-                    <div className="p-2 rounded-lg bg-[#F4F2EE] border border-[#D5D0C6]">
-                      <span className="text-[#6B7580] block text-[10px] font-mono">Indirect Tax:</span>
-                      <strong className="text-[#B89E6B] font-mono">
-                        {isGstLikely ? 'GST Required (Monthly)' : 'GST Optional'}
-                      </strong>
-                    </div>
-                    <div className="p-2 rounded-lg bg-[#F4F2EE] border border-[#D5D0C6]">
-                      <span className="text-[#6B7580] block text-[10px] font-mono">Labour/PF:</span>
-                      <strong className="text-[#0E1217] font-mono">
-                        {isPfApplicable ? 'EPFO / ESIC Mandate' : 'State PTax Only'}
-                      </strong>
-                    </div>
                   </div>
 
-                  {isFood && (
-                    <div className="text-[11px] text-[#B89E6B] font-medium bg-[#F4F2EE] p-1.5 rounded border border-[#D5D0C6] font-mono">
-                      ✓ FSSAI State Licence &amp; FoSCoS hygiene schedule mapped
-                    </div>
-                  )}
-                  {isMfg && (
-                    <div className="text-[11px] text-[#B89E6B] font-medium bg-[#F4F2EE] p-1.5 rounded border border-[#D5D0C6] font-mono">
-                      ✓ Factories Act, PCB Consent (CTO) &amp; Fire NOC mapped
-                    </div>
-                  )}
+                  <ul className="max-h-40 space-y-1 overflow-y-auto text-[11px] font-mono">
+                    {applicable.slice(0, 8).map(({ trigger }) => (
+                      <li key={trigger.id} className="rounded border border-[#D5D0C6] bg-[#F4F2EE] px-2 py-1">
+                        <span className="text-emerald-700">Applicable</span> · {trigger.shortName}
+                      </li>
+                    ))}
+                    {needsReview.slice(0, 4).map(({ trigger }) => (
+                      <li key={trigger.id} className="rounded border border-amber-200 bg-amber-50 px-2 py-1 text-amber-900">
+                        Needs review · {trigger.shortName}
+                      </li>
+                    ))}
+                    {unknown.slice(0, 4).map(({ trigger, missingFacts }) => (
+                      <li key={trigger.id} className="rounded border border-sky-200 bg-sky-50 px-2 py-1 text-sky-900">
+                        Unknown · {trigger.shortName}
+                        {missingFacts.length ? ` (need ${missingFacts.slice(0, 2).join(', ')})` : ''}
+                      </li>
+                    ))}
+                  </ul>
+                  <p className="text-[10px] text-[#6B7580] font-mono">
+                    Missing facts yield unknown — never silently not-applicable. No rule is automation-enabled.
+                  </p>
                 </div>
 
                 {/* WhatsApp Radar Activation Details */}
@@ -528,11 +589,14 @@ export function ComplianceCheckerModal({ isOpen, onClose }: ComplianceCheckerMod
             <div className="p-4 rounded-xl bg-[#EBE8E2] border border-[#D5D0C6] max-w-sm mx-auto text-xs text-left space-y-1.5 font-mono">
               <div className="font-bold text-[#0E1217] uppercase">Next Upcoming Deadline:</div>
               <div className="flex items-center justify-between text-[#5C6570]">
-                <span>GSTR-3B Tax Filing</span>
-                <span className="font-mono text-[#B89E6B] font-bold">20th of this month</span>
+                <span>{nextDated?.trigger.shortName || 'No dated filing yet'}</span>
+                <span className="font-mono text-[#B89E6B] font-bold">
+                  {nextDated ? formatDueDate(nextDated.due) : '—'}
+                </span>
               </div>
               <div className="text-[11px] text-[#6B7580]">
-                You will receive an automated checklist reminder 6 days before the due date.
+                {applicable.length} applicable · {needsReview.length} need review · {unknown.length} unknown
+                from catalogue match. Re-verify before acting.
               </div>
             </div>
 

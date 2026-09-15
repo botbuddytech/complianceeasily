@@ -16,7 +16,7 @@ export function DashboardShell({
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <div className="flex h-svh overflow-hidden bg-[#F4F2EE] text-[#0E1217]">
+    <div className="flex h-svh overflow-hidden bg-[#F4F2EE] text-[#0E1217] pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)]">
       <Sidebar
         variant={variant}
         collapsed={collapsed}
@@ -27,8 +27,8 @@ export function DashboardShell({
 
       <div className="flex min-w-0 flex-1 flex-col">
         <Topbar variant={variant} onOpenMobile={() => setMobileOpen(true)} />
-        <main className="flex-1 overflow-y-auto">
-          <div className="mx-auto w-full max-w-7xl p-4 sm:p-6 lg:p-8">{children}</div>
+        <main className="flex-1 overflow-y-auto overscroll-contain">
+          <div className="mx-auto w-full max-w-7xl p-4 sm:p-6 lg:p-8 min-w-0">{children}</div>
         </main>
       </div>
     </div>

@@ -1,21 +1,34 @@
-import type { GovDepartment, TriggerCategory } from '../../../types/complianceTriggers';
-
 interface DepartmentListProps {
-  items: Array<
-    (GovDepartment | (TriggerCategory & { level?: string; portalUrl?: string; shortName?: string })) & {
-      triggerCount: number;
-    }
-  >;
+  items: Array<{
+    id: string;
+    name: string;
+    shortName?: string;
+    level?: string;
+    code?: string;
+    portalUrl?: string;
+    departmentIds?: string[];
+    description?: string;
+    triggerCount: number;
+  }>;
   selectedId: string;
   onSelect: (id: string) => void;
   mode: 'department' | 'category';
 }
 
 export function DepartmentList({ items, selectedId, onSelect, mode }: DepartmentListProps) {
+  const heading =
+    mode === 'department'
+      ? items[0] && 'level' in items[0] && String(items[0].level).includes('state')
+        ? 'Jurisdictions'
+        : items.some((i) => String(i.id).startsWith('IN'))
+          ? 'Jurisdictions'
+          : 'Departments'
+      : 'Categories';
+
   return (
     <div className="space-y-2">
       <div className="mb-2 flex items-center justify-between px-1 font-mono text-[10px] font-semibold uppercase tracking-wider text-admin-muted">
-        <span>{mode === 'department' ? 'Departments' : 'Categories'}</span>
+        <span>{heading}</span>
         <span>{items.length}</span>
       </div>
       <div className="space-y-1.5 pr-1">
@@ -26,11 +39,9 @@ export function DepartmentList({ items, selectedId, onSelect, mode }: Department
               ? ('shortName' in item && item.shortName) || item.name
               : item.name;
           const subtitle =
-            mode === 'department' && 'level' in item
+            mode === 'department'
               ? String(item.level ?? '')
-              : 'code' in item
-                ? String((item as TriggerCategory).code)
-                : '';
+              : String(item.code ?? '');
           return (
             <button
               key={item.id}

@@ -1,19 +1,27 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" role="img" aria-label="ComplianceEasily">
-  <defs>
-    <linearGradient id="ce-mark" x1="4" y1="4" x2="28" y2="28" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#D5AA6D"/>
-      <stop offset="1" stop-color="#8C552E"/>
-    </linearGradient>
-  </defs>
-  <rect width="32" height="32" rx="8" fill="url(#ce-mark)"/>
-  <text
-    x="16"
-    y="21.5"
-    text-anchor="middle"
-    font-family="Georgia, 'Times New Roman', serif"
-    font-size="13"
-    font-weight="700"
-    fill="#FFFFFF"
-  >CE</text>
-  <circle cx="26" cy="26" r="3.25" fill="#D5AA6D" stroke="#0E1217" stroke-width="1.5"/>
+  <!-- Lightweight fallback favicon; primary icons are PNG via app/icon.png -->
+  <rect width="32" height="32" rx="8" fill="#0E1217"/>
+  <path
+    d="M9.5 7.5h10.2c.7 0 1.3.6 1.3 1.3v11.4c0 .7-.6 1.3-1.3 1.3H9.5c-.7 0-1.3-.6-1.3-1.3V8.8c0-.7.6-1.3 1.3-1.3z"
+    fill="#1A2129"
+    stroke="#B89E6B"
+    stroke-width="1.2"
+  />
+  <path d="M18.2 7.5l3.8 3.6h-2.5c-.7 0-1.3-.6-1.3-1.3V7.5z" fill="#D5AA6D"/>
+  <rect x="11" y="12.2" width="7.5" height="1.4" rx="0.7" fill="#B89E6B"/>
+  <rect x="11" y="15" width="5.8" height="1.4" rx="0.7" fill="#B89E6B"/>
+  <path
+    d="M16.8 17.2l4.6 1.1v3.6c0 2.2-1.9 3.5-4.6 4.4-2.7-.9-4.6-2.2-4.6-4.4v-3.6l4.6-1.1z"
+    fill="#0E1217"
+    stroke="#D5AA6D"
+    stroke-width="1.25"
+  />
+  <path
+    d="M14.6 21.1l1.5 1.5 3.1-3.2"
+    fill="none"
+    stroke="#D5AA6D"
+    stroke-width="1.4"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
 </svg>

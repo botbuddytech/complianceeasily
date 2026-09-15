@@ -1,0 +1,245 @@
+assertion_id,rule_id,source_id,field_name,finding,verification_status
+C001-V1-FIX-applicability_text,C001-V1,GST_ECO,applicability_text,The original unconditional e-commerce claim is overbroad.,supported_within_source_scope
+C001-V1-FIX-turnover_basis,C001-V1,GST_ECO,turnover_basis,Turnover alone is insufficient.,supported_within_source_scope
+C001-V1-GST_BIO-applicant_visit,C001-V1,GST_BIO,applicant_visit,GSK visit applies to specified authentication cases.,supported_within_source_scope
+C002-V1-GST_1-filing_mode,C002-V1,GST_1,filing_mode,Online return process documented.,supported_within_source_scope
+C003-V1-GST_3B-filing_mode,C003-V1,GST_3B,filing_mode,Online return process documented.,supported_within_source_scope
+C006-V1-GST_4_FORM-filing_mode,C006-V1,GST_4_FORM,filing_mode,Online return process documented.,supported_within_source_scope
+C007-V1-GST_9-filing_mode,C007-V1,GST_9,filing_mode,Online return process documented.,supported_within_source_scope
+C008-V1-GST_9-filing_mode,C008-V1,GST_9,filing_mode,Online return process documented.,supported_within_source_scope
+C002-V1-FIX-deadline_text,C002-V1,GST_1,deadline_text,Guide supplies monthly and quarterly dates.,supported_within_source_scope
+C006-V1-FIX-deadline_text,C006-V1,GST_4,deadline_text,30 June replaced 30 April.,supported_within_source_scope
+C006-V1-FIX-tax_period,C006-V1,GST_4,tax_period,Revised deadline applicability period.,supported_within_source_scope
+C011-V1-FIX-turnover_basis,C011-V1,EINV,turnover_basis,"Threshold is more than INR 5 crore, not at least INR 5 crore.",supported_within_source_scope
+C011-V1-FIX-deadline_text,C011-V1,EINV_30,deadline_text,Separate mandate threshold from portal age restriction.,supported_within_source_scope
+C015-V1-MCA_PORTAL-application_url,C015-V1,MCA_PORTAL,application_url,MCA21 filing route.,supported_within_source_scope
+C016-V1-MCA_PORTAL-application_url,C016-V1,MCA_PORTAL,application_url,MCA21 filing route.,supported_within_source_scope
+C017-V1-MCA_PORTAL-application_url,C017-V1,MCA_PORTAL,application_url,MCA21 filing route.,supported_within_source_scope
+C019-V1-MCA_PORTAL-application_url,C019-V1,MCA_PORTAL,application_url,MCA21 filing route.,supported_within_source_scope
+C020-V1-MCA_PORTAL-application_url,C020-V1,MCA_PORTAL,application_url,MCA21 filing route.,supported_within_source_scope
+C021-V1-MCA_PORTAL-application_url,C021-V1,MCA_PORTAL,application_url,MCA21 filing route.,supported_within_source_scope
+C023-V1-MCA_PORTAL-application_url,C023-V1,MCA_PORTAL,application_url,MCA21 filing route.,supported_within_source_scope
+C024-V1-MCA_PORTAL-application_url,C024-V1,MCA_PORTAL,application_url,MCA21 filing route.,supported_within_source_scope
+C025-V1-MCA_PORTAL-application_url,C025-V1,MCA_PORTAL,application_url,MCA21 filing route.,supported_within_source_scope
+C026-V1-MCA_PORTAL-application_url,C026-V1,MCA_PORTAL,application_url,MCA21 filing route.,supported_within_source_scope
+C027-V1-MCA_PORTAL-application_url,C027-V1,MCA_PORTAL,application_url,MCA21 filing route.,supported_within_source_scope
+C028-V1-MCA_PORTAL-application_url,C028-V1,MCA_PORTAL,application_url,MCA21 filing route.,supported_within_source_scope
+C029-V1-MCA_PORTAL-application_url,C029-V1,MCA_PORTAL,application_url,MCA21 filing route.,supported_within_source_scope
+C032-V1-MCA_PORTAL-application_url,C032-V1,MCA_PORTAL,application_url,MCA21 filing route.,supported_within_source_scope
+C033-V1-MCA_PORTAL-application_url,C033-V1,MCA_PORTAL,application_url,MCA21 filing route.,supported_within_source_scope
+C034-V1-MCA_PORTAL-application_url,C034-V1,MCA_PORTAL,application_url,MCA21 filing route.,supported_within_source_scope
+C040-V1-MCA_PORTAL-application_url,C040-V1,MCA_PORTAL,application_url,MCA21 filing route.,supported_within_source_scope
+C108-V1-MCA_PORTAL-application_url,C108-V1,MCA_PORTAL,application_url,MCA21 filing route.,supported_within_source_scope
+C020-V1-FIX-deadline_text,C020-V1,MCA_ACT,deadline_text,Section 137 is event-based; do not hard-code 30 October for every company.,supported_within_source_scope
+C021-V1-FIX-deadline_text,C021-V1,MCA_ACT,deadline_text,Annual-return deadline depends on AGM facts.,supported_within_source_scope
+C021-V1-FIX-exceptions_text,C021-V1,MCA_SMALL,exceptions_text,Do not infer small-company status from turnover alone.,supported_within_source_scope
+C023-V1-FIX-frequency,C023-V1,DIN_2026,frequency,Annual KYC replaced by triennial intimation.,supported_within_source_scope
+C023-V1-FIX-deadline_text,C023-V1,DIN_2026,deadline_text,Do not schedule blanket annual 30 September reminders.,supported_within_source_scope
+C023-V1-FIX-effective_from,C023-V1,DIN_2026,effective_from,New KYC framework commencement.,supported_within_source_scope
+C030-V1-FIX-turnover_basis,C030-V1,MCA_ACT,turnover_basis,Company audit is not a turnover-breach-only obligation.,supported_within_source_scope
+C034-V1-FIX-deadline_text,C034-V1,LLP_8,deadline_text,Form 8 event timeline verified.,supported_within_source_scope
+C092-V1-FIX-turnover_basis,C092-V1,MCA_ACT,turnover_basis,Section 138 delegates applicable classes to rules; imported conflation held for correction.,supported_within_source_scope
+C035-V1-IT_2025-tax_period,C035-V1,IT_2025,tax_period,Old/new law transition requires period selection.,supported_within_source_scope
+C041-V1-IT_2025-tax_period,C041-V1,IT_2025,tax_period,Old/new law transition requires period selection.,supported_within_source_scope
+C042-V1-IT_2025-tax_period,C042-V1,IT_2025,tax_period,Old/new law transition requires period selection.,supported_within_source_scope
+C043-V1-IT_2025-tax_period,C043-V1,IT_2025,tax_period,Old/new law transition requires period selection.,supported_within_source_scope
+C044-V1-IT_2025-tax_period,C044-V1,IT_2025,tax_period,Old/new law transition requires period selection.,supported_within_source_scope
+C046-V1-IT_2025-tax_period,C046-V1,IT_2025,tax_period,Old/new law transition requires period selection.,supported_within_source_scope
+C047-V1-IT_2025-tax_period,C047-V1,IT_2025,tax_period,Old/new law transition requires period selection.,supported_within_source_scope
+C048-V1-IT_2025-tax_period,C048-V1,IT_2025,tax_period,Old/new law transition requires period selection.,supported_within_source_scope
+C049-V1-IT_2025-tax_period,C049-V1,IT_2025,tax_period,Old/new law transition requires period selection.,supported_within_source_scope
+C050-V1-IT_2025-tax_period,C050-V1,IT_2025,tax_period,Old/new law transition requires period selection.,supported_within_source_scope
+C051-V1-IT_2025-tax_period,C051-V1,IT_2025,tax_period,Old/new law transition requires period selection.,supported_within_source_scope
+C052-V1-IT_2025-tax_period,C052-V1,IT_2025,tax_period,Old/new law transition requires period selection.,supported_within_source_scope
+C053-V1-IT_2025-tax_period,C053-V1,IT_2025,tax_period,Old/new law transition requires period selection.,supported_within_source_scope
+C054-V1-IT_2025-tax_period,C054-V1,IT_2025,tax_period,Old/new law transition requires period selection.,supported_within_source_scope
+C055-V1-IT_2025-tax_period,C055-V1,IT_2025,tax_period,Old/new law transition requires period selection.,supported_within_source_scope
+C056-V1-IT_2025-tax_period,C056-V1,IT_2025,tax_period,Old/new law transition requires period selection.,supported_within_source_scope
+C057-V1-IT_2025-tax_period,C057-V1,IT_2025,tax_period,Old/new law transition requires period selection.,supported_within_source_scope
+C058-V1-IT_2025-tax_period,C058-V1,IT_2025,tax_period,Old/new law transition requires period selection.,supported_within_source_scope
+C059-V1-IT_2025-tax_period,C059-V1,IT_2025,tax_period,Old/new law transition requires period selection.,supported_within_source_scope
+C060-V1-IT_2025-tax_period,C060-V1,IT_2025,tax_period,Old/new law transition requires period selection.,supported_within_source_scope
+C061-V1-IT_2025-tax_period,C061-V1,IT_2025,tax_period,Old/new law transition requires period selection.,supported_within_source_scope
+C062-V1-IT_2025-tax_period,C062-V1,IT_2025,tax_period,Old/new law transition requires period selection.,supported_within_source_scope
+C101-V1-IT_2025-tax_period,C101-V1,IT_2025,tax_period,Old/new law transition requires period selection.,supported_within_source_scope
+C105-V1-IT_2025-tax_period,C105-V1,IT_2025,tax_period,Old/new law transition requires period selection.,supported_within_source_scope
+C106-V1-IT_2025-tax_period,C106-V1,IT_2025,tax_period,Old/new law transition requires period selection.,supported_within_source_scope
+C048-V1-FIX-deadline_text,C048-V1,IT_RETURNS,deadline_text,Blanket non-audit 31 July rule removed.,supported_within_source_scope
+C049-V1-FIX-exceptions_text,C049-V1,IT_AUDIT,exceptions_text,Separate reporting obligations.,supported_within_source_scope
+C050-V1-FIX-turnover_basis,C050-V1,IT_AUDIT,turnover_basis,Corrects conflation of professional audit and presumptive thresholds.,supported_within_source_scope
+C050-V1-FIX-deadline_text,C050-V1,IT_AUDIT,deadline_text,Preserve old forms for old FY.,supported_within_source_scope
+C052-V1-FIX-turnover_basis,C052-V1,IT_ADVANCE,turnover_basis,Equality at INR 10000 matters.,supported_within_source_scope
+C056-V1-FIX-governing_law,C056-V1,IT_FORMS,governing_law,Official form directory corrects imported mapping.,supported_within_source_scope
+C060-V1-FIX-exceptions_text,C060-V1,FORM141,exceptions_text,Old/new transaction form mapping.,supported_within_source_scope
+C054-V1-IT_FORMS-form_mapping,C054-V1,IT_FORMS,form_mapping,Old/new form pairing appears in official directory.,supported_within_source_scope
+C055-V1-IT_FORMS-form_mapping,C055-V1,IT_FORMS,form_mapping,Old/new form pairing appears in official directory.,supported_within_source_scope
+C057-V1-IT_FORMS-form_mapping,C057-V1,IT_FORMS,form_mapping,Old/new form pairing appears in official directory.,supported_within_source_scope
+C061-V1-IT_FORMS-form_mapping,C061-V1,IT_FORMS,form_mapping,Old/new form pairing appears in official directory.,supported_within_source_scope
+C063-V1-FIX-governing_law,C063-V1,LABOUR_CODES,governing_law,Four labour codes commenced; implementing rules must be mapped.,supported_within_source_scope
+C064-V1-FIX-governing_law,C064-V1,LABOUR_CODES,governing_law,Four labour codes commenced; implementing rules must be mapped.,supported_within_source_scope
+C065-V1-FIX-governing_law,C065-V1,LABOUR_CODES,governing_law,Four labour codes commenced; implementing rules must be mapped.,supported_within_source_scope
+C066-V1-FIX-governing_law,C066-V1,LABOUR_CODES,governing_law,Four labour codes commenced; implementing rules must be mapped.,supported_within_source_scope
+C067-V1-FIX-governing_law,C067-V1,LABOUR_CODES,governing_law,Four labour codes commenced; implementing rules must be mapped.,supported_within_source_scope
+C071-V1-FIX-governing_law,C071-V1,LABOUR_CODES,governing_law,Four labour codes commenced; implementing rules must be mapped.,supported_within_source_scope
+C073-V1-FIX-governing_law,C073-V1,LABOUR_CODES,governing_law,Four labour codes commenced; implementing rules must be mapped.,supported_within_source_scope
+C074-V1-FIX-governing_law,C074-V1,LABOUR_CODES,governing_law,Four labour codes commenced; implementing rules must be mapped.,supported_within_source_scope
+C086-V1-FIX-governing_law,C086-V1,LABOUR_CODES,governing_law,Four labour codes commenced; implementing rules must be mapped.,supported_within_source_scope
+C087-V1-FIX-governing_law,C087-V1,LABOUR_CODES,governing_law,Four labour codes commenced; implementing rules must be mapped.,supported_within_source_scope
+C107-V1-FIX-governing_law,C107-V1,LABOUR_CODES,governing_law,Four labour codes commenced; implementing rules must be mapped.,supported_within_source_scope
+C064-V1-FIX-deadline_text,C064-V1,EPF_DUE,deadline_text,PF payment deadline is distinct from a filing-only extension.,supported_within_source_scope
+C064-V1-EPF_ECR-physical_submission,C064-V1,EPF_ECR,physical_submission,Routine paper-return requirement replaced by ECR.,supported_within_source_scope
+C065-V1-FIX-applicability_text,C065-V1,EPF_ECR,applicability_text,Monthly ECR replaced separate routine returns.,supported_within_source_scope
+C065-V1-FIX-frequency,C065-V1,EPF_ECR,frequency,No generic annual task should be generated.,supported_within_source_scope
+C065-V1-FIX-deadline_text,C065-V1,EPF_ECR,deadline_text,Remove generic annual reminder.,supported_within_source_scope
+C066-V1-FIX-employee_basis,C066-V1,LABOUR_SSC,employee_basis,Wage ceiling is not the establishment headcount trigger.,supported_within_source_scope
+C067-V1-ESI_RATES-contribution_rates,C067-V1,ESI_RATES,contribution_rates,Ordinary rates: employer 3.25%; employee 0.75%; exceptions apply.,supported_within_source_scope
+C070-V1-FIX-deadline_text,C070-V1,POSH_ACT,deadline_text,Do not invent an India-wide report date.,supported_within_source_scope
+C071-V1-FIX-exceptions_text,C071-V1,LABOUR_SSC,exceptions_text,Employee class matters.,supported_within_source_scope
+C074-V1-FIX-employee_basis,C074-V1,OSH_RULES,employee_basis,Legacy threshold is not accepted as a current universal rule.,supported_within_source_scope
+C086-V1-FIX-employee_basis,C086-V1,OSH_RULES,employee_basis,State transition affects thresholds and process.,supported_within_source_scope
+C087-V1-FIX-employee_basis,C087-V1,OSH_RULES,employee_basis,State transition affects thresholds and process.,supported_within_source_scope
+C075-V1-FSSAI_THRESH-turnover_basis,C075-V1,FSSAI_THRESH,turnover_basis,2026 turnover tier; check KoB overrides.,supported_within_source_scope
+C075-V1-FSSAI_KOB-exceptions,C075-V1,FSSAI_KOB,exceptions,Kind-of-business overrides control licence category.,supported_within_source_scope
+C075-V1-FIX-frequency,C075-V1,FSSAI_VALID,frequency,Perpetual validity replaces ordinary expiry renewal under the revised framework.,supported_within_source_scope
+C075-V1-FIX-deadline_text,C075-V1,FSSAI_VALID,deadline_text,Do not generate obsolete blanket 1-5 year renewal tasks.,supported_within_source_scope
+C076-V1-FSSAI_THRESH-turnover_basis,C076-V1,FSSAI_THRESH,turnover_basis,2026 turnover tier; check KoB overrides.,supported_within_source_scope
+C076-V1-FSSAI_KOB-exceptions,C076-V1,FSSAI_KOB,exceptions,Kind-of-business overrides control licence category.,supported_within_source_scope
+C076-V1-FIX-frequency,C076-V1,FSSAI_VALID,frequency,Perpetual validity replaces ordinary expiry renewal under the revised framework.,supported_within_source_scope
+C076-V1-FIX-deadline_text,C076-V1,FSSAI_VALID,deadline_text,Do not generate obsolete blanket 1-5 year renewal tasks.,supported_within_source_scope
+C077-V1-FSSAI_THRESH-turnover_basis,C077-V1,FSSAI_THRESH,turnover_basis,2026 turnover tier; check KoB overrides.,supported_within_source_scope
+C077-V1-FSSAI_KOB-exceptions,C077-V1,FSSAI_KOB,exceptions,Kind-of-business overrides control licence category.,supported_within_source_scope
+C077-V1-FIX-frequency,C077-V1,FSSAI_VALID,frequency,Perpetual validity replaces ordinary expiry renewal under the revised framework.,supported_within_source_scope
+C077-V1-FIX-deadline_text,C077-V1,FSSAI_VALID,deadline_text,Do not generate obsolete blanket 1-5 year renewal tasks.,supported_within_source_scope
+C076-V1-FIX-turnover_basis,C076-V1,FSSAI_THRESH,turnover_basis,Correct exact boundaries.,supported_within_source_scope
+C077-V1-FIX-turnover_basis,C077-V1,FSSAI_THRESH,turnover_basis,Turnover is not the only criterion.,supported_within_source_scope
+C078-V1-DGFT_FTP-filing_mode,C078-V1,DGFT_FTP,filing_mode,IEC application/update completely online.,supported_within_source_scope
+C079-V1-DGFT_FTP-filing_mode,C079-V1,DGFT_FTP,filing_mode,IEC application/update completely online.,supported_within_source_scope
+C078-V1-FIX-applicability_text,C078-V1,DGFT_FTP,applicability_text,Qualified service-export requirement.,supported_within_source_scope
+C079-V1-FIX-deadline_text,C079-V1,DGFT_FTP,deadline_text,Annual confirmation applies without changed details.,supported_within_source_scope
+C083-V1-FIX-turnover_basis,C083-V1,UDYAM,turnover_basis,MSME is not determined by turnover alone.,supported_within_source_scope
+C094-V1-IP-application_url,C094-V1,IP,application_url,IP India electronic service directory.,supported_within_source_scope
+C095-V1-IP-application_url,C095-V1,IP,application_url,IP India electronic service directory.,supported_within_source_scope
+C097-V1-IP-application_url,C097-V1,IP,application_url,IP India electronic service directory.,supported_within_source_scope
+C098-V1-IP-application_url,C098-V1,IP,application_url,IP India electronic service directory.,supported_within_source_scope
+C095-V1-FIX-deadline_text,C095-V1,TM_RULES,deadline_text,Renewal window comes from Rule 57 and related rules.,supported_within_source_scope
+C075-V1-FIX-turnover_basis,C075-V1,FSSAI_THRESH,turnover_basis,Replaces the obsolete INR 12 lakh registration ceiling.,supported_within_source_scope
+C054-V2-MAP,C054-V2,IT_FORMS,form_mapping,New form 138 for applicable new-law periods.,supported_within_source_scope
+C055-V2-MAP,C055-V2,IT_FORMS,form_mapping,New form 140 for applicable new-law periods.,supported_within_source_scope
+C056-V2-MAP,C056-V2,IT_FORMS,form_mapping,New form 144 for applicable new-law periods.,supported_within_source_scope
+C057-V2-MAP,C057-V2,IT_FORMS,form_mapping,New form 143 for applicable new-law periods.,supported_within_source_scope
+C061-V2-MAP,C061-V2,IT_FORMS,form_mapping,New form 145 / 146 for applicable new-law periods.,supported_within_source_scope
+C050-V2-MAP,C050-V2,IT_AUDIT,form_mapping,New form 26 for applicable new-law periods.,supported_within_source_scope
+C060-V2-MAP,C060-V2,FORM141,form_mapping,New form 141 (property schedule) for applicable new-law periods.,supported_within_source_scope
+N001-V1-E1,N001-V1,CSR,framework_or_procedure,Section 135 has three alternative financial tests; company eligibility and spending calculation are separate.,supported_within_source_scope
+N002-V1-E1,N002-V1,TREDS,framework_or_procedure,"Source establishes the described regulatory framework or service; unresolved deadlines, applicability exceptions and physical steps remain subject to review.",supported_within_source_scope
+N003-V1-E1,N003-V1,LLP3,framework_or_procedure,"Source establishes the described regulatory framework or service; unresolved deadlines, applicability exceptions and physical steps remain subject to review.",supported_within_source_scope
+N004-V1-E1,N004-V1,LLP3,framework_or_procedure,Form 3 instruction kit identifies linked partner-change Form 4; detailed Form 4 timeline not verified.,supported_within_source_scope
+N005-V1-E1,N005-V1,MCA_ACT,framework_or_procedure,Section 117 establishes filing for specified resolutions and agreements.,supported_within_source_scope
+N006-V1-E1,N006-V1,MCA_ACT,framework_or_procedure,Sections 89/90 establish distinct beneficial-ownership obligations; detailed thresholds not independently verified.,supported_within_source_scope
+N007-V1-E1,N007-V1,FCRA,framework_or_procedure,FCRA FAQ documents FC-4 annual filing and nine-month window.,supported_within_source_scope
+N008-V1-E1,N008-V1,IT_FORMS,framework_or_procedure,Official directory maps old forms 10BD/10BE to new forms 113/114.,supported_within_source_scope
+N009-V1-E1,N009-V1,FSSAI_RETURN,framework_or_procedure,"Official FSSAI announcement identifies filers, 31 May 2026 deadline and excludes physical/email submission.",supported_within_source_scope
+N010-V1-E1,N010-V1,FOSCOS,framework_or_procedure,FoSCoS provides modification and migration services; current KoB determines category.,supported_within_source_scope
+N011-V1-E1,N011-V1,FOSCOS,framework_or_procedure,FoSCoS announces food-recall functionality; incident deadline requires applicable recall provision.,supported_within_source_scope
+N012-V1-E1,N012-V1,EPR_PLASTIC,framework_or_procedure,"Source establishes the described regulatory framework or service; unresolved deadlines, applicability exceptions and physical steps remain subject to review.",supported_within_source_scope
+N013-V1-E1,N013-V1,EPR_BATTERY,framework_or_procedure,"Source establishes the described regulatory framework or service; unresolved deadlines, applicability exceptions and physical steps remain subject to review.",supported_within_source_scope
+N014-V1-E1,N014-V1,EPR_EWASTE,framework_or_procedure,"Source establishes the described regulatory framework or service; unresolved deadlines, applicability exceptions and physical steps remain subject to review.",supported_within_source_scope
+N015-V1-E1,N015-V1,EPR_TYRE,framework_or_procedure,"Source establishes the described regulatory framework or service; unresolved deadlines, applicability exceptions and physical steps remain subject to review.",supported_within_source_scope
+N016-V1-E1,N016-V1,EPR_OIL,framework_or_procedure,"Source establishes the described regulatory framework or service; unresolved deadlines, applicability exceptions and physical steps remain subject to review.",supported_within_source_scope
+N017-V1-E1,N017-V1,EPR_CD,framework_or_procedure,"Source establishes the described regulatory framework or service; unresolved deadlines, applicability exceptions and physical steps remain subject to review.",supported_within_source_scope
+N018-V1-E1,N018-V1,PARIVESH,framework_or_procedure,Official clearance forms identify EC applications; individual schedule and procedure require project review.,supported_within_source_scope
+N019-V1-E1,N019-V1,PARIVESH,framework_or_procedure,Official forms identify forest clearance as a separate approval.,supported_within_source_scope
+N020-V1-E1,N020-V1,PARIVESH,framework_or_procedure,Official clearance inventory distinguishes CRZ and wildlife routes; subrules required.,supported_within_source_scope
+N021-V1-E1,N021-V1,CGWA,framework_or_procedure,"Source establishes the described regulatory framework or service; unresolved deadlines, applicability exceptions and physical steps remain subject to review.",supported_within_source_scope
+N022-V1-E1,N022-V1,ESANCHIT,framework_or_procedure,e-Sanchit supports electronic documents; it does not remove goods examination or agency testing.,supported_within_source_scope
+N023-V1-E1,N023-V1,ICEGATE_MANUAL,framework_or_procedure,ICEGATE provides customs electronic services; complete consignment rules not verified.,supported_within_source_scope
+N024-V1-E1,N024-V1,RBI_FIRMS,framework_or_procedure,FIRMS lists FC-GPR in Single Master Form; transaction-specific deadlines not independently verified.,supported_within_source_scope
+N025-V1-E1,N025-V1,RBI_FIRMS,framework_or_procedure,FIRMS lists FC-TRS; not every transfer has the same reporting obligation.,supported_within_source_scope
+N026-V1-E1,N026-V1,RBI_FIRMS,framework_or_procedure,FIRMS includes LLP-I and LLP-II reporting.,supported_within_source_scope
+N027-V1-E1,N027-V1,RBI_FIRMS,framework_or_procedure,FIRMS includes CN in Single Master Form; eligibility thresholds not checked.,supported_within_source_scope
+N028-V1-E1,N028-V1,LM_FAQ,framework_or_procedure,Official FAQ specifies Rule 27 registration and ninety-day period.,supported_within_source_scope
+N029-V1-E1,N029-V1,LM,framework_or_procedure,Consumer Affairs overview identifies packaged-commodity declaration controls.,supported_within_source_scope
+N030-V1-E1,N030-V1,LM,framework_or_procedure,"Source establishes the described regulatory framework or service; unresolved deadlines, applicability exceptions and physical steps remain subject to review.",supported_within_source_scope
+N031-V1-E1,N031-V1,BIS,framework_or_procedure,"Source establishes the described regulatory framework or service; unresolved deadlines, applicability exceptions and physical steps remain subject to review.",supported_within_source_scope
+N032-V1-E1,N032-V1,BIS_FAQ,framework_or_procedure,"Source establishes the described regulatory framework or service; unresolved deadlines, applicability exceptions and physical steps remain subject to review.",supported_within_source_scope
+N033-V1-E1,N033-V1,CDSCO,framework_or_procedure,"Source establishes the described regulatory framework or service; unresolved deadlines, applicability exceptions and physical steps remain subject to review.",supported_within_source_scope
+N034-V1-E1,N034-V1,MEDDEV,framework_or_procedure,"Source establishes the described regulatory framework or service; unresolved deadlines, applicability exceptions and physical steps remain subject to review.",supported_within_source_scope
+N035-V1-E1,N035-V1,COSMETICS,framework_or_procedure,"Source establishes the described regulatory framework or service; unresolved deadlines, applicability exceptions and physical steps remain subject to review.",supported_within_source_scope
+N036-V1-E1,N036-V1,PESO,framework_or_procedure,"Source establishes the described regulatory framework or service; unresolved deadlines, applicability exceptions and physical steps remain subject to review.",supported_within_source_scope
+N037-V1-E1,N037-V1,CERT,framework_or_procedure,"Directions prescribe six-hour reporting for specified incidents, not every ordinary IT error.",supported_within_source_scope
+N038-V1-E1,N038-V1,CERT,framework_or_procedure,Directions specify 180-day ICT logs and point-of-contact obligations.,supported_within_source_scope
+N039-V1-E1,N039-V1,DPDP,framework_or_procedure,"Source establishes the described regulatory framework or service; unresolved deadlines, applicability exceptions and physical steps remain subject to review.",supported_within_source_scope
+N040-V1-E1,N040-V1,TRANSPORT,framework_or_procedure,"Source establishes the described regulatory framework or service; unresolved deadlines, applicability exceptions and physical steps remain subject to review.",supported_within_source_scope
+N041-V1-E1,N041-V1,FITNESS,framework_or_procedure,"Source establishes the described regulatory framework or service; unresolved deadlines, applicability exceptions and physical steps remain subject to review.",supported_within_source_scope
+N042-V1-E1,N042-V1,DOT_ETA,framework_or_procedure,"Source establishes the described regulatory framework or service; unresolved deadlines, applicability exceptions and physical steps remain subject to review.",supported_within_source_scope
+N043-V1-E1,N043-V1,DOT_AUTH,framework_or_procedure,"Source establishes the described regulatory framework or service; unresolved deadlines, applicability exceptions and physical steps remain subject to review.",supported_within_source_scope
+N044-V1-E1,N044-V1,DGMS,framework_or_procedure,"Source establishes the described regulatory framework or service; unresolved deadlines, applicability exceptions and physical steps remain subject to review.",supported_within_source_scope
+N045-V1-E1,N045-V1,CROP,framework_or_procedure,"Source establishes the described regulatory framework or service; unresolved deadlines, applicability exceptions and physical steps remain subject to review.",supported_within_source_scope
+N046-V1-E1,N046-V1,PQMS,framework_or_procedure,"Source establishes the described regulatory framework or service; unresolved deadlines, applicability exceptions and physical steps remain subject to review.",supported_within_source_scope
+N047-V1-E1,N047-V1,PSARA,framework_or_procedure,"Source establishes the described regulatory framework or service; unresolved deadlines, applicability exceptions and physical steps remain subject to review.",supported_within_source_scope
+N048-V1-E1,N048-V1,RERA_KL,framework_or_procedure,Kerala authority clarifies project-registration thresholds; other jurisdictions require their own evidence.,supported_within_source_scope
+N049-V1-E1,N049-V1,LABOUR_CODES,framework_or_procedure,"Source establishes the described regulatory framework or service; unresolved deadlines, applicability exceptions and physical steps remain subject to review.",supported_within_source_scope
+S-PB-PSDT-REG-V1-E1,S-PB-PSDT-REG-V1,PB_PT_FORM,framework_or_procedure,Official live form supports employer/individual registration; contradicts imported Punjab no-PT assertion.,supported_within_source_scope
+S-PB-PSDT-ELECT-V1-E1,S-PB-PSDT-ELECT-V1,PB_PT_RULES,framework_or_procedure,"Source establishes the described regulatory framework or service; unresolved deadlines, applicability exceptions and physical steps remain subject to review.",supported_within_source_scope
+S-MH-PT-REG-V1-E1,S-MH-PT-REG-V1,MH_PT,framework_or_procedure,"Source establishes the described regulatory framework or service; unresolved deadlines, applicability exceptions and physical steps remain subject to review.",supported_within_source_scope
+S-KA-PT-REG-V1-E1,S-KA-PT-REG-V1,KA_PT,framework_or_procedure,"Source establishes the described regulatory framework or service; unresolved deadlines, applicability exceptions and physical steps remain subject to review.",supported_within_source_scope
+S-MN-PT-REG-V1-E1,S-MN-PT-REG-V1,MN_PT,framework_or_procedure,"Source establishes the described regulatory framework or service; unresolved deadlines, applicability exceptions and physical steps remain subject to review.",supported_within_source_scope
+S-NL-PT-REG-V1-E1,S-NL-PT-REG-V1,NL_PT,framework_or_procedure,"Source establishes the described regulatory framework or service; unresolved deadlines, applicability exceptions and physical steps remain subject to review.",supported_within_source_scope
+S-ML-PT-REG-V1-E1,S-ML-PT-REG-V1,ML_PT,framework_or_procedure,"Source establishes the described regulatory framework or service; unresolved deadlines, applicability exceptions and physical steps remain subject to review.",supported_within_source_scope
+S-WB-PT-ENROL-V1-E1,S-WB-PT-ENROL-V1,WB_PT,framework_or_procedure,Official enrolment page sets ninety-day application period for specified entries.,supported_within_source_scope
+S-WB-PT-RETURN-V1-E1,S-WB-PT-RETURN-V1,WB_PT_PAPER,framework_or_procedure,Department explicitly says no paper copy of profession-tax return need be submitted at CTD offices.,supported_within_source_scope
+S-TN-SHOPS-REG-V1-E1,S-TN-SHOPS-REG-V1,TN_SE,framework_or_procedure,Published online form identifies ten-worker condition and upload fields; annual renewal not established.,supported_within_source_scope
+S-AN-SHOPS-V1-E1,S-AN-SHOPS-V1,AN_LABOUR,framework_or_procedure,Labour portal lists shops registration and renewal; no unsupported lifetime-validity claim.,supported_within_source_scope
+S-GA-LM-REG-V1-E1,S-GA-LM-REG-V1,GOA_LM,framework_or_procedure,"Source establishes the described regulatory framework or service; unresolved deadlines, applicability exceptions and physical steps remain subject to review.",supported_within_source_scope
+S-LA-CTE-V1-E1,S-LA-CTE-V1,LA_PCB,framework_or_procedure,"Source establishes the described regulatory framework or service; unresolved deadlines, applicability exceptions and physical steps remain subject to review.",supported_within_source_scope
+S-LA-CTE-V1-PAPER,S-LA-CTE-V1,LA_PCB_RELEASE,physical_submission,Official OCMMS launch describes paperless application process.,supported_within_source_scope
+S-LA-CTO-V1-E1,S-LA-CTO-V1,LA_PCB,framework_or_procedure,"Source establishes the described regulatory framework or service; unresolved deadlines, applicability exceptions and physical steps remain subject to review.",supported_within_source_scope
+S-LA-CTO-V1-PAPER,S-LA-CTO-V1,LA_PCB_RELEASE,physical_submission,Official OCMMS launch describes paperless application process.,supported_within_source_scope
+S-ML-EXCISE-V1-E1,S-ML-EXCISE-V1,ML_SERVICES,framework_or_procedure,State approval inventory lists distinct excise licence classes; full procedure is unresolved.,supported_within_source_scope
+S-KL-RERA-V1-E1,S-KL-RERA-V1,RERA_KL,framework_or_procedure,Kerala clarification treats project area and apartment-count tests as alternatives; do not extrapolate its interpretation to all jurisdictions.,supported_within_source_scope
+S-DL-MCD-GTL-V1-E1,S-DL-MCD-GTL-V1,MCD_GTL,framework_or_procedure,"Source establishes the described regulatory framework or service; unresolved deadlines, applicability exceptions and physical steps remain subject to review.",supported_within_source_scope
+S-TN-GCC-TRADE-V1-E1,S-TN-GCC-TRADE-V1,CHENNAI_SOP,framework_or_procedure,"Source establishes the described regulatory framework or service; unresolved deadlines, applicability exceptions and physical steps remain subject to review.",supported_within_source_scope
+S-TN-GCC-TRADE-V1-DOCS,S-TN-GCC-TRADE-V1,CHENNAI_DOCS,documents,2017 circular simplifies initial upload and allows further records during processing; currency must be checked.,historical_source_requires_current_check
+IF001-V1-E1,IF001-V1,IF-FLA,discovery,IndiaFilings identified this missing topic; legal conclusions are not based on the commercial page alone.,secondary_discovery_only
+IF001-V1-E2,IF001-V1,RBI_FLA_CURRENT,applicability_text,"Outstanding FDI/ODI and entity class determine reporting, not only fresh investment.",supported_within_source_scope
+IF001-V1-E3,IF001-V1,RBI_FLA_CURRENT,deadline_text,Annual deadline is July 15; FAQ permits provisional filing and a requested revision.,supported_within_source_scope
+IF001-V1-E4,IF001-V1,RBI_FLA_CURRENT,filing_mode,Ordinary entity filing uses FLAIR; AIF format/procedure differs.,supported_within_source_scope
+IF002-V1-E1,IF002-V1,IF-PAS6,discovery,IndiaFilings identified this missing topic; legal conclusions are not based on the commercial page alone.,secondary_discovery_only
+IF002-V1-E2,IF002-V1,MCA_PAS6,deadline_text,Kit specifies sixty days after half-year conclusion.,supported_within_source_scope
+IF002-V1-E3,IF002-V1,MCA_PAS6,filing_mode,MCA webform and professional certification are documented.,supported_within_source_scope
+IF003-V1-E1,IF003-V1,IF-SH7,discovery,IndiaFilings identified this missing topic; legal conclusions are not based on the commercial page alone.,secondary_discovery_only
+IF003-V1-E2,IF003-V1,MCA_ACT,deadline_text,Section 64 provides capital-event notice period.,supported_within_source_scope
+IF003-V1-E3,IF003-V1,MCA_SH7,filing_mode,SH-7 is an MCA webform with purpose-dependent fields.,supported_within_source_scope
+IF004-V1-E1,IF004-V1,IF-ADT3,discovery,IndiaFilings identified this missing topic; legal conclusions are not based on the commercial page alone.,secondary_discovery_only
+IF004-V1-E2,IF004-V1,MCA_ACT,deadline_text,Section 140(2) sets thirty-day resignation statement period.,supported_within_source_scope
+IF004-V1-E3,IF004-V1,MCA_ADT3,documents,"ADT-3 includes auditor identity, reasons and relevant facts; signature by auditor/partner.",supported_within_source_scope
+IF005-V1-E1,IF005-V1,IF-APEDA,discovery,IndiaFilings identified this missing topic; legal conclusions are not based on the commercial page alone.,secondary_discovery_only
+IF005-V1-E2,IF005-V1,APEDA_CURRENT,documents,IEC copy; manufacturer category needs relevant manufacturing proof.,supported_within_source_scope
+IF005-V1-E3,IF005-V1,APEDA_CURRENT,deadline_text,Published procedure states five-year validity.,supported_within_source_scope
+IF005-V1-E4,IF005-V1,APEDA_FAQ,application_url,"APEDA uses DGFT e-RCMC since July 17, 2023.",supported_within_source_scope
+IF006-V1-E1,IF006-V1,IF-DARPAN,discovery,IndiaFilings identified this missing topic; legal conclusions are not based on the commercial page alone.,secondary_discovery_only
+IF006-V1-E2,IF006-V1,NITI_DARPAN,applicability_text,"NITI identifies central-grant, FCRA and account-related requirements; do not equate Darpan with NGO incorporation.",supported_within_source_scope
+IF007-V1-E1,IF007-V1,IF-GSTCANCEL,discovery,IndiaFilings identified this missing topic; legal conclusions are not based on the commercial page alone.,secondary_discovery_only
+IF007-V1-E2,IF007-V1,GST_WELCOME,framework_or_procedure,GST cancellation and final return are distinct processes; full REG-16 eligibility/timing remains for review.,supported_within_source_scope
+IF008-V1-E1,IF008-V1,IF-GSTR10,discovery,IndiaFilings identified this missing topic; legal conclusions are not based on the commercial page alone.,secondary_discovery_only
+IF008-V1-E2,IF008-V1,GST_WELCOME,deadline_text,GSTN specifies the later of cancellation and order dates.,supported_within_source_scope
+IF009-V1-E1,IF009-V1,IF-LLP24,discovery,IndiaFilings identified this missing topic; legal conclusions are not based on the commercial page alone.,secondary_discovery_only
+IF009-V1-E2,IF009-V1,MCA_LLP24,applicability_text,Kit restricts filing before one year of cessation and identifies regulator NOC cases.,supported_within_source_scope
+IF009-V1-E3,IF009-V1,MCA_LLP24,filing_mode,Form 24 is an MCA webform.,supported_within_source_scope
+IF010-V1-E1,IF010-V1,IF-STK2,discovery,IndiaFilings identified this missing topic; legal conclusions are not based on the commercial page alone.,secondary_discovery_only
+IF010-V1-E2,IF010-V1,MCA_ACT,applicability_text,Sections 248/249 govern voluntary removal and restrictions.,supported_within_source_scope
+IF010-V1-E3,IF010-V1,MCA_PORTAL,filing_mode,MCA lists STK-2 with C-PACE electronic filing.,supported_within_source_scope
+IF011-V1-E1,IF011-V1,IF-DORMANT,discovery,IndiaFilings identified this missing topic; legal conclusions are not based on the commercial page alone.,secondary_discovery_only
+IF011-V1-E2,IF011-V1,MCA_ACT,applicability_text,Section 455 permits dormant status for qualifying companies.,supported_within_source_scope
+IF012-V1-E1,IF012-V1,IF-DORMANT,discovery,IndiaFilings identified this missing topic; legal conclusions are not based on the commercial page alone.,secondary_discovery_only
+IF012-V1-E2,IF012-V1,MCA_MSC3,deadline_text,Instruction kit uses FY end plus thirty days.,supported_within_source_scope
+IF013-V1-E1,IF013-V1,IF-TMREPLY,discovery,IndiaFilings identified this missing topic; legal conclusions are not based on the commercial page alone.,secondary_discovery_only
+IF013-V1-E2,IF013-V1,TM_RULES,deadline_text,Rule 33(4) permits abandonment treatment if no response within one month.,supported_within_source_scope
+IF014-V1-E1,IF014-V1,IF-TMOPPOSE,discovery,IndiaFilings identified this missing topic; legal conclusions are not based on the commercial page alone.,secondary_discovery_only
+IF014-V1-E2,IF014-V1,TM_RULES,deadline_text,Rule 44 defines counterstatement form and two-month receipt-based clock.,supported_within_source_scope
+IF015-V1-E1,IF015-V1,IF-STARTUP,discovery,IndiaFilings identified this missing topic; legal conclusions are not based on the commercial page alone.,secondary_discovery_only
+IF015-V1-E2,IF015-V1,DPIIT_2026,turnover_basis,Notification sets normal ceiling INR 200 crore and recognised Deep Tech ceiling INR 300 crore; equality is included.,supported_within_source_scope
+IF015-V1-E3,IF015-V1,STARTUP_ROUTE,application_url,Recognition application routed through NSWS.,supported_within_source_scope
+IF016-V1-E1,IF016-V1,IF-REVIVE,discovery,IndiaFilings identified this missing topic; legal conclusions are not based on the commercial page alone.,secondary_discovery_only
+IF016-V1-E2,IF016-V1,MCA_ACT,applicability_text,Section 252 provides distinct restoration routes.,supported_within_source_scope
+IF016-V1-E3,IF016-V1,MCA_PORTAL,application_url,MCA identifies INC-28 restoration filing with NCLT order and proof of ordered costs where applicable.,supported_within_source_scope

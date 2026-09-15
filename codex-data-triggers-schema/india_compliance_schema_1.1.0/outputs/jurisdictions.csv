@@ -1,0 +1,40 @@
+jurisdiction_id,name,level,parent_id,source_id
+IN,India,country,,NSWS
+IN-AN,Andaman and Nicobar Islands,union_territory,IN,NSWS
+IN-AP,Andhra Pradesh,state,IN,NSWS
+IN-AR,Arunachal Pradesh,state,IN,NSWS
+IN-AS,Assam,state,IN,NSWS
+IN-BR,Bihar,state,IN,NSWS
+IN-CH,Chandigarh,union_territory,IN,NSWS
+IN-CG,Chhattisgarh,state,IN,NSWS
+IN-DN,Dadra and Nagar Haveli and Daman and Diu,union_territory,IN,NSWS
+IN-DL,Delhi,union_territory,IN,NSWS
+IN-GA,Goa,state,IN,NSWS
+IN-GJ,Gujarat,state,IN,NSWS
+IN-HR,Haryana,state,IN,NSWS
+IN-HP,Himachal Pradesh,state,IN,NSWS
+IN-JK,Jammu and Kashmir,union_territory,IN,NSWS
+IN-JH,Jharkhand,state,IN,NSWS
+IN-KA,Karnataka,state,IN,NSWS
+IN-KL,Kerala,state,IN,NSWS
+IN-LA,Ladakh,union_territory,IN,NSWS
+IN-LD,Lakshadweep,union_territory,IN,NSWS
+IN-MP,Madhya Pradesh,state,IN,NSWS
+IN-MH,Maharashtra,state,IN,NSWS
+IN-MN,Manipur,state,IN,NSWS
+IN-ML,Meghalaya,state,IN,NSWS
+IN-MZ,Mizoram,state,IN,NSWS
+IN-NL,Nagaland,state,IN,NSWS
+IN-OD,Odisha,state,IN,NSWS
+IN-PY,Puducherry,union_territory,IN,NSWS
+IN-PB,Punjab,state,IN,NSWS
+IN-RJ,Rajasthan,state,IN,NSWS
+IN-SK,Sikkim,state,IN,NSWS
+IN-TN,Tamil Nadu,state,IN,NSWS
+IN-TG,Telangana,state,IN,NSWS
+IN-TR,Tripura,state,IN,NSWS
+IN-UP,Uttar Pradesh,state,IN,NSWS
+IN-UK,Uttarakhand,state,IN,NSWS
+IN-WB,West Bengal,state,IN,NSWS
+IN-DL-MCD,Municipal Corporation of Delhi area,local_body,IN-DL,MCD_GTL
+IN-TN-CHENNAI,Greater Chennai Corporation area,local_body,IN-TN,CHENNAI_TRADE

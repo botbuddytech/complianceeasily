@@ -1,36 +1,40 @@
 # Run and deploy ComplianceEasily
 
-AI-powered Indian business compliance platform — **Next.js (App Router) + TypeScript + Supabase**.
+AI-powered Indian business compliance platform — **Next.js (App Router) + TypeScript + Prisma** with **app-managed users auth** (Postgres via Supabase host optional).
 
 ## Quick start
 
 ```bash
 npm install
-cp .env.example .env.local
+cp .env.example .env
+# set DATABASE_URL, DIRECT_URL, SESSION_SECRET
+npm run prisma:generate
+npm run seed:triggers
 npm run dev
 ```
 
-Open http://localhost:3000
+Open http://localhost:3000 — create an account at `/signup` or log in at `/login`.
 
-Without Supabase credentials the UI runs on mock data. See [BACKEND.md](BACKEND.md) for full schema, seed, and API docs.
+See [BACKEND.md](BACKEND.md) for schema, auth, seed, and API docs.
 
 ## Scripts
 
 | Command | Purpose |
 |---------|---------|
 | `npm run dev` | Next.js dev server (port 3000) |
-| `npm run build` | Production build |
+| `npm run build` | `prisma generate` + production build |
 | `npm test` | Compliance engine + books unit tests |
-| `npm run seed:triggers` | Seed `complianceTriggers.json` into Supabase |
+| `npm run prisma:generate` | Generate Prisma Client |
+| `npm run seed:triggers` | Seed trigger catalogue (+ optional admin user) |
 
 ## Portals
 
 - `/` — marketing
-- `/login`, `/signup` — auth
+- `/login`, `/signup` — email/password auth (`users` table)
 - `/dashboard/*` — client workspace
-- `/admin/*` — ops console (triggers, filing queue, claims, catalogue)
+- `/admin/*` — ops console
 - `/professional/*` — CA/CS/Advocate workspace
 
 ## Core product
 
-The **compliance trigger system** (`src/lib/compliance/matcher.ts`) matches entity profiles to statutory obligations, materializes filings, and schedules reminders. Full design: see the backend plan and `BACKEND.md`.
+The **compliance trigger system** (`src/lib/compliance/matcher.ts`) matches entity profiles to statutory obligations, materializes filings, and schedules reminders. Full design: see `BACKEND.md`.

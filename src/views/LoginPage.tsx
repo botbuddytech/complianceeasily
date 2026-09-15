@@ -8,8 +8,7 @@ import { AuthShell } from '../components/auth/AuthShell';
 import { GoogleAuthButton } from '../components/auth/GoogleAuthButton';
 import { Seo } from '../components/Seo';
 import { LOGIN_SEO } from '../lib/seo';
-import { createClient } from '@/lib/supabase/client';
-import { isSupabaseConfigured } from '@/lib/supabase/config';
+import { signIn } from '@/lib/actions/auth';
 
 export function LoginPage() {
   const router = useRouter();
@@ -32,24 +31,12 @@ export function LoginPage() {
     setError(null);
 
     try {
-      if (isSupabaseConfigured()) {
-        const supabase = createClient();
-        const { data, error: authError } = await supabase.auth.signInWithPassword({
-          email,
-          password,
-        });
-        if (authError) throw authError;
-        const role = data.user?.user_metadata?.role as string | undefined;
-        const dest =
-          role === 'staff'
-            ? '/admin'
-            : role === 'professional'
-              ? '/professional'
-              : '/dashboard';
-        finish(dest);
-      } else {
-        window.setTimeout(() => finish('/dashboard'), 400);
+      const result = await signIn({ email, password });
+      if (!result.ok) {
+        setError(result.error);
+        return;
       }
+      finish(result.redirectTo);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Login failed');
     } finally {
@@ -74,7 +61,7 @@ export function LoginPage() {
         </div>
       ) : (
         <div className="space-y-5">
-          <GoogleAuthButton label="Continue with Google" onSuccess={finish} />
+          <GoogleAuthButton label="Continue with Google" onSuccess={() => finish('/dashboard')} />
 
           <div className="flex items-center gap-3 text-[11px] font-mono font-bold uppercase tracking-wider text-[#6B7580]">
             <div className="h-px flex-1 bg-[#D5D0C6]" />
@@ -83,6 +70,9 @@ export function LoginPage() {
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
+            {error ? (
+              <p className="rounded-xl border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700">{error}</p>
+            ) : null}
             <div>
               <label htmlFor="login-email" className="block text-xs font-semibold text-[#0E1217] mb-1.5 font-mono uppercase tracking-wider">
                 Work email

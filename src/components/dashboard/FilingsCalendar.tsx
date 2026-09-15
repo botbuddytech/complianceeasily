@@ -5,6 +5,7 @@ import { EmptyState } from './EmptyState';
 import type { Filing } from '../../types/dashboard';
 
 const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+const WEEKDAYS_SHORT = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
 
 function dateKey(year: number, month: number, day: number) {
   return `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
@@ -129,12 +130,13 @@ export function FilingsCalendar({ filings }: FilingsCalendarProps) {
 
       <div className="overflow-hidden rounded-2xl border border-[#D5D0C6] bg-white">
         <div className="grid grid-cols-7 border-b border-[#D5D0C6] bg-[#EBE8E2] text-center">
-          {WEEKDAYS.map((w) => (
+          {WEEKDAYS.map((w, i) => (
             <div
-              key={w}
-              className="px-1 py-2 font-mono text-[10px] font-semibold uppercase tracking-wider text-[#6B7580] sm:text-[11px]"
+              key={`${w}-${i}`}
+              className="px-0.5 py-2 font-mono text-[10px] font-semibold uppercase tracking-wider text-[#6B7580] sm:px-1 sm:text-[11px]"
             >
-              {w}
+              <span className="sm:hidden">{WEEKDAYS_SHORT[i]}</span>
+              <span className="hidden sm:inline">{w}</span>
             </div>
           ))}
         </div>
@@ -152,7 +154,7 @@ export function FilingsCalendar({ filings }: FilingsCalendarProps) {
                 type="button"
                 key={key}
                 onClick={() => items.length && setSelectedDate(key)}
-                className={`min-h-[76px] border-b border-r p-1.5 text-left align-top transition-colors sm:min-h-[96px] sm:p-2 ${
+                className={`min-h-[52px] border-b border-r p-1 text-left align-top transition-colors sm:min-h-[96px] sm:p-2 ${
                   isRightEdge ? 'border-r-0' : 'border-[#EBE8E2]'
                 } ${isBottomEdge ? 'border-b-0' : 'border-[#EBE8E2]'} ${
                   inMonth ? 'bg-white' : 'bg-[#F4F2EE]'
@@ -160,7 +162,7 @@ export function FilingsCalendar({ filings }: FilingsCalendarProps) {
                   items.length ? 'cursor-pointer hover:bg-[#EBE8E2]/70' : 'cursor-default'
                 }`}
               >
-                <div className="mb-1 flex items-center justify-between">
+                <div className="mb-0.5 flex items-center justify-between sm:mb-1">
                   <span
                     className={`font-mono text-[11px] sm:text-xs ${
                       isToday
@@ -173,25 +175,30 @@ export function FilingsCalendar({ filings }: FilingsCalendarProps) {
                     {day}
                   </span>
                   {items.length > 0 && (
-                    <span className="hidden h-1.5 w-1.5 rounded-full bg-[#B89E6B] sm:inline-block" />
+                    <span className="h-1.5 w-1.5 rounded-full bg-[#B89E6B]" />
                   )}
                 </div>
-                <div className="space-y-1">
+                <div className="hidden space-y-1 sm:block">
                   {items.slice(0, 2).map((f) => (
                     <div
                       key={f.id}
-                      className="truncate rounded border border-[#D5D0C6] bg-[#EBE8E2] px-1 py-0.5 text-[9px] font-mono font-semibold text-[#B89E6B] sm:text-[10px]"
+                      className="truncate rounded border border-[#D5D0C6] bg-[#EBE8E2] px-1 py-0.5 text-[10px] font-mono font-semibold text-[#B89E6B]"
                       title={`${f.name} · ${f.entityName}`}
                     >
                       {f.shortName}
                     </div>
                   ))}
                   {items.length > 2 && (
-                    <div className="text-[9px] font-mono text-[#6B7580] sm:text-[10px]">
+                    <div className="text-[10px] font-mono text-[#6B7580]">
                       +{items.length - 2} more
                     </div>
                   )}
                 </div>
+                {items.length > 0 && (
+                  <div className="mt-0.5 font-mono text-[9px] font-semibold text-[#B89E6B] sm:hidden">
+                    {items.length}
+                  </div>
+                )}
               </button>
             );
           })}

@@ -83,7 +83,7 @@ export function HumanProfessionalsSection({ onOpenChecker }: HumanProfessionalsS
   ];
 
   return (
-    <Section tone="espresso" withGrid withGlow>
+    <Section tone="cream" withGrid>
       <Reveal>
         <SectionHeader
           className="mb-14"

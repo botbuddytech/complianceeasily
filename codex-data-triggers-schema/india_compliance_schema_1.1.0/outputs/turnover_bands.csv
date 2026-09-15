@@ -1,0 +1,7 @@
+band_id,label,min_inr,max_inr,min_inclusive,max_inclusive,usage_note
+B1,Under INR 20 lakh,0,2000000,1,0,UI filter only; exact INR conditions and statutory turnover basis control applicability
+B2,INR 20 lakh to under INR 40 lakh,2000000,4000000,1,0,UI filter only; exact INR conditions and statutory turnover basis control applicability
+B3,INR 40 lakh to under INR 1.5 crore,4000000,15000000,1,0,UI filter only; exact INR conditions and statutory turnover basis control applicability
+B4,INR 1.5 crore to under INR 5 crore,15000000,50000000,1,0,UI filter only; exact INR conditions and statutory turnover basis control applicability
+B5,INR 5 crore to INR 50 crore,50000000,500000000,1,1,UI filter only; exact INR conditions and statutory turnover basis control applicability
+B6,Above INR 50 crore,500000000,,0,0,UI filter only; exact INR conditions and statutory turnover basis control applicability

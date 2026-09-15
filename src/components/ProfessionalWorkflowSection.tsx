@@ -67,7 +67,7 @@ export function ProfessionalWorkflowSection({ onOpenChecker }: ProfessionalWorkf
   ];
 
   return (
-    <Section tone="espresso" withGrid withGlow className="space-y-10">
+    <Section tone="cream" withGrid className="space-y-10">
       <Reveal>
         <SectionHeader
           eyebrow={

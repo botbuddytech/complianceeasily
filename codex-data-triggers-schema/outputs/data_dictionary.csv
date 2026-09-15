@@ -1,0 +1,164 @@
+table_name,column_name,sql_type,primary_key,references,description,null_semantics
+departments,department_id,TEXT,1,,Department id; see README for table semantics.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+departments,name,TEXT,0,,Name; see README for table semantics.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+departments,navigation_category,TEXT,0,,Navigation category; see README for table semantics.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+departments,taxonomy_note,TEXT,0,,Taxonomy note; see README for table semantics.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+jurisdictions,jurisdiction_id,TEXT,1,,Country/state/UT/local-body key; use jurisdiction hierarchy.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+jurisdictions,name,TEXT,0,,Name; see README for table semantics.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+jurisdictions,level,TEXT,0,,Level; see README for table semantics.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+jurisdictions,parent_id,TEXT,0,jurisdictions.jurisdiction_id,Parent id; see README for table semantics.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+jurisdictions,source_id,TEXT,0,sources.source_id,Source provenance; presence does not verify every field.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+entity_types,entity_type_id,TEXT,1,,Entity type id; see README for table semantics.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+entity_types,name,TEXT,0,,Name; see README for table semantics.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+entity_types,ui_group,TEXT,0,,Ui group; see README for table semantics.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+turnover_bands,band_id,TEXT,1,,Band id; see README for table semantics.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+turnover_bands,label,TEXT,0,,Label; see README for table semantics.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+turnover_bands,min_inr,NUMERIC,0,,Exact INR lower boundary for UI band.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+turnover_bands,max_inr,NUMERIC,0,,Exact INR upper boundary; NULL means unbounded.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+turnover_bands,min_inclusive,INTEGER,0,,1 includes lower boundary; 0 excludes it.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+turnover_bands,max_inclusive,INTEGER,0,,1 includes upper boundary; 0 excludes it.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+turnover_bands,usage_note,TEXT,0,,Usage note; see README for table semantics.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+trigger_types,trigger_id,TEXT,1,,Trigger id; see README for table semantics.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+trigger_types,name,TEXT,0,,Name; see README for table semantics.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+trigger_types,description,TEXT,0,,Description; see README for table semantics.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+sources,source_id,TEXT,1,,Source provenance; presence does not verify every field.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+sources,url,TEXT,0,,Url; see README for table semantics.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+sources,title,TEXT,0,,Title; see README for table semantics.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+sources,source_type,TEXT,0,,Source type; see README for table semantics.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+sources,supports,TEXT,0,,Supports; see README for table semantics.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+sources,retrieval_method,TEXT,0,,opened_page or search_excerpt; not proof every endpoint works.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+sources,accessed_on,TEXT,0,,Research access date; source publication/effective date can differ.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+authorities,authority_id,TEXT,1,,Competent authority or explicitly qualified routing reference.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+authorities,name,TEXT,0,,Name; see README for table semantics.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+authorities,jurisdiction_id,TEXT,0,jurisdictions.jurisdiction_id,Country/state/UT/local-body key; use jurisdiction hierarchy.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+authorities,website_url,TEXT,0,,Website url; see README for table semantics.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+authorities,source_id,TEXT,0,sources.source_id,Source provenance; presence does not verify every field.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+authorities,verification_status,TEXT,0,,Scope-limited research status; never a blanket legal warranty.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+compliances,compliance_id,TEXT,1,,Stable obligation identity shared by versions.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+compliances,name,TEXT,0,,Name; see README for table semantics.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+compliances,department_id,TEXT,0,departments.department_id,Department id; see README for table semantics.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+compliances,obligation_kind,TEXT,0,,Obligation kind; see README for table semantics.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+compliances,scope_level,TEXT,0,,Scope level; see README for table semantics.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+compliances,catalog_status,TEXT,0,,Catalog status; see README for table semantics.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+rule_versions,rule_id,TEXT,1,,Immutable identifier for one rule version; not merely a compliance name.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+rule_versions,compliance_id,TEXT,0,compliances.compliance_id,Stable obligation identity shared by versions.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+rule_versions,jurisdiction_id,TEXT,0,jurisdictions.jurisdiction_id,Country/state/UT/local-body key; use jurisdiction hierarchy.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+rule_versions,authority_id,TEXT,0,authorities.authority_id,Competent authority or explicitly qualified routing reference.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+rule_versions,governing_law,TEXT,0,,Governing law; see README for table semantics.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+rule_versions,form_code,TEXT,0,,Period-specific form or qualified form selection.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+rule_versions,applicability_text,TEXT,0,,Applicability text; see README for table semantics.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+rule_versions,turnover_basis,TEXT,0,,Exact statutory turnover basis and threshold; never substitute UI band.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+rule_versions,employee_basis,TEXT,0,,Headcount/wages/category/reference-period qualification; may be unverified.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+rule_versions,effective_from,TEXT,0,,"Inclusive ISO date; blank means unresolved, not always applicable.",Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+rule_versions,effective_to,TEXT,0,,Inclusive ISO date; blank alone does not prove current applicability.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+rule_versions,tax_period,TEXT,0,,Period/law transition label; resolve explicitly before selection.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+rule_versions,frequency,TEXT,0,,Frequency; see README for table semantics.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+rule_versions,deadline_text,TEXT,0,,Deadline text; see README for table semantics.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+rule_versions,deadline_json,TEXT,0,,JSON candidate deadline specification; not an enabled scheduler.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+rule_versions,exceptions_text,TEXT,0,,Exceptions text; see README for table semantics.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+rule_versions,verification_status,TEXT,0,,Scope-limited research status; never a blanket legal warranty.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+rule_versions,automation_enabled,INTEGER,0,,0 in this release; research review required before activation.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+rule_versions,checked_on,TEXT,0,,Research processing date; not a production approval timestamp.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+rule_triggers,rule_trigger_id,TEXT,1,,Rule trigger id; see README for table semantics.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+rule_triggers,rule_id,TEXT,0,rule_versions.rule_id,Immutable identifier for one rule version; not merely a compliance name.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+rule_triggers,trigger_id,TEXT,0,trigger_types.trigger_id,Trigger id; see README for table semantics.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+rule_entities,rule_entity_id,TEXT,1,,Rule entity id; see README for table semantics.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+rule_entities,rule_id,TEXT,0,rule_versions.rule_id,Immutable identifier for one rule version; not merely a compliance name.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+rule_entities,entity_type_id,TEXT,0,entity_types.entity_type_id,Entity type id; see README for table semantics.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+rule_entities,mapping_status,TEXT,0,,"Entity candidate filter only, not a complete applicability test.",Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+applicability_conditions,condition_id,TEXT,1,,Condition id; see README for table semantics.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+applicability_conditions,rule_id,TEXT,0,rule_versions.rule_id,Immutable identifier for one rule version; not merely a compliance name.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+applicability_conditions,expression_json,TEXT,0,,JSON all/any comparison condition; missing facts evaluate unknown.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+applicability_conditions,expression_status,TEXT,0,,Expression status; see README for table semantics.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+applicability_conditions,required_facts_json,TEXT,0,,JSON array of required business-profile field IDs.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+applicability_conditions,notes,TEXT,0,,Notes; see README for table semantics.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+document_requirements,document_id,TEXT,1,,Document id; see README for table semantics.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+document_requirements,rule_id,TEXT,0,rule_versions.rule_id,Immutable identifier for one rule version; not merely a compliance name.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+document_requirements,document_name,TEXT,0,,Checklist text in this release; entry_kind identifies granularity.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+document_requirements,entry_kind,TEXT,0,,compound_checklist currently; can support individual items later.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+document_requirements,requirement_status,TEXT,0,,Requirement status; see README for table semantics.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+document_requirements,condition_text,TEXT,0,,Condition text; see README for table semantics.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+document_requirements,source_id,TEXT,0,sources.source_id,Source provenance; presence does not verify every field.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+process_profiles,process_id,TEXT,1,,Process id; see README for table semantics.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+process_profiles,rule_id,TEXT,0,rule_versions.rule_id,Immutable identifier for one rule version; not merely a compliance name.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+process_profiles,application_url,TEXT,0,,May be guidance or entry point; inspect url_role.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+process_profiles,url_role,TEXT,0,,Qualification of how to interpret the URL.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+process_profiles,filing_mode,TEXT,0,,Submission channel only; does not establish absence of physical steps.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+process_profiles,physical_submission,TEXT,0,,Paper/original submission requirement; unverified is not No.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+process_profiles,applicant_visit,TEXT,0,,"Personal attendance requirement, separate from premises inspection.",Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+process_profiles,inspection,TEXT,0,,Premises/product/vehicle inspection requirement; read source scope.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+process_profiles,testing_or_notarisation,TEXT,0,,"Additional physical or executed-document step, separately assessed.",Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+process_profiles,process_notes,TEXT,0,,Process notes; see README for table semantics.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+process_profiles,verification_status,TEXT,0,,Scope-limited research status; never a blanket legal warranty.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+evidence_assertions,assertion_id,TEXT,1,,Assertion id; see README for table semantics.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+evidence_assertions,rule_id,TEXT,0,rule_versions.rule_id,Immutable identifier for one rule version; not merely a compliance name.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+evidence_assertions,source_id,TEXT,0,sources.source_id,Source provenance; presence does not verify every field.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+evidence_assertions,field_name,TEXT,0,,Field name; see README for table semantics.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+evidence_assertions,finding,TEXT,0,,Finding; see README for table semantics.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+evidence_assertions,verification_status,TEXT,0,,Scope-limited research status; never a blanket legal warranty.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+state_coverage,coverage_id,TEXT,1,,Coverage id; see README for table semantics.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+state_coverage,jurisdiction_id,TEXT,0,jurisdictions.jurisdiction_id,Country/state/UT/local-body key; use jurisdiction hierarchy.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+state_coverage,topic,TEXT,0,,Topic; see README for table semantics.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+state_coverage,applicability_status,TEXT,0,,"State-topic research finding, distinct from customer eligibility.",Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+state_coverage,authority_url,TEXT,0,,Discovery or authority route; not necessarily an application endpoint.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+state_coverage,application_url,TEXT,0,,May be guidance or entry point; inspect url_role.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+state_coverage,source_id,TEXT,0,sources.source_id,Source provenance; presence does not verify every field.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+state_coverage,coverage_status,TEXT,0,,Research inventory progress; coverage row is not an obligation.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+state_coverage,next_verification,TEXT,0,,Next verification; see README for table semantics.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+state_coverage,legacy_row_id,TEXT,0,legacy_rows.legacy_row_id,Legacy row id; see README for table semantics.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+coverage_rules,coverage_rule_id,TEXT,1,,Coverage rule id; see README for table semantics.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+coverage_rules,coverage_id,TEXT,0,state_coverage.coverage_id,Coverage id; see README for table semantics.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+coverage_rules,rule_id,TEXT,0,rule_versions.rule_id,Immutable identifier for one rule version; not merely a compliance name.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+legacy_rows,legacy_row_id,TEXT,1,,Legacy row id; see README for table semantics.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+legacy_rows,input_file,TEXT,0,,Input file; see README for table semantics.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+legacy_rows,input_row_number,INTEGER,0,,Original CSV physical record index counting the header as row 1.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+legacy_rows,mapped_compliance_id,TEXT,0,compliances.compliance_id,Mapped compliance id; see README for table semantics.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+legacy_rows,raw_json,TEXT,0,,Unchanged source CSV row serialized as JSON; untrusted input data.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+correction_log,correction_id,TEXT,1,,Correction id; see README for table semantics.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+correction_log,legacy_row_id,TEXT,0,legacy_rows.legacy_row_id,Legacy row id; see README for table semantics.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+correction_log,field_name,TEXT,0,,Field name; see README for table semantics.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+correction_log,original_value,TEXT,0,,Original value; see README for table semantics.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+correction_log,replacement_or_action,TEXT,0,,Replacement or action; see README for table semantics.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+correction_log,source_id,TEXT,0,sources.source_id,Source provenance; presence does not verify every field.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+correction_log,status,TEXT,0,,Status; see README for table semantics.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+deadline_overrides,override_id,TEXT,1,,Override id; see README for table semantics.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+deadline_overrides,rule_id,TEXT,0,rule_versions.rule_id,Immutable identifier for one rule version; not merely a compliance name.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+deadline_overrides,period_key,TEXT,0,,Exact reporting period; never treat one-off extensions as recurring.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+deadline_overrides,original_due_date,TEXT,0,,Original due date for the specified period only.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+deadline_overrides,override_due_date,TEXT,0,,Revised due date for the specified period and obligation only.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+deadline_overrides,source_id,TEXT,0,sources.source_id,Source provenance; presence does not verify every field.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+deadline_overrides,notes,TEXT,0,,Notes; see README for table semantics.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+business_profile_fields,field_id,TEXT,1,,Field id; see README for table semantics.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+business_profile_fields,data_type,TEXT,0,,Data type; see README for table semantics.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+business_profile_fields,scope,TEXT,0,,Scope; see README for table semantics.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+business_profile_fields,description,TEXT,0,,Description; see README for table semantics.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+business_profile_fields,required_for,TEXT,0,,Required for; see README for table semantics.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+field_reviews,review_id,TEXT,1,,Review id; see README for table semantics.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+field_reviews,rule_id,TEXT,0,rule_versions.rule_id,Immutable identifier for one rule version; not merely a compliance name.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+field_reviews,field_name,TEXT,0,,Field name; see README for table semantics.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+field_reviews,review_status,TEXT,0,,"Field-level evidence status, not automatic legal approval.",Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+field_reviews,evidence_ids_json,TEXT,0,,JSON array referencing evidence_assertions.assertion_id.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+field_reviews,review_note,TEXT,0,,Review note; see README for table semantics.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+asset_classes,asset_class_id,TEXT,1,,Asset class id; see README for table semantics.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+asset_classes,name,TEXT,0,,Name; see README for table semantics.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+asset_classes,scope_note,TEXT,0,,Scope note; see README for table semantics.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+rule_asset_scopes,rule_asset_scope_id,TEXT,1,,Rule asset scope id; see README for table semantics.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+rule_asset_scopes,rule_id,TEXT,0,rule_versions.rule_id,Immutable identifier for one rule version; not merely a compliance name.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+rule_asset_scopes,asset_class_id,TEXT,0,asset_classes.asset_class_id,Asset class id; see README for table semantics.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+rule_asset_scopes,actor_role,TEXT,0,,Actor role; see README for table semantics.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+rule_asset_scopes,mapping_status,TEXT,0,,"Entity candidate filter only, not a complete applicability test.",Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+state_property_profiles,property_profile_id,TEXT,1,,Property profile id; see README for table semantics.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+state_property_profiles,jurisdiction_id,TEXT,0,jurisdictions.jurisdiction_id,Country/state/UT/local-body key; use jurisdiction hierarchy.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+state_property_profiles,record_terms,TEXT,0,,Record terms; see README for table semantics.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+state_property_profiles,terms_status,TEXT,0,,Terms status; see README for table semantics.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+state_property_profiles,ror_url,TEXT,0,,Ror url; see README for table semantics.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+state_property_profiles,registration_url,TEXT,0,,Registration url; see README for table semantics.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+state_property_profiles,mutation_url,TEXT,0,,Mutation url; see README for table semantics.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+state_property_profiles,land_revenue_url,TEXT,0,,Land revenue url; see README for table semantics.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+state_property_profiles,source_id,TEXT,0,sources.source_id,Source provenance; presence does not verify every field.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+state_property_profiles,service_source_id,TEXT,0,sources.source_id,Service source id; see README for table semantics.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+state_property_profiles,route_status,TEXT,0,,Route status; see README for table semantics.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+state_property_profiles,physical_steps_status,TEXT,0,,Physical steps status; see README for table semantics.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+state_property_profiles,restriction_review,TEXT,0,,Restriction review; see README for table semantics.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+state_property_profiles,title_note,TEXT,0,,Title note; see README for table semantics.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty
+state_property_profiles,checked_on,TEXT,0,,Research processing date; not a production approval timestamp.,Empty CSV cell imports as SQL NULL; primary keys cannot be empty

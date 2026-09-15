@@ -56,6 +56,82 @@ export const SIGNUP_SEO: PageSeo = {
   index: false,
 };
 
+export const CONTACT_SEO: PageSeo = {
+  title: 'Contact us — ComplianceEasily',
+  description:
+    'Contact ComplianceEasily for sales, onboarding, professional network enquiries, and support. WhatsApp, email, and phone — response within one business day.',
+  path: '/contact',
+  index: true,
+  keywords: [
+    'contact ComplianceEasily',
+    'compliance support India',
+    'GST filing help',
+    'talk to CA CS advocate',
+  ],
+};
+
+export const ABOUT_SEO: PageSeo = {
+  title: 'About us — ComplianceEasily',
+  description:
+    'Learn how ComplianceEasily combines AI monitoring with practising CAs, CSs and Advocates to keep Indian businesses compliant — WhatsApp-first, transparent, and accountable.',
+  path: '/about',
+  index: true,
+  keywords: [
+    'about ComplianceEasily',
+    'AI business compliance India',
+    'professional accountability',
+    'WhatsApp compliance reminders',
+  ],
+};
+
+export const TERMS_SEO: PageSeo = {
+  title: 'Terms & Conditions — ComplianceEasily',
+  description:
+    'Terms & Conditions for using ComplianceEasily — platform access, fees, client duties, liability limits and governing law for Indian business compliance services.',
+  path: '/terms',
+  index: true,
+};
+
+export const PRIVACY_SEO: PageSeo = {
+  title: 'Privacy Policy — ComplianceEasily',
+  description:
+    'Privacy Policy for ComplianceEasily — how we collect, use, store and share business and personal data for WhatsApp compliance workflows and professional filings.',
+  path: '/privacy',
+  index: true,
+};
+
+export const REFUND_SEO: PageSeo = {
+  title: 'Refund Policy — ComplianceEasily',
+  description:
+    'Refund Policy for ComplianceEasily subscriptions, professional fees and government pass-through challans.',
+  path: '/refund-policy',
+  index: true,
+};
+
+export const CONFIDENTIALITY_SEO: PageSeo = {
+  title: 'Confidentiality Policy — ComplianceEasily',
+  description:
+    'Confidentiality Policy for ComplianceEasily — how statutory, financial and business information is protected on the platform and with networked professionals.',
+  path: '/confidentiality',
+  index: true,
+};
+
+export const DISCLAIMER_SEO: PageSeo = {
+  title: 'Disclaimer — ComplianceEasily',
+  description:
+    'Disclaimer for ComplianceEasily — limitations on legal/tax advice, AI outputs, compliance applicability and third-party government portals.',
+  path: '/disclaimer',
+  index: true,
+};
+
+export const PROTECTION_GUARANTEE_SEO: PageSeo = {
+  title: 'Compliance Protection Guarantee Scheme — ComplianceEasily',
+  description:
+    'Compliance Protection Guarantee Scheme terms — eligible Managed-plan filings, client cut-offs, exclusions, claim process and reimbursement caps. Not an insurance policy.',
+  path: '/protection-guarantee',
+  index: true,
+};
+
 export function absoluteUrl(path: string): string {
   const base = SITE.url.replace(/\/$/, '');
   const p = path.startsWith('/') ? path : `/${path}`;
@@ -136,7 +212,7 @@ export function buildOrganizationJsonLd() {
     '@type': 'Organization',
     name: SITE.name,
     url: SITE.url,
-    logo: absoluteUrl('/favicon.svg'),
+    logo: absoluteUrl('/brand/logo.png'),
     description: LANDING_SEO.description,
     email: SITE.supportEmail,
     areaServed: {

@@ -65,7 +65,7 @@ export function AIAgentsSection({ onOpenChecker }: AIAgentsSectionProps) {
   ];
 
   return (
-    <Section tone="cream" withGrid>
+    <Section tone="espresso" withGrid withGlow>
       <Reveal>
         <SectionHeader
           className="mb-14"

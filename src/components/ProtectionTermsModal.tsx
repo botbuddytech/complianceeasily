@@ -1,5 +1,6 @@
-import { X, ShieldCheck, Info } from 'lucide-react';
+import { X, ShieldCheck, Info, ArrowRight } from 'lucide-react';
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
+import { Link } from '@/components/nav/NextNav';
 
 interface ProtectionTermsModalProps {
   isOpen: boolean;
@@ -113,8 +114,15 @@ export function ProtectionTermsModal({ isOpen, onClose }: ProtectionTermsModalPr
               </div>
             </div>
 
-            <div className="pt-4 border-t border-[#D5D0C6] flex items-center justify-between">
-              <span className="text-[11px] font-mono text-[#6B7580]">ComplianceEasily Operating Terms v2.4</span>
+            <div className="pt-4 border-t border-[#D5D0C6] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <Link
+                to="/protection-guarantee"
+                onClick={onClose}
+                className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#B89E6B] hover:underline"
+              >
+                Read full Protection Guarantee Scheme
+                <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
               <button
                 type="button"
                 onClick={onClose}

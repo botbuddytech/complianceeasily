@@ -37,9 +37,10 @@ export function CompliancePassportDemo({
             <div className="text-[11px] text-[#A8B0BA] truncate">Live demo · sample business</div>
           </div>
         </div>
-        <span className="inline-flex items-center gap-1.5 shrink-0 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-[#1E2630] text-[#B89E6B] border border-[#B89E6B]/35">
+        <span className="inline-flex items-center gap-1.5 shrink-0 px-2 py-1 sm:px-2.5 rounded-full text-[10px] sm:text-[11px] font-semibold bg-[#1E2630] text-[#B89E6B] border border-[#B89E6B]/35">
           <span className="w-1.5 h-1.5 rounded-full bg-[#B89E6B] animate-pulse" />
-          Watching deadlines
+          <span className="sm:hidden">Live</span>
+          <span className="hidden sm:inline">Watching deadlines</span>
         </span>
       </div>
 

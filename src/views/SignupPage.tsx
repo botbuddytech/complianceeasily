@@ -8,8 +8,7 @@ import { AuthShell } from '../components/auth/AuthShell';
 import { GoogleAuthButton } from '../components/auth/GoogleAuthButton';
 import { Seo } from '../components/Seo';
 import { SIGNUP_SEO } from '../lib/seo';
-import { createClient } from '@/lib/supabase/client';
-import { isSupabaseConfigured } from '@/lib/supabase/config';
+import { signUp } from '@/lib/actions/auth';
 
 export function SignupPage() {
   const router = useRouter();
@@ -22,9 +21,9 @@ export function SignupPage() {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const finish = () => {
+  const finish = (path = '/dashboard') => {
     setSuccess(true);
-    window.setTimeout(() => router.replace('/dashboard'), 600);
+    window.setTimeout(() => router.replace(path), 600);
   };
 
   const handleSubmit = async (e: FormEvent) => {
@@ -33,18 +32,12 @@ export function SignupPage() {
     setSubmitting(true);
     setError(null);
     try {
-      if (isSupabaseConfigured()) {
-        const supabase = createClient();
-        const { error: authError } = await supabase.auth.signUp({
-          email,
-          password,
-          options: { data: { full_name: fullName, role: 'client_user' } },
-        });
-        if (authError) throw authError;
-        finish();
-      } else {
-        window.setTimeout(() => finish(), 400);
+      const result = await signUp({ fullName, email, password });
+      if (!result.ok) {
+        setError(result.error);
+        return;
       }
+      finish(result.redirectTo);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Signup failed');
     } finally {
@@ -69,7 +62,7 @@ export function SignupPage() {
         </div>
       ) : (
         <div className="space-y-5">
-          <GoogleAuthButton label="Sign up with Google" onSuccess={finish} />
+          <GoogleAuthButton label="Sign up with Google" onSuccess={() => finish('/dashboard')} />
 
           <div className="flex items-center gap-3 text-[11px] font-mono font-bold uppercase tracking-wider text-[#6B7580]">
             <div className="h-px flex-1 bg-[#D5D0C6]" />
@@ -78,6 +71,9 @@ export function SignupPage() {
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
+            {error ? (
+              <p className="rounded-xl border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700">{error}</p>
+            ) : null}
             <div>
               <label htmlFor="signup-name" className="block text-xs font-semibold text-[#0E1217] mb-1.5 font-mono uppercase tracking-wider">
                 Full name
@@ -147,13 +143,13 @@ export function SignupPage() {
               />
               <span className="text-xs text-[#5C6570] leading-relaxed">
                 I agree to the{' '}
-                <button type="button" className="font-semibold text-[#B89E6B] hover:underline">
+                <Link to="/terms" className="font-semibold text-[#B89E6B] hover:underline">
                   Terms of Service
-                </button>{' '}
+                </Link>{' '}
                 and{' '}
-                <button type="button" className="font-semibold text-[#B89E6B] hover:underline">
+                <Link to="/privacy" className="font-semibold text-[#B89E6B] hover:underline">
                   Privacy Policy
-                </button>
+                </Link>
                 .
               </span>
             </label>

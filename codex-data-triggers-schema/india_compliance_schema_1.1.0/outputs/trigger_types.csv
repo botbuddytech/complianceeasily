@@ -1,0 +1,11 @@
+trigger_id,name,description
+date,Date Trigger,Calendar or period-based obligation
+turnover,Turnover Trigger,Crossing a monetary threshold using its statutory basis
+employee,Employee Trigger,"Headcount, wages, worker type or service period"
+location,Location Trigger,"New establishment, branch, state or local jurisdiction"
+industry,Industry Trigger,"Activity, product, capacity or sector"
+director_partner,Director / Partner Trigger,Corporate or partnership governance event
+licence,Licence Trigger,"Validity, renewal, annual fee or licence-condition event"
+notice,Notice Trigger,"Receipt of notice, order, demand or communication"
+law_change,Law Change Trigger,Commencement or amendment; reassess linked rules
+transaction,Transaction Trigger,"Specified transaction, payment, issue, transfer or incident"

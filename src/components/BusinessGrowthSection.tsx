@@ -93,7 +93,7 @@ export function BusinessGrowthSection({ onOpenChecker }: BusinessGrowthSectionPr
   ];
 
   return (
-    <Section tone="espresso" withGrid withGlow>
+    <Section tone="cream" withGrid>
       <div className="space-y-12 sm:space-y-20">
         <div className="space-y-8 sm:space-y-12">
           <Reveal>
@@ -159,7 +159,7 @@ export function BusinessGrowthSection({ onOpenChecker }: BusinessGrowthSectionPr
           </Reveal>
         </div>
 
-        <div className="pt-8 border-t border-[#1E2630] space-y-10">
+        <div className="pt-8 border-t border-[#D5D0C6] space-y-10">
           <Reveal>
             <SectionHeader
               eyebrow={

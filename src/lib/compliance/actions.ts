@@ -1,75 +1,128 @@
 'use server';
 
-import { createClient } from '@/lib/supabase/server';
-import { isSupabaseConfigured, createServiceClient } from '@/lib/supabase/admin';
+import { prisma, isPrismaConfigured } from '@/lib/prisma';
 import {
   evaluateTrigger,
   entityToProfile,
   nextDueDate,
   reminderDates,
+  canMaterialize,
 } from '@/lib/compliance/matcher';
-import type { ComplianceTrigger, EntityComplianceProfile } from '@/lib/compliance/types';
+import type {
+  ComplianceTrigger,
+  EntityComplianceProfile,
+  ApplicabilityResult,
+} from '@/lib/compliance/types';
 import rawDataset from '@/data/complianceTriggers.json';
 import type { ComplianceTriggerDataset } from '@/lib/compliance/types';
+import type { NotifyChannel, Prisma } from '@prisma/client';
 
 const localDataset = rawDataset as ComplianceTriggerDataset;
 
-function rowToTrigger(row: Record<string, unknown>): ComplianceTrigger {
+function mapTrigger(row: {
+  id: string;
+  name: string;
+  shortName: string;
+  departmentId: string;
+  categoryId: string;
+  triggerTypeId: string;
+  priority: ComplianceTrigger['priority'];
+  status: ComplianceTrigger['status'];
+  legalReference: string | null;
+  forms: string[];
+  description: string | null;
+  sourceUrl: string | null;
+  lastVerified: Date | null;
+  applicability: unknown;
+  schedule: unknown;
+  notification: unknown;
+  thresholds: unknown;
+  penaltySummary: unknown;
+  linkedServiceIds: string[];
+  protectionEligible: boolean;
+  professionalType: ComplianceTrigger['professionalType'];
+  ruleId?: string | null;
+  complianceId?: string | null;
+  jurisdictionId?: string | null;
+  obligationKind?: string | null;
+  scopeLevel?: string | null;
+  verificationStatus?: string | null;
+  deadlineText?: string | null;
+  scheduleSource?: string | null;
+  automationEnabled?: boolean | null;
+  processJson?: unknown;
+  documentsJson?: unknown;
+  conditionJson?: unknown;
+  evidenceJson?: unknown;
+}): ComplianceTrigger {
   return {
-    id: row.id as string,
-    name: row.name as string,
-    shortName: (row.short_name as string) ?? (row.shortName as string),
-    departmentId: (row.department_id as string) ?? (row.departmentId as string),
-    categoryId: (row.category_id as string) ?? (row.categoryId as string),
-    triggerType: (row.trigger_type as ComplianceTrigger['triggerType']) ?? (row.triggerType as ComplianceTrigger['triggerType']),
-    priority: row.priority as ComplianceTrigger['priority'],
-    status: row.status as ComplianceTrigger['status'],
-    legalReference: (row.legal_reference as string) ?? (row.legalReference as string) ?? '',
-    forms: (row.forms as string[]) ?? [],
-    description: (row.description as string) ?? '',
-    sourceUrl: (row.source_url as string) ?? (row.sourceUrl as string) ?? '',
-    lastVerified: (row.last_verified as string) ?? (row.lastVerified as string) ?? '',
+    id: row.id,
+    name: row.name,
+    shortName: row.shortName,
+    departmentId: row.departmentId,
+    categoryId: row.categoryId,
+    triggerType: row.triggerTypeId as ComplianceTrigger['triggerType'],
+    priority: row.priority,
+    status: row.status,
+    legalReference: row.legalReference ?? '',
+    forms: row.forms,
+    description: row.description ?? '',
+    sourceUrl: row.sourceUrl ?? '',
+    lastVerified: row.lastVerified ? row.lastVerified.toISOString().slice(0, 10) : '',
     applicability: row.applicability as ComplianceTrigger['applicability'],
     schedule: row.schedule as ComplianceTrigger['schedule'],
     notification: row.notification as ComplianceTrigger['notification'],
     thresholds: (row.thresholds as ComplianceTrigger['thresholds']) ?? [],
-    penaltySummary: (row.penalty_summary as ComplianceTrigger['penaltySummary']) ?? (row.penaltySummary as ComplianceTrigger['penaltySummary']),
-    linkedServiceIds: (row.linked_service_ids as string[]) ?? (row.linkedServiceIds as string[]) ?? [],
-    protectionEligible: (row.protection_eligible as boolean) ?? (row.protectionEligible as boolean) ?? false,
-    professionalType: (row.professional_type as ComplianceTrigger['professionalType']) ?? (row.professionalType as ComplianceTrigger['professionalType']),
+    penaltySummary: row.penaltySummary as ComplianceTrigger['penaltySummary'],
+    linkedServiceIds: row.linkedServiceIds,
+    protectionEligible: row.protectionEligible,
+    professionalType: row.professionalType,
+    ruleId: row.ruleId,
+    complianceId: row.complianceId,
+    jurisdictionId: row.jurisdictionId,
+    obligationKind: row.obligationKind ?? 'mandatory_if_applicable',
+    scopeLevel: row.scopeLevel ?? 'central',
+    verificationStatus: row.verificationStatus ?? 'imported_unverified',
+    deadlineText: row.deadlineText ?? '',
+    scheduleSource: (row.scheduleSource as ComplianceTrigger['scheduleSource']) ?? 'curated_unverified',
+    automationEnabled: Boolean(row.automationEnabled),
+    process: (row.processJson as ComplianceTrigger['process']) ?? null,
+    documents: (row.documentsJson as ComplianceTrigger['documents']) ?? [],
+    condition: (row.conditionJson as ComplianceTrigger['condition']) ?? null,
+    evidence: (row.evidenceJson as ComplianceTrigger['evidence']) ?? [],
   };
 }
 
 async function loadTriggers(): Promise<ComplianceTrigger[]> {
-  if (!isSupabaseConfigured()) {
+  if (!isPrismaConfigured()) {
     return localDataset.triggers;
   }
-  const supabase = await createClient();
-  const { data, error } = await supabase.from('compliance_triggers').select('*');
-  if (error || !data?.length) {
+  try {
+    const rows = await prisma.complianceTrigger.findMany();
+    if (!rows.length) return localDataset.triggers;
+    return rows.map(mapTrigger);
+  } catch {
     return localDataset.triggers;
   }
-  return data.map((r) => rowToTrigger(r as Record<string, unknown>));
 }
 
 async function loadEntityProfile(entityId: string): Promise<EntityComplianceProfile | null> {
-  if (!isSupabaseConfigured()) {
+  if (!isPrismaConfigured()) {
     const { ENTITIES } = await import('@/data/dashboard/entities');
     const entity = ENTITIES.find((e) => e.id === entityId);
     return entity ? entityToProfile(entity) : null;
   }
-  const supabase = await createClient();
-  const { data } = await supabase.from('entities').select('*').eq('id', entityId).maybeSingle();
+  const data = await prisma.entity.findUnique({ where: { id: entityId } });
   if (!data) return null;
   return entityToProfile({
     id: data.id,
     name: data.name,
-    entityType: data.entity_type,
+    entityType: data.entityType,
     state: data.state,
     industry: data.industry,
-    clientId: data.client_id,
+    clientId: data.clientId,
     employees: data.employees ?? undefined,
-    annualTurnoverInr: data.annual_turnover_inr ?? undefined,
+    annualTurnoverInr: data.annualTurnoverInr != null ? Number(data.annualTurnoverInr) : undefined,
     registrations: data.registrations ?? [],
     activities: data.activities ?? [],
     locations: data.locations,
@@ -81,53 +134,102 @@ export type EvaluateResult = {
   matches: Array<{
     trigger: ComplianceTrigger;
     reasons: string[];
+    result: ApplicabilityResult;
+    missingFacts: string[];
     nextDue: string | null;
     reminders: string[];
+  }>;
+  reviewQueue: Array<{
+    trigger: ComplianceTrigger;
+    reasons: string[];
+    result: ApplicabilityResult;
+    missingFacts: string[];
   }>;
 };
 
 export async function evaluateEntity(entityId: string): Promise<EvaluateResult> {
   const profile = await loadEntityProfile(entityId);
   if (!profile) {
-    return { entityId, matches: [] };
+    return { entityId, matches: [], reviewQueue: [] };
   }
 
   const triggers = await loadTriggers();
-  const matches = triggers
-    .map((trigger) => {
-      const { applies, reasons } = evaluateTrigger(profile, trigger);
-      if (!applies) return null;
-      const due = nextDueDate(trigger);
-      return {
-        trigger,
-        reasons,
-        nextDue: due ? due.toISOString().slice(0, 10) : null,
-        reminders: reminderDates(trigger, due),
-      };
-    })
-    .filter((x): x is NonNullable<typeof x> => x != null);
+  const matches: EvaluateResult['matches'] = [];
+  const reviewQueue: EvaluateResult['reviewQueue'] = [];
 
-  if (isSupabaseConfigured()) {
-    const supabase = createServiceClient();
+  for (const trigger of triggers) {
+    const { applies, reasons, result, missingFacts } = evaluateTrigger(profile, trigger);
+    if (result === 'needs_review' || result === 'unknown') {
+      reviewQueue.push({ trigger, reasons, result, missingFacts });
+    }
+    if (!applies) continue;
+    const due = nextDueDate(trigger);
+    matches.push({
+      trigger,
+      reasons,
+      result,
+      missingFacts,
+      nextDue: due ? due.toISOString().slice(0, 10) : null,
+      reminders: reminderDates(trigger, due),
+    });
+  }
+
+  if (isPrismaConfigured()) {
     const rows = triggers.map((trigger) => {
       const hit = matches.find((m) => m.trigger.id === trigger.id);
+      const evaluated = hit
+        ? {
+            applies: true,
+            reasons: hit.reasons,
+            result: hit.result,
+            missingFacts: hit.missingFacts,
+          }
+        : evaluateTrigger(profile, trigger);
       return {
-        entity_id: entityId,
-        trigger_id: trigger.id,
+        entityId,
+        triggerId: trigger.id,
         applies: Boolean(hit),
-        reasons: hit?.reasons ?? evaluateTrigger(profile, trigger).reasons,
-        evaluated_at: new Date().toISOString(),
+        reasons: evaluated.reasons,
+        result: evaluated.result,
+        missingFacts: evaluated.missingFacts,
+        evaluatedAt: new Date(),
       };
     });
-    // Upsert in chunks
+
     for (let i = 0; i < rows.length; i += 100) {
-      await supabase.from('entity_trigger_matches').upsert(rows.slice(i, i + 100), {
-        onConflict: 'entity_id,trigger_id',
-      });
+      const chunk = rows.slice(i, i + 100);
+      await prisma.$transaction(
+        chunk.map((row) =>
+          prisma.entityTriggerMatch.upsert({
+            where: {
+              entityId_triggerId: {
+                entityId: row.entityId,
+                triggerId: row.triggerId,
+              },
+            },
+            create: {
+              entityId: row.entityId,
+              triggerId: row.triggerId,
+              applies: row.applies,
+              reasons: row.reasons as Prisma.InputJsonValue,
+              evaluatedAt: row.evaluatedAt,
+              result: row.result,
+              missingFacts: row.missingFacts,
+            } as unknown as Prisma.EntityTriggerMatchCreateInput,
+            update: {
+              applies: row.applies,
+              reasons: row.reasons as Prisma.InputJsonValue,
+              evaluatedAt: row.evaluatedAt,
+              result: row.result,
+              missingFacts: row.missingFacts,
+            } as unknown as Prisma.EntityTriggerMatchUpdateInput,
+          }),
+        ),
+      );
     }
   }
 
-  return { entityId, matches };
+  return { entityId, matches, reviewQueue };
 }
 
 function periodLabelFor(trigger: ComplianceTrigger, due: Date): string {
@@ -153,73 +255,108 @@ function periodLabelFor(trigger: ComplianceTrigger, due: Date): string {
 export async function materializeEntity(entityId: string): Promise<{
   filingsUpserted: number;
   remindersUpserted: number;
+  skippedForReview: number;
 }> {
   const evaluated = await evaluateEntity(entityId);
-  if (!isSupabaseConfigured()) {
+  const materializable = evaluated.matches.filter(
+    (m) => m.nextDue && canMaterialize(m.trigger),
+  );
+  const skippedForReview =
+    evaluated.matches.filter((m) => m.nextDue && !canMaterialize(m.trigger)).length +
+    evaluated.reviewQueue.length;
+
+  if (!isPrismaConfigured()) {
     return {
-      filingsUpserted: evaluated.matches.filter((m) => m.nextDue).length,
+      filingsUpserted: materializable.length,
       remindersUpserted: 0,
+      skippedForReview,
     };
   }
 
-  const supabase = createServiceClient();
-  const { data: entity } = await supabase
-    .from('entities')
-    .select('id, workspace_id, name')
-    .eq('id', entityId)
-    .maybeSingle();
+  const entity = await prisma.entity.findUnique({
+    where: { id: entityId },
+    select: { id: true, workspaceId: true, name: true },
+  });
   if (!entity) {
-    return { filingsUpserted: 0, remindersUpserted: 0 };
+    return { filingsUpserted: 0, remindersUpserted: 0, skippedForReview };
   }
 
   let filingsUpserted = 0;
   let remindersUpserted = 0;
 
-  for (const match of evaluated.matches) {
+  for (const match of materializable) {
     if (!match.nextDue) continue;
     const due = new Date(match.nextDue + 'T12:00:00');
     const period = periodLabelFor(match.trigger, due);
-    const filingId = `fil-${entityId}-${match.trigger.id}-${period}`.replace(/\s+/g, '-').toLowerCase();
+    const filingId = `fil-${entityId}-${match.trigger.id}-${period}`
+      .replace(/\s+/g, '-')
+      .toLowerCase();
 
-    const { error } = await supabase.from('filings').upsert(
-      {
-        id: filingId,
-        entity_id: entityId,
-        workspace_id: entity.workspace_id,
-        trigger_id: match.trigger.id,
-        name: match.trigger.name,
-        short_name: match.trigger.shortName,
-        department: match.trigger.departmentId,
-        category: match.trigger.categoryId,
-        due_date: match.nextDue,
-        period_label: period,
-        status: 'upcoming',
-        protection_eligible: match.trigger.protectionEligible,
-      },
-      { onConflict: 'id' },
-    );
-    if (!error) {
+    try {
+      await prisma.filing.upsert({
+        where: { id: filingId },
+        create: {
+          id: filingId,
+          entityId,
+          workspaceId: entity.workspaceId,
+          triggerId: match.trigger.id,
+          name: match.trigger.name,
+          shortName: match.trigger.shortName,
+          department: match.trigger.departmentId,
+          category: match.trigger.categoryId,
+          dueDate: new Date(match.nextDue),
+          periodLabel: period,
+          status: 'upcoming',
+          protectionEligible: match.trigger.protectionEligible,
+          notes:
+            match.trigger.scheduleSource === 'curated_unverified'
+              ? 'Schedule source: curated_unverified — re-verify deadline before filing.'
+              : undefined,
+        },
+        update: {
+          name: match.trigger.name,
+          shortName: match.trigger.shortName,
+          department: match.trigger.departmentId,
+          category: match.trigger.categoryId,
+          dueDate: new Date(match.nextDue),
+          periodLabel: period,
+          protectionEligible: match.trigger.protectionEligible,
+        },
+      });
       filingsUpserted += 1;
-      const channels = match.trigger.notification.channels ?? ['in_app'];
+
+      const channels = (match.trigger.notification.channels ?? ['in_app']) as NotifyChannel[];
       for (const lead of match.trigger.notification.leadDays ?? []) {
         const fire = new Date(due);
         fire.setDate(fire.getDate() - lead);
         for (const channel of channels) {
-          const { error: remErr } = await supabase.from('reminders').upsert(
-            {
-              filing_id: filingId,
+          await prisma.reminder.upsert({
+            where: {
+              filingId_channel_leadDays: {
+                filingId,
+                channel,
+                leadDays: lead,
+              },
+            },
+            create: {
+              filingId,
               channel,
-              lead_days: lead,
-              fire_at: fire.toISOString(),
+              leadDays: lead,
+              fireAt: fire,
               status: 'pending',
             },
-            { onConflict: 'filing_id,channel,lead_days' },
-          );
-          if (!remErr) remindersUpserted += 1;
+            update: {
+              fireAt: fire,
+              status: 'pending',
+            },
+          });
+          remindersUpserted += 1;
         }
       }
+    } catch {
+      // skip failed filing upsert
     }
   }
 
-  return { filingsUpserted, remindersUpserted };
+  return { filingsUpserted, remindersUpserted, skippedForReview };
 }

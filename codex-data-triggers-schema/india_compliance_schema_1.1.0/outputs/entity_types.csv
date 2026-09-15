@@ -1,0 +1,10 @@
+entity_type_id,name,ui_group
+sole_proprietor,Sole proprietorship,Sole Proprietorship
+partnership,Partnership firm,Partnership Firm
+llp,Limited liability partnership,Limited Liability Partnership (LLP)
+private_company,Private limited company,Private Limited Company
+public_company,Public limited company,Public Limited Company
+trust,Trust,NGO
+society,Society,NGO
+section8,Section 8 company,NGO
+other,Other legal form / specialised regulated entity,Other

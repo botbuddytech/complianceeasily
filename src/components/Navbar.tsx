@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { Link } from '@/components/nav/NextNav';
+import { BrandMark } from '@/components/BrandMark';
 import {
   Menu,
   X,
@@ -42,6 +43,11 @@ const MORE_LINKS = [
   { href: '#for-professionals', label: 'For CAs, CSs & advocates' },
   { href: '#faq', label: 'FAQs' },
   { href: '#whatsapp-radar', label: 'WhatsApp radar' },
+  { href: '/about', label: 'About us' },
+  { href: '/contact', label: 'Contact us' },
+  { href: '/terms', label: 'Terms & Conditions' },
+  { href: '/privacy', label: 'Privacy Policy' },
+  { href: '/protection-guarantee', label: 'Protection Guarantee' },
 ] as const;
 
 const MOBILE_LINKS = [
@@ -55,6 +61,14 @@ const MOBILE_LINKS = [
   { href: '#pricing', label: 'Transparent pricing', group: 'Product' },
   { href: '#for-professionals', label: 'For CAs, CSs & lawyers', group: 'Network' },
   { href: '#faq', label: 'FAQs', group: 'Network' },
+  { href: '/about', label: 'About us', group: 'Network' },
+  { href: '/contact', label: 'Contact us', group: 'Network' },
+  { href: '/terms', label: 'Terms & Conditions', group: 'Legal' },
+  { href: '/privacy', label: 'Privacy Policy', group: 'Legal' },
+  { href: '/refund-policy', label: 'Refund Policy', group: 'Legal' },
+  { href: '/confidentiality', label: 'Confidentiality', group: 'Legal' },
+  { href: '/disclaimer', label: 'Disclaimer', group: 'Legal' },
+  { href: '/protection-guarantee', label: 'Protection Guarantee', group: 'Legal' },
 ] as const;
 
 const SUITE = [
@@ -162,30 +176,22 @@ export function Navbar({ onOpenChecker }: NavbarProps) {
               isScrolled ? 'h-14' : 'h-16 sm:h-[4.25rem]'
             }`}
           >
-            {/* Brand — keep the full wordmark visible; never mid-word truncate */}
+            {/* Brand — full wordmark, never truncate mid-name */}
             <Link
               to="/"
               aria-label="ComplianceEasily home"
-              className="flex items-center gap-2 sm:gap-2.5 group shrink min-w-0 max-w-[55%] sm:max-w-none"
+              className="flex items-center gap-2 sm:gap-2.5 group shrink-0"
             >
-              <div className="relative shrink-0">
-                <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-br from-[#B89E6B] to-[#B89E6B] flex items-center justify-center text-white font-display font-semibold text-sm shadow-[0_4px_12px_-4px_rgba(213,170,109,0.5)] group-hover:scale-105 transition-transform duration-200">
-                  CE
-                </div>
-                <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-[#B89E6B] border-2 border-[#0E1217]" />
+              <div className="relative shrink-0 group-hover:scale-105 transition-transform duration-200">
+                <BrandMark size="sm" priority />
               </div>
-              <div className="flex flex-col min-w-0">
-                <div className="flex items-center gap-1.5 min-w-0">
-                  <span className="font-display text-[14px] sm:text-xl font-semibold tracking-tight text-white truncate">
-                    Compliance<span className="text-[#B89E6B]">Easily</span>
-                  </span>
-                  <span className="hidden sm:inline-flex px-1.5 py-0.5 text-[9px] font-semibold bg-white/8 text-[#B89E6B] border border-[#B89E6B]/35 rounded-full tracking-wider uppercase shrink-0">
-                    India
-                  </span>
-                </div>
+              <div className="flex flex-col">
+                <span className="font-display text-[15px] sm:text-xl font-semibold tracking-tight text-white whitespace-nowrap leading-none">
+                  Compliance<span className="text-[#B89E6B]">Easily</span>
+                </span>
                 <span
                   className={`hidden sm:block text-[11px] text-[#A8B0BA] tracking-tight whitespace-nowrap transition-all duration-300 overflow-hidden ${
-                    isScrolled ? 'max-h-0 opacity-0' : 'max-h-5 opacity-100'
+                    isScrolled ? 'max-h-0 opacity-0 mt-0' : 'max-h-5 opacity-100 mt-1'
                   }`}
                 >
                   AI speed · Professional accountability
@@ -246,15 +252,25 @@ export function Navbar({ onOpenChecker }: NavbarProps) {
                         className="absolute left-1/2 -translate-x-1/2 top-full pt-2 z-50"
                       >
                         <div className="w-56 card-static p-1.5 shadow-lg">
-                          {MORE_LINKS.map((item) => (
-                            <a
-                              key={item.href}
-                              href={item.href}
-                              className="block px-3 py-2 text-sm text-[#0E1217] rounded-lg hover:bg-[#EBE8E2] hover:text-[#B89E6B] transition-colors"
-                            >
-                              {item.label}
-                            </a>
-                          ))}
+                          {MORE_LINKS.map((item) =>
+                            item.href.startsWith('/') ? (
+                              <Link
+                                key={item.href}
+                                to={item.href}
+                                className="block px-3 py-2 text-sm text-[#0E1217] rounded-lg hover:bg-[#EBE8E2] hover:text-[#B89E6B] transition-colors"
+                              >
+                                {item.label}
+                              </Link>
+                            ) : (
+                              <a
+                                key={item.href}
+                                href={item.href}
+                                className="block px-3 py-2 text-sm text-[#0E1217] rounded-lg hover:bg-[#EBE8E2] hover:text-[#B89E6B] transition-colors"
+                              >
+                                {item.label}
+                              </a>
+                            )
+                          )}
                         </div>
                       </motion.div>
                     )}
@@ -461,16 +477,47 @@ export function Navbar({ onOpenChecker }: NavbarProps) {
                       Network
                     </div>
                     <div className="space-y-0.5">
-                      {MOBILE_LINKS.filter((l) => l.group === 'Network').map((link) => (
-                        <a
+                      {MOBILE_LINKS.filter((l) => l.group === 'Network').map((link) =>
+                        link.href.startsWith('/') ? (
+                          <Link
+                            key={link.href}
+                            to={link.href}
+                            onClick={closeMobile}
+                            className="flex items-center justify-between px-3 py-2.5 text-[15px] font-medium text-[#0E1217] rounded-xl hover:bg-[#EBE8E2]"
+                          >
+                            {link.label}
+                            <ArrowRight className="w-3.5 h-3.5 text-[#9AA3AD]" />
+                          </Link>
+                        ) : (
+                          <a
+                            key={link.href}
+                            href={link.href}
+                            onClick={closeMobile}
+                            className="flex items-center justify-between px-3 py-2.5 text-[15px] font-medium text-[#0E1217] rounded-xl hover:bg-[#EBE8E2]"
+                          >
+                            {link.label}
+                            <ArrowRight className="w-3.5 h-3.5 text-[#9AA3AD]" />
+                          </a>
+                        )
+                      )}
+                    </div>
+                  </div>
+
+                  <div>
+                    <div className="px-2 mb-1.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-[#6B7580]">
+                      Legal
+                    </div>
+                    <div className="space-y-0.5">
+                      {MOBILE_LINKS.filter((l) => l.group === 'Legal').map((link) => (
+                        <Link
                           key={link.href}
-                          href={link.href}
+                          to={link.href}
                           onClick={closeMobile}
                           className="flex items-center justify-between px-3 py-2.5 text-[15px] font-medium text-[#0E1217] rounded-xl hover:bg-[#EBE8E2]"
                         >
                           {link.label}
                           <ArrowRight className="w-3.5 h-3.5 text-[#9AA3AD]" />
-                        </a>
+                        </Link>
                       ))}
                     </div>
                   </div>

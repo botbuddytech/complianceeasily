@@ -28,7 +28,7 @@ export function FAQSection({ onOpenChecker }: FAQSectionProps) {
   };
 
   return (
-    <Section tone="cream" id="faq">
+    <Section tone="espresso" withGrid withGlow id="faq">
       <div className="max-w-4xl mx-auto space-y-12">
         <Reveal>
           <SectionHeader

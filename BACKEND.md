@@ -1,46 +1,53 @@
-# Backend setup (Next.js + Supabase)
+# Backend setup (Next.js + Prisma + custom users auth)
 
 ## Prerequisites
 
 - Node 20+
-- A Supabase project (https://supabase.com)
+- Postgres (Supabase project as host is fine — **Auth is not used**)
+
+## Architecture
+
+| Layer | Role |
+|-------|------|
+| **`users` table** | Email + password hash + role (app-managed) |
+| **Session cookie** | HTTP-only JWT (`ce_session`) signed with `SESSION_SECRET` |
+| **Prisma** | Typed server-side Postgres access (`DATABASE_URL`) |
+| **SQL migrations** | Schema + optional RLS (`supabase/migrations/`) |
+| **Supabase Storage** | Optional later for document files |
+
+Prisma bypasses RLS — keep all Prisma usage in Server Actions / Route Handlers. Authorization uses `getCurrentUser()` / middleware role checks.
 
 ## 1. Install & env
 
 ```bash
 npm install
-cp .env.example .env.local
+cp .env.example .env
 ```
 
-Fill in:
+Required:
 
-- `NEXT_PUBLIC_SUPABASE_URL`
-- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
-- `SUPABASE_SERVICE_ROLE_KEY`
+- `DATABASE_URL` — pooler (port **6543**, `?pgbouncer=true`)
+- `DIRECT_URL` — direct (port **5432**)
+- `SESSION_SECRET` — ≥32 random characters (`openssl rand -hex 32`)
 
-Without these, the UI still runs on mock data (`isSupabaseConfigured()` returns false).
+Optional:
 
-## 2. Apply migrations
+- `SEED_ADMIN_EMAIL` / `SEED_ADMIN_PASSWORD` — create a staff user on seed
+- `CRON_SECRET` — protect `/api/cron/nightly`
 
-In the Supabase SQL editor (or CLI), run in order:
+## 2. Apply schema
 
-1. `supabase/migrations/20260310000001_spine.sql`
-2. `supabase/migrations/20260310000002_triggers.sql`
-3. `supabase/migrations/20260310000003_documents.sql`
-4. `supabase/migrations/20260310000004_books.sql`
-5. `supabase/migrations/20260310000005_investments.sql`
-6. `supabase/migrations/20260310000006_billing_admin.sql`
-7. `supabase/migrations/20260310000007_rls.sql`
-
-Or with CLI:
+Preferred: apply SQL migrations in order (`01` … `08_users_auth.sql`), or:
 
 ```bash
-npx supabase db push
+npx prisma db push
+node scripts/run-sql.js supabase/migrations/20260310000008_users_auth.sql
 ```
 
-## 3. Seed the trigger catalogue
+## 3. Generate client & seed
 
 ```bash
+npm run prisma:generate
 npm run seed:triggers
 ```
 
@@ -48,23 +55,30 @@ npm run seed:triggers
 
 ```bash
 npm run dev        # http://localhost:3000
-npm test           # compliance engine + books render unit tests
+npm test
 ```
 
-## Key APIs
+Sign up at `/signup` (creates `users` + default workspace) or log in at `/login`.
 
-- `POST /api/compliance/evaluate` — `{ entityId, mode?: "evaluate" | "materialize" }`
-- Server actions in `src/lib/actions/domain.ts` (entities, filings assign, documents, claims, notifications, staff invite, catalogue)
-- Pure matcher: `src/lib/compliance/matcher.ts`
-- Books render: `src/lib/books/render.ts`
-- Notification stubs: `src/lib/notifications/providers.ts`
+## Auth APIs
+
+- Server actions: `src/lib/actions/auth.ts` — `signUp`, `signIn`, `signOut`
+- Session helpers: `src/lib/auth/session.ts`, `src/lib/auth/session-token.ts`
+- Current user: `src/lib/auth/current-user.ts`
+- Middleware role gates: `src/middleware.ts`
+
+## Other APIs
+
+- `POST /api/compliance/evaluate`
+- Domain actions: `src/lib/actions/domain.ts`
+- Matcher: `src/lib/compliance/matcher.ts`
 
 ## Route map
 
-| Area | Path |
-|------|------|
-| Marketing | `/` |
-| Auth | `/login`, `/signup` |
-| Client | `/dashboard/*` |
-| Admin | `/admin/*` |
-| Professional | `/professional/*` |
+| Area | Path | Role |
+|------|------|------|
+| Marketing | `/` | public |
+| Auth | `/login`, `/signup` | public |
+| Client | `/dashboard/*` | `client_user` (staff also) |
+| Admin | `/admin/*` | `staff` |
+| Professional | `/professional/*` | `professional` (staff also) |

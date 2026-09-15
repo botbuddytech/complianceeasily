@@ -93,7 +93,7 @@ export function ComplianceCatalogue({ onOpenChecker }: ComplianceCatalogueProps)
   );
 
   return (
-    <Section tone="cream" id="services-catalogue" className="space-y-12">
+    <Section tone="espresso" withGrid withGlow id="services-catalogue" className="space-y-12">
       <Reveal>
         <SectionHeader
           eyebrow={

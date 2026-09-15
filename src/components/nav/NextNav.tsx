@@ -19,7 +19,7 @@ type LinkProps = {
 export function Link({ to, href, children, ...rest }: LinkProps) {
   const target = href ?? to ?? '/';
   return (
-    <NextLink href={target} {...rest}>
+    <NextLink href={target} prefetch {...rest}>
       {children}
     </NextLink>
   );
@@ -42,7 +42,7 @@ export function NavLink({ to, href, className, end, children, ...rest }: NavLink
     typeof className === 'function' ? className({ isActive }) : className;
 
   return (
-    <NextLink href={target} className={resolvedClass} {...rest}>
+    <NextLink href={target} prefetch className={resolvedClass} {...rest}>
       {children}
     </NextLink>
   );

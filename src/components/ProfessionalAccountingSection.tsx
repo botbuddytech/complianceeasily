@@ -53,7 +53,7 @@ export function ProfessionalAccountingSection({
   onOpenChecker,
 }: ProfessionalAccountingSectionProps) {
   return (
-    <Section tone="cream" id="professional-accounting">
+    <Section tone="espresso" withGrid withGlow id="professional-accounting">
       <div className="space-y-12">
         <Reveal>
           <SectionHeader

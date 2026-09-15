@@ -41,7 +41,7 @@ export function ProfessionalNetworkSection({
   ];
 
   return (
-    <Section tone="cream" withGrid id="for-professionals">
+    <Section tone="espresso" withGrid withGlow id="for-professionals">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
         <Reveal className="lg:col-span-6 space-y-6">
           <SectionHeader

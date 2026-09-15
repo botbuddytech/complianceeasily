@@ -94,6 +94,16 @@ async function main() {
     linked_service_ids: t.linkedServiceIds,
     protection_eligible: t.protectionEligible,
     professional_type: t.professionalType,
+    obligation_kind: t.obligationKind ?? 'mandatory_if_applicable',
+    scope_level: t.scopeLevel ?? 'central',
+    verification_status: t.verificationStatus ?? 'imported_unverified',
+    deadline_text: t.deadlineText ?? '',
+    schedule_source: t.scheduleSource ?? 'curated_unverified',
+    automation_enabled: Boolean(t.automationEnabled),
+    process_json: t.process ?? {},
+    documents_json: t.documents ?? [],
+    condition_json: t.condition ?? null,
+    evidence_json: t.evidence ?? [],
   }));
 
   // Upsert in chunks

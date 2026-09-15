@@ -1,9 +1,16 @@
 import type {
   ComplianceTrigger,
   ComplianceTriggerDataset,
+  ConditionExpression,
+  ConditionNode,
   EntityComplianceProfile,
   TriggerMatchResult,
   TriggerSchedule,
+  ApplicabilityResult,
+} from './types';
+import {
+  ENTITY_TYPE_TO_ID,
+  FILING_ELIGIBLE_OBLIGATION_KINDS,
 } from './types';
 
 function includesAll(haystack: string[] | undefined, needles: string[]): boolean {
@@ -39,73 +46,246 @@ function stateMatches(profileState: string, rule: string[] | 'all'): boolean {
   return rule.some((s) => s.toLowerCase() === profileState.toLowerCase());
 }
 
+function resolveEntityTypeId(profile: EntityComplianceProfile): string | undefined {
+  if (profile.entityTypeId) return profile.entityTypeId;
+  return ENTITY_TYPE_TO_ID[profile.entityType];
+}
+
+function getFact(
+  profile: EntityComplianceProfile,
+  field: string,
+): string | number | boolean | null | undefined {
+  if (profile.facts && field in profile.facts) {
+    return profile.facts[field];
+  }
+  // Map common flat profile fields onto codex fact ids
+  switch (field) {
+    case 'entity_type':
+      return resolveEntityTypeId(profile) ?? profile.entityType;
+    case 'state_ut':
+      return profile.state;
+    case 'employee_count':
+    case 'worker_count':
+      return profile.employees;
+    case 'pan_aggregate_turnover_inr':
+    case 'business_turnover_inr':
+    case 'company_turnover_inr':
+      return profile.annualTurnoverInr;
+    case 'gst_registered':
+      return includesAny(profile.registrations, ['GSTIN', 'GST']);
+    default:
+      return undefined;
+  }
+}
+
+type EvalOutcome = 'true' | 'false' | 'unknown';
+
+function compare(
+  left: string | number | boolean,
+  op: string,
+  right: string | number | boolean,
+): boolean {
+  if (op === 'eq') return left === right;
+  const ln = Number(left);
+  const rn = Number(right);
+  if (Number.isNaN(ln) || Number.isNaN(rn)) return false;
+  switch (op) {
+    case 'gt':
+      return ln > rn;
+    case 'gte':
+      return ln >= rn;
+    case 'lt':
+      return ln < rn;
+    case 'lte':
+      return ln <= rn;
+    default:
+      return false;
+  }
+}
+
+/**
+ * Evaluate a codex all/any condition expression.
+ * Missing facts yield `unknown` — never silently `false`.
+ */
+export function evaluateConditionExpression(
+  expression: ConditionExpression | ConditionNode | null | undefined,
+  profile: EntityComplianceProfile,
+  missingFacts: string[],
+): EvalOutcome {
+  if (!expression || typeof expression !== 'object') return 'true';
+
+  if ('field' in expression && expression.field) {
+    const value = getFact(profile, expression.field);
+    if (value === undefined || value === null) {
+      if (!missingFacts.includes(expression.field)) missingFacts.push(expression.field);
+      return 'unknown';
+    }
+    return compare(value, expression.op, expression.value) ? 'true' : 'false';
+  }
+
+  const expr = expression as ConditionExpression;
+  if (expr.all?.length) {
+    let sawUnknown = false;
+    for (const node of expr.all) {
+      const r = evaluateConditionExpression(node, profile, missingFacts);
+      if (r === 'false') return 'false';
+      if (r === 'unknown') sawUnknown = true;
+    }
+    return sawUnknown ? 'unknown' : 'true';
+  }
+  if (expr.any?.length) {
+    let sawUnknown = false;
+    let sawTrue = false;
+    for (const node of expr.any) {
+      const r = evaluateConditionExpression(node, profile, missingFacts);
+      if (r === 'true') sawTrue = true;
+      if (r === 'unknown') sawUnknown = true;
+    }
+    if (sawTrue) return 'true';
+    if (sawUnknown) return 'unknown';
+    return 'false';
+  }
+  return 'true';
+}
+
+function assetScopeMatches(
+  trigger: ComplianceTrigger,
+  profile: EntityComplianceProfile,
+): EvalOutcome {
+  const scopes = trigger.assetScopes;
+  if (!scopes?.length) return 'true';
+  const holdings = profile.assetHoldings;
+  if (!holdings?.length) return 'unknown';
+  const ok = scopes.some((s) =>
+    holdings.some(
+      (h) => h.assetClassId === s.assetClassId && h.actorRole === s.actorRole,
+    ),
+  );
+  return ok ? 'true' : 'false';
+}
+
 /**
  * Evaluate whether a trigger applies to an entity profile.
- * Returns boolean + human-readable reasons (both match and miss reasons).
+ * Returns tri-state result + human-readable reasons + missing facts.
  */
 export function evaluateTrigger(
   profile: EntityComplianceProfile,
   trigger: ComplianceTrigger,
 ): TriggerMatchResult {
   const reasons: string[] = [];
+  const missingFacts: string[] = [];
   const a = trigger.applicability;
-  let applies = true;
+  let result: ApplicabilityResult = 'applicable';
 
-  if (a.entityTypes?.length && !a.entityTypes.includes(profile.entityType)) {
-    applies = false;
-    reasons.push(`Entity type ${profile.entityType} not in [${a.entityTypes.join(', ')}]`);
+  const fail = (reason: string) => {
+    result = 'not_applicable';
+    reasons.push(reason);
+  };
+  const unknown = (reason: string) => {
+    if (result === 'applicable') result = 'unknown';
+    reasons.push(reason);
+  };
+  const needsReview = (reason: string) => {
+    if (result === 'applicable' || result === 'unknown') result = 'needs_review';
+    reasons.push(reason);
+  };
+
+  // Draft / non-automation rules still evaluate applicability for UI mapping,
+  // but draft status marks needs_review rather than hard not_applicable.
+  if (trigger.status === 'draft') {
+    needsReview('Trigger is in draft status — requires review before automation');
+  }
+
+  const entityIds = a.entityTypeIds;
+  if (entityIds?.length) {
+    const id = resolveEntityTypeId(profile);
+    if (!id) {
+      unknown(`Entity type "${profile.entityType}" has no catalogue mapping`);
+    } else if (!entityIds.includes(id)) {
+      fail(`Entity type ${profile.entityType} (${id}) not in [${entityIds.join(', ')}]`);
+    } else {
+      reasons.push(`Entity type ${profile.entityType} matches`);
+    }
+  } else if (a.entityTypes?.length && !a.entityTypes.includes(profile.entityType)) {
+    // Also allow reverse match via catalogue ids
+    const id = resolveEntityTypeId(profile);
+    const displays = id
+      ? a.entityTypes.some((et) => ENTITY_TYPE_TO_ID[et] === id || et === profile.entityType)
+      : false;
+    if (!displays && !a.entityTypes.includes(profile.entityType)) {
+      fail(`Entity type ${profile.entityType} not in [${a.entityTypes.join(', ')}]`);
+    } else {
+      reasons.push(`Entity type ${profile.entityType} matches`);
+    }
   } else if (a.entityTypes?.length) {
     reasons.push(`Entity type ${profile.entityType} matches`);
   }
 
   if (a.minTurnoverInr != null) {
-    const t = profile.annualTurnoverInr ?? 0;
-    if (t < a.minTurnoverInr) {
-      applies = false;
-      reasons.push(`Turnover ₹${t.toLocaleString('en-IN')} below min ₹${a.minTurnoverInr.toLocaleString('en-IN')}`);
+    if (profile.annualTurnoverInr == null && profile.facts?.pan_aggregate_turnover_inr == null) {
+      unknown('Turnover fact missing (pan_aggregate_turnover_inr / annualTurnoverInr)');
+      if (!missingFacts.includes('pan_aggregate_turnover_inr')) {
+        missingFacts.push('pan_aggregate_turnover_inr');
+      }
     } else {
-      reasons.push(`Turnover meets minimum ₹${a.minTurnoverInr.toLocaleString('en-IN')}`);
+      const t =
+        profile.annualTurnoverInr ??
+        Number(profile.facts?.pan_aggregate_turnover_inr ?? 0);
+      if (t < a.minTurnoverInr) {
+        fail(`Turnover ₹${t.toLocaleString('en-IN')} below min ₹${a.minTurnoverInr.toLocaleString('en-IN')}`);
+      } else {
+        reasons.push(`Turnover meets minimum ₹${a.minTurnoverInr.toLocaleString('en-IN')}`);
+      }
     }
   }
 
   if (a.maxTurnoverInr != null) {
-    const t = profile.annualTurnoverInr ?? 0;
-    if (t > a.maxTurnoverInr) {
-      applies = false;
-      reasons.push(`Turnover ₹${t.toLocaleString('en-IN')} above max ₹${a.maxTurnoverInr.toLocaleString('en-IN')}`);
+    if (profile.annualTurnoverInr == null && profile.facts?.pan_aggregate_turnover_inr == null) {
+      unknown('Turnover fact missing for max check');
+      if (!missingFacts.includes('pan_aggregate_turnover_inr')) {
+        missingFacts.push('pan_aggregate_turnover_inr');
+      }
     } else {
-      reasons.push(`Turnover within max ₹${a.maxTurnoverInr.toLocaleString('en-IN')}`);
+      const t =
+        profile.annualTurnoverInr ??
+        Number(profile.facts?.pan_aggregate_turnover_inr ?? 0);
+      if (t > a.maxTurnoverInr) {
+        fail(`Turnover ₹${t.toLocaleString('en-IN')} above max ₹${a.maxTurnoverInr.toLocaleString('en-IN')}`);
+      } else {
+        reasons.push(`Turnover within max ₹${a.maxTurnoverInr.toLocaleString('en-IN')}`);
+      }
     }
   }
 
   if (a.minEmployees != null) {
-    const e = profile.employees ?? 0;
-    if (e < a.minEmployees) {
-      applies = false;
-      reasons.push(`Employees ${e} below minimum ${a.minEmployees}`);
+    if (profile.employees == null && profile.facts?.employee_count == null) {
+      unknown('Employee count fact missing');
+      if (!missingFacts.includes('employee_count')) missingFacts.push('employee_count');
     } else {
-      reasons.push(`Headcount ${e} ≥ ${a.minEmployees}`);
+      const e = profile.employees ?? Number(profile.facts?.employee_count ?? 0);
+      if (e < a.minEmployees) {
+        fail(`Employees ${e} below minimum ${a.minEmployees}`);
+      } else {
+        reasons.push(`Headcount ${e} ≥ ${a.minEmployees}`);
+      }
     }
   }
 
   if (!industryMatches(profile.industry, a.industries)) {
-    applies = false;
-    reasons.push(`Industry "${profile.industry}" not in applicability list`);
+    fail(`Industry "${profile.industry}" not in applicability list`);
   } else if (a.industries !== 'all') {
     reasons.push(`Industry "${profile.industry}" matches`);
   }
 
   if (!stateMatches(profile.state, a.states)) {
-    applies = false;
-    reasons.push(`State "${profile.state}" not in applicability list`);
+    fail(`State "${profile.state}" not in applicability list`);
   } else if (a.states !== 'all') {
     reasons.push(`State "${profile.state}" matches`);
   }
 
   if (a.requiresRegistrations?.length) {
     if (!includesAll(profile.registrations, a.requiresRegistrations)) {
-      applies = false;
-      reasons.push(`Missing registrations: ${a.requiresRegistrations.join(', ')}`);
+      fail(`Missing registrations: ${a.requiresRegistrations.join(', ')}`);
     } else {
       reasons.push(`Has required registrations: ${a.requiresRegistrations.join(', ')}`);
     }
@@ -113,43 +293,115 @@ export function evaluateTrigger(
 
   if (a.excludesRegistrations?.length) {
     if (includesAny(profile.registrations, a.excludesRegistrations)) {
-      applies = false;
-      reasons.push(`Already has excluding registration(s): ${a.excludesRegistrations.join(', ')}`);
+      fail(`Already has excluding registration(s): ${a.excludesRegistrations.join(', ')}`);
     } else {
       reasons.push(`No excluding registrations present`);
     }
   }
 
-  if (trigger.status === 'draft') {
-    applies = false;
-    reasons.push('Trigger is in draft status');
+  // Structured condition DSL
+  if (trigger.condition) {
+    const condResult = evaluateConditionExpression(trigger.condition, profile, missingFacts);
+    if (condResult === 'false') {
+      fail('Applicability condition expression not satisfied');
+    } else if (condResult === 'unknown') {
+      unknown(`Condition needs facts: ${missingFacts.slice(-5).join(', ') || 'unknown'}`);
+    } else {
+      reasons.push('Applicability condition expression satisfied');
+    }
   }
 
-  return { applies, reasons };
+  // Asset scope
+  const assetResult = assetScopeMatches(trigger, profile);
+  if (assetResult === 'false') {
+    fail('No matching asset holding / actor role for this rule');
+  } else if (assetResult === 'unknown' && trigger.assetScopes?.length) {
+    unknown('Asset holdings not provided — cannot confirm asset-scoped rule');
+    for (const s of trigger.assetScopes) {
+      const key = `asset:${s.assetClassId}:${s.actorRole}`;
+      if (!missingFacts.includes(key)) missingFacts.push(key);
+    }
+  } else if (trigger.assetScopes?.length) {
+    reasons.push('Asset scope matches profile holdings');
+  }
+
+  // Non-filing obligation kinds still show in mapping but need review for automation
+  if (
+    trigger.obligationKind &&
+    !FILING_ELIGIBLE_OBLIGATION_KINDS.has(trigger.obligationKind) &&
+    result === 'applicable'
+  ) {
+    needsReview(`Obligation kind "${trigger.obligationKind}" is not a filing-eligible duty`);
+  }
+
+  if (
+    trigger.verificationStatus === 'imported_unverified' ||
+    trigger.verificationStatus === 'conflict_flagged'
+  ) {
+    if (result === 'applicable') {
+      needsReview(`Verification status: ${trigger.verificationStatus}`);
+    }
+  }
+
+  const applies = result === 'applicable';
+  return { applies, result, reasons, missingFacts };
 }
 
 export function triggersForEntity(
   profile: EntityComplianceProfile,
   dataset: ComplianceTriggerDataset,
-): Array<{ trigger: ComplianceTrigger; reasons: string[] }> {
+): Array<{ trigger: ComplianceTrigger; reasons: string[]; result: ApplicabilityResult; missingFacts: string[] }> {
   return dataset.triggers
     .map((trigger) => {
-      const { applies, reasons } = evaluateTrigger(profile, trigger);
-      return applies ? { trigger, reasons } : null;
+      const { applies, reasons, result, missingFacts } = evaluateTrigger(profile, trigger);
+      return applies || result === 'unknown' || result === 'needs_review'
+        ? { trigger, reasons, result, missingFacts }
+        : null;
     })
-    .filter((x): x is { trigger: ComplianceTrigger; reasons: string[] } => x != null);
+    .filter(
+      (x): x is { trigger: ComplianceTrigger; reasons: string[]; result: ApplicabilityResult; missingFacts: string[] } =>
+        x != null,
+    );
+}
+
+export function triggersGroupedForEntity(
+  profile: EntityComplianceProfile,
+  dataset: ComplianceTriggerDataset,
+): Record<
+  ApplicabilityResult,
+  Array<{ trigger: ComplianceTrigger; reasons: string[]; missingFacts: string[] }>
+> {
+  const groups: Record<
+    ApplicabilityResult,
+    Array<{ trigger: ComplianceTrigger; reasons: string[]; missingFacts: string[] }>
+  > = {
+    applicable: [],
+    needs_review: [],
+    unknown: [],
+    not_applicable: [],
+  };
+  for (const trigger of dataset.triggers) {
+    const { result, reasons, missingFacts } = evaluateTrigger(profile, trigger);
+    groups[result].push({ trigger, reasons, missingFacts });
+  }
+  return groups;
 }
 
 export function entitiesForTrigger(
   trigger: ComplianceTrigger,
   profiles: EntityComplianceProfile[],
-): Array<{ profile: EntityComplianceProfile; reasons: string[] }> {
+): Array<{ profile: EntityComplianceProfile; reasons: string[]; result: ApplicabilityResult }> {
   return profiles
     .map((profile) => {
-      const { applies, reasons } = evaluateTrigger(profile, trigger);
-      return applies ? { profile, reasons } : null;
+      const { applies, reasons, result } = evaluateTrigger(profile, trigger);
+      return applies || result === 'unknown' || result === 'needs_review'
+        ? { profile, reasons, result }
+        : null;
     })
-    .filter((x): x is { profile: EntityComplianceProfile; reasons: string[] } => x != null);
+    .filter(
+      (x): x is { profile: EntityComplianceProfile; reasons: string[]; result: ApplicabilityResult } =>
+        x != null,
+    );
 }
 
 function daysInMonth(year: number, monthIndex: number): number {
@@ -180,13 +432,16 @@ function nextOccurrenceFromMonths(
 
 /**
  * Compute the next calendar due date for schedule-driven triggers.
- * Returns null for continuous / one_time / event without a fixed calendar.
+ * Returns null for continuous / one_time / event without a fixed calendar,
+ * and for triggers without a usable schedule.
  */
 export function nextDueDate(
   trigger: ComplianceTrigger,
   today: Date = new Date(),
 ): Date | null {
+  if (trigger.scheduleSource === 'none') return null;
   const schedule: TriggerSchedule = trigger.schedule;
+  if (!schedule?.frequency) return null;
   const dueDay = schedule.dueDay ?? 1;
   const startOfToday = atLocalNoon(today.getFullYear(), today.getMonth(), today.getDate());
 
@@ -199,9 +454,7 @@ export function nextDueDate(
       return candidate;
     }
     case 'quarterly': {
-      const months = schedule.dueMonths?.length
-        ? schedule.dueMonths
-        : [3, 6, 9, 12];
+      const months = schedule.dueMonths?.length ? schedule.dueMonths : [3, 6, 9, 12];
       return nextOccurrenceFromMonths(startOfToday, months, dueDay);
     }
     case 'half_yearly': {
@@ -241,6 +494,20 @@ export function reminderDates(trigger: ComplianceTrigger, due: Date | null): str
     .sort();
 }
 
+/** Whether a trigger may generate filings / reminders. */
+export function canMaterialize(trigger: ComplianceTrigger): boolean {
+  if (!trigger.automationEnabled) return false;
+  if (trigger.status !== 'active') return false;
+  if (trigger.scheduleSource === 'none') return false;
+  if (
+    trigger.obligationKind &&
+    !FILING_ELIGIBLE_OBLIGATION_KINDS.has(trigger.obligationKind)
+  ) {
+    return false;
+  }
+  return true;
+}
+
 export function entityToProfile(entity: {
   id: string;
   name: string;
@@ -253,18 +520,25 @@ export function entityToProfile(entity: {
   annualTurnoverInr?: number;
   registrations?: string[];
   activities?: string[];
+  facts?: EntityComplianceProfile['facts'];
+  assetHoldings?: EntityComplianceProfile['assetHoldings'];
+  jurisdictionId?: string;
 }): EntityComplianceProfile {
   return {
     id: entity.id,
     name: entity.name,
     clientId: entity.clientId,
     entityType: entity.entityType,
+    entityTypeId: ENTITY_TYPE_TO_ID[entity.entityType],
     state: entity.state,
+    jurisdictionId: entity.jurisdictionId,
     industry: entity.industry,
     locations: entity.locations,
     employees: entity.employees,
     annualTurnoverInr: entity.annualTurnoverInr,
     registrations: entity.registrations ?? [],
     activities: entity.activities ?? [],
+    facts: entity.facts,
+    assetHoldings: entity.assetHoldings,
   };
 }

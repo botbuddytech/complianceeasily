@@ -54,7 +54,7 @@ export function FinalTrustSection({ onOpenChecker }: FinalTrustSectionProps) {
   ];
 
   return (
-    <Section tone="espresso" withGrid withGlow className="space-y-16">
+    <Section tone="cream" withGrid className="space-y-16">
       <Reveal>
         <SectionHeader
           eyebrow={

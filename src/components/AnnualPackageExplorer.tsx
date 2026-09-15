@@ -124,7 +124,7 @@ export function AnnualPackageExplorer({ onOpenChecker }: AnnualPackageExplorerPr
   );
 
   return (
-    <Section tone="cream" id="annual-package" className="space-y-8 sm:space-y-12">
+    <Section tone="espresso" withGrid withGlow id="annual-package" className="space-y-8 sm:space-y-12">
       <Reveal>
         <SectionHeader
           eyebrow={

@@ -1,31 +1,145 @@
 'use client';
 
 import { useState } from 'react';
+import dynamic from 'next/dynamic';
 import { Navbar } from '@/components/Navbar';
 import { Hero } from '@/components/Hero';
+import { ProofOfWorkSection } from '@/components/ProofOfWorkSection';
 import { TrustStrip } from '@/components/TrustStrip';
-import { BeyondComplianceSection } from '@/components/BeyondComplianceSection';
-import { HumanProfessionalsSection } from '@/components/HumanProfessionalsSection';
-import { ProfessionalAccountingSection } from '@/components/ProfessionalAccountingSection';
 import { WhatsAppRadarSection } from '@/components/WhatsAppRadarSection';
-import { CompliancePassportSection } from '@/components/CompliancePassportSection';
-import { IndustryComplianceSection } from '@/components/IndustryComplianceSection';
-import { BusinessGrowthSection } from '@/components/BusinessGrowthSection';
-import { AIAgentsSection } from '@/components/AIAgentsSection';
-import { ProfessionalWorkflowSection } from '@/components/ProfessionalWorkflowSection';
-import { ProtectionGuaranteeSection } from '@/components/ProtectionGuaranteeSection';
-import { RiskPenaltyExplorer } from '@/components/RiskPenaltyExplorer';
-import { ComplianceCatalogue } from '@/components/ComplianceCatalogue';
-import { StateComplianceExplorer } from '@/components/StateComplianceExplorer';
-import { AnnualPackageExplorer } from '@/components/AnnualPackageExplorer';
-import { PricingSection } from '@/components/PricingSection';
-import { ProfessionalNetworkSection } from '@/components/ProfessionalNetworkSection';
-import { EcosystemSection } from '@/components/EcosystemSection';
-import { FAQSection } from '@/components/FAQSection';
-import { FinalTrustSection } from '@/components/FinalTrustSection';
 import { Footer } from '@/components/Footer';
-import { ComplianceCheckerModal } from '@/components/ComplianceCheckerModal';
-import { ProtectionTermsModal } from '@/components/ProtectionTermsModal';
+import { SectionPlaceholder } from '@/components/ui/SectionPlaceholder';
+
+const BeyondComplianceSection = dynamic(
+  () =>
+    import('@/components/BeyondComplianceSection').then((m) => ({
+      default: m.BeyondComplianceSection,
+    })),
+  { loading: () => <SectionPlaceholder /> },
+);
+const CustomerStoriesSection = dynamic(
+  () =>
+    import('@/components/CustomerStoriesSection').then((m) => ({
+      default: m.CustomerStoriesSection,
+    })),
+  { loading: () => <SectionPlaceholder /> },
+);
+const HumanProfessionalsSection = dynamic(
+  () =>
+    import('@/components/HumanProfessionalsSection').then((m) => ({
+      default: m.HumanProfessionalsSection,
+    })),
+  { loading: () => <SectionPlaceholder /> },
+);
+const ProfessionalAccountingSection = dynamic(
+  () =>
+    import('@/components/ProfessionalAccountingSection').then((m) => ({
+      default: m.ProfessionalAccountingSection,
+    })),
+  { loading: () => <SectionPlaceholder /> },
+);
+const CompliancePassportSection = dynamic(
+  () =>
+    import('@/components/CompliancePassportSection').then((m) => ({
+      default: m.CompliancePassportSection,
+    })),
+  { loading: () => <SectionPlaceholder /> },
+);
+const IndustryComplianceSection = dynamic(
+  () =>
+    import('@/components/IndustryComplianceSection').then((m) => ({
+      default: m.IndustryComplianceSection,
+    })),
+  { loading: () => <SectionPlaceholder /> },
+);
+const BusinessGrowthSection = dynamic(
+  () =>
+    import('@/components/BusinessGrowthSection').then((m) => ({
+      default: m.BusinessGrowthSection,
+    })),
+  { loading: () => <SectionPlaceholder /> },
+);
+const AIAgentsSection = dynamic(
+  () =>
+    import('@/components/AIAgentsSection').then((m) => ({ default: m.AIAgentsSection })),
+  { loading: () => <SectionPlaceholder /> },
+);
+const ProfessionalWorkflowSection = dynamic(
+  () =>
+    import('@/components/ProfessionalWorkflowSection').then((m) => ({
+      default: m.ProfessionalWorkflowSection,
+    })),
+  { loading: () => <SectionPlaceholder /> },
+);
+const ProtectionGuaranteeSection = dynamic(
+  () =>
+    import('@/components/ProtectionGuaranteeSection').then((m) => ({
+      default: m.ProtectionGuaranteeSection,
+    })),
+  { loading: () => <SectionPlaceholder /> },
+);
+const RiskPenaltyExplorer = dynamic(
+  () =>
+    import('@/components/RiskPenaltyExplorer').then((m) => ({ default: m.RiskPenaltyExplorer })),
+  { loading: () => <SectionPlaceholder /> },
+);
+const ComplianceCatalogue = dynamic(
+  () =>
+    import('@/components/ComplianceCatalogue').then((m) => ({ default: m.ComplianceCatalogue })),
+  { loading: () => <SectionPlaceholder /> },
+);
+const StateComplianceExplorer = dynamic(
+  () =>
+    import('@/components/StateComplianceExplorer').then((m) => ({
+      default: m.StateComplianceExplorer,
+    })),
+  { loading: () => <SectionPlaceholder /> },
+);
+const AnnualPackageExplorer = dynamic(
+  () =>
+    import('@/components/AnnualPackageExplorer').then((m) => ({
+      default: m.AnnualPackageExplorer,
+    })),
+  { loading: () => <SectionPlaceholder /> },
+);
+const PricingSection = dynamic(
+  () => import('@/components/PricingSection').then((m) => ({ default: m.PricingSection })),
+  { loading: () => <SectionPlaceholder /> },
+);
+const ProfessionalNetworkSection = dynamic(
+  () =>
+    import('@/components/ProfessionalNetworkSection').then((m) => ({
+      default: m.ProfessionalNetworkSection,
+    })),
+  { loading: () => <SectionPlaceholder /> },
+);
+const EcosystemSection = dynamic(
+  () => import('@/components/EcosystemSection').then((m) => ({ default: m.EcosystemSection })),
+  { loading: () => <SectionPlaceholder /> },
+);
+const FAQSection = dynamic(
+  () => import('@/components/FAQSection').then((m) => ({ default: m.FAQSection })),
+  { loading: () => <SectionPlaceholder /> },
+);
+const FinalTrustSection = dynamic(
+  () =>
+    import('@/components/FinalTrustSection').then((m) => ({ default: m.FinalTrustSection })),
+  { loading: () => <SectionPlaceholder /> },
+);
+const ComplianceCheckerModal = dynamic(
+  () =>
+    import('@/components/ComplianceCheckerModal').then((m) => ({
+      default: m.ComplianceCheckerModal,
+    })),
+  { ssr: false },
+);
+const ProtectionTermsModal = dynamic(
+  () =>
+    import('@/components/ProtectionTermsModal').then((m) => ({
+      default: m.ProtectionTermsModal,
+    })),
+  { ssr: false },
+);
 
 export default function LandingPage() {
   const [isCheckerOpen, setIsCheckerOpen] = useState(false);
@@ -46,8 +160,10 @@ export default function LandingPage() {
           onOpenProtectionModal={handleOpenProtection}
         />
         <Hero onOpenChecker={handleOpenChecker} onOpenProtectionModal={handleOpenProtection} />
+        <ProofOfWorkSection />
         <TrustStrip />
         <BeyondComplianceSection onOpenChecker={handleOpenChecker} />
+        <CustomerStoriesSection />
         <HumanProfessionalsSection onOpenChecker={handleOpenChecker} />
         <ProfessionalAccountingSection onOpenChecker={handleOpenChecker} />
         <CompliancePassportSection onOpenChecker={handleOpenChecker} />
@@ -75,8 +191,12 @@ export default function LandingPage() {
 
       <Footer onOpenChecker={handleOpenChecker} onOpenProtectionModal={handleOpenProtection} />
 
-      <ComplianceCheckerModal isOpen={isCheckerOpen} onClose={handleCloseChecker} />
-      <ProtectionTermsModal isOpen={isProtectionModalOpen} onClose={handleCloseProtection} />
+      {isCheckerOpen && (
+        <ComplianceCheckerModal isOpen={isCheckerOpen} onClose={handleCloseChecker} />
+      )}
+      {isProtectionModalOpen && (
+        <ProtectionTermsModal isOpen={isProtectionModalOpen} onClose={handleCloseProtection} />
+      )}
     </div>
   );
 }

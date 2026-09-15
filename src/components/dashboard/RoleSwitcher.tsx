@@ -1,9 +1,11 @@
 'use client';
 
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useDemoRole } from '../../context/DemoRoleContext';
 import type { DashboardVariant } from './navConfig';
 import type { UserRole } from '../../types/dashboard';
+import { switchPortalView } from '@/lib/actions/auth';
 
 const ROLE_PILLS: { role: UserRole; label: string; path: string; variant: DashboardVariant }[] = [
   { role: 'user', label: 'User', path: '/dashboard/overview', variant: 'client' },
@@ -17,11 +19,29 @@ const ROLE_PILLS: { role: UserRole; label: string; path: string; variant: Dashbo
 ];
 
 export function RoleSwitcher({ variant }: { variant: DashboardVariant }) {
-  const { currentRole } = useDemoRole();
+  const { currentRole, setRole } = useDemoRole();
   const router = useRouter();
+  const [pending, setPending] = useState(false);
 
   const viewingLabel =
     variant === 'admin' ? 'Admin' : variant === 'professional' ? 'Professional' : 'User';
+
+  const onSelect = async (pill: (typeof ROLE_PILLS)[number]) => {
+    if (pending || variant === pill.variant) return;
+    setPending(true);
+    try {
+      setRole(pill.role);
+      const result = await switchPortalView(pill.role);
+      if (result.ok) {
+        router.push(result.redirectTo);
+        router.refresh();
+      } else {
+        router.push(pill.path);
+      }
+    } finally {
+      setPending(false);
+    }
+  };
 
   return (
     <div
@@ -50,8 +70,9 @@ export function RoleSwitcher({ variant }: { variant: DashboardVariant }) {
             <button
               key={pill.role}
               type="button"
-              onClick={() => router.push(pill.path)}
-              className={`rounded-full px-1.5 sm:px-2 py-0.5 font-semibold transition-colors ${
+              disabled={pending}
+              onClick={() => void onSelect(pill)}
+              className={`rounded-full px-1.5 sm:px-2 py-0.5 font-semibold transition-colors disabled:opacity-60 ${
                 active
                   ? variant === 'client'
                     ? 'bg-[#241A14] text-white'

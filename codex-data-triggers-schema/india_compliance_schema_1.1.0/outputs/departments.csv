@@ -1,0 +1,37 @@
+department_id,name,navigation_category,taxonomy_note
+MCA,MCA / ROC,MCA / ROC,Application grouping; not a claim that India has exactly 36 government departments
+LLP,LLP filings,MCA / ROC,Application grouping; not a claim that India has exactly 36 government departments
+NGO,"Trusts, societies and FCRA",MCA / ROC,Application grouping; not a claim that India has exactly 36 government departments
+GST,GST and indirect tax,GST & Indirect Tax,Application grouping; not a claim that India has exactly 36 government departments
+INCOME_TAX,Income tax,Income Tax & TDS,Application grouping; not a claim that India has exactly 36 government departments
+TDS_TCS,TDS and TCS,Income Tax & TDS,Application grouping; not a claim that India has exactly 36 government departments
+EPFO,EPFO,"Labour, HR & Payroll",Application grouping; not a claim that India has exactly 36 government departments
+ESIC,ESIC,"Labour, HR & Payroll",Application grouping; not a claim that India has exactly 36 government departments
+LABOUR,Wages and industrial relations,"Labour, HR & Payroll",Application grouping; not a claim that India has exactly 36 government departments
+POSH,POSH,"Labour, HR & Payroll",Application grouping; not a claim that India has exactly 36 government departments
+PT,Profession / development tax,State & Local,Application grouping; not a claim that India has exactly 36 government departments
+SHOPS,Shops and establishments,State & Local,Application grouping; not a claim that India has exactly 36 government departments
+LWF,Labour welfare funds,"Labour, HR & Payroll",Application grouping; not a claim that India has exactly 36 government departments
+FACTORY,Factories and occupational safety,Business Licences,Application grouping; not a claim that India has exactly 36 government departments
+POLLUTION,Pollution consents and environment,Business Licences,Application grouping; not a claim that India has exactly 36 government departments
+WASTE,Waste and EPR,Business Licences,Application grouping; not a claim that India has exactly 36 government departments
+MUNICIPAL,Municipal and building approvals,State & Local,Application grouping; not a claim that India has exactly 36 government departments
+FIRE,Fire safety,State & Local,Application grouping; not a claim that India has exactly 36 government departments
+FSSAI,Food safety / FSSAI,Food / FSSAI,Application grouping; not a claim that India has exactly 36 government departments
+DGFT,Foreign trade / DGFT,Import & Export,Application grouping; not a claim that India has exactly 36 government departments
+CUSTOMS,Customs,Import & Export,Application grouping; not a claim that India has exactly 36 government departments
+MSME,MSME and delayed payments,Business Licences,Application grouping; not a claim that India has exactly 36 government departments
+AUDIT,Audit and assurance,Audit & Assurance,Application grouping; not a claim that India has exactly 36 government departments
+IP,Intellectual property,Intellectual Property,Application grouping; not a claim that India has exactly 36 government departments
+BOOKS,Accounting and records,Accounting & Books,Application grouping; not a claim that India has exactly 36 government departments
+FEMA,FEMA and RBI reporting,Business Licences,Application grouping; not a claim that India has exactly 36 government departments
+LEGAL_METROLOGY,Legal metrology,Business Licences,Application grouping; not a claim that India has exactly 36 government departments
+BIS,BIS and product standards,Business Licences,Application grouping; not a claim that India has exactly 36 government departments
+DRUGS_HEALTH,"Drugs, cosmetics and healthcare",Business Licences,Application grouping; not a claim that India has exactly 36 government departments
+RERA,Real estate / RERA,Business Licences,Application grouping; not a claim that India has exactly 36 government departments
+TRANSPORT,Transport and vehicles,Business Licences,Application grouping; not a claim that India has exactly 36 government departments
+TELECOM,Telecom and wireless,Business Licences,Application grouping; not a claim that India has exactly 36 government departments
+DATA_CYBER,Data protection and cyber incidents,Notices & Responses,Application grouping; not a claim that India has exactly 36 government departments
+ENERGY_PESO,"Energy, boilers and PESO",Business Licences,Application grouping; not a claim that India has exactly 36 government departments
+AGRI_MINING,Agriculture and mining,Business Licences,Application grouping; not a claim that India has exactly 36 government departments
+EXCISE,State excise and controlled trades,State & Local,Application grouping; not a claim that India has exactly 36 government departments
