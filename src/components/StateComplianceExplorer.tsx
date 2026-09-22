@@ -4,15 +4,34 @@ import { useMemo, useState } from 'react';
 import { MapPin, Layers, ArrowRight, Info } from 'lucide-react';
 import { motion, useReducedMotion } from 'motion/react';
 import { INDIAN_STATES_DATA } from '../data/states';
-import catalogueRaw from '../data/complianceCatalogue.json';
-import type { ComplianceCatalogueDataset } from '../types/complianceTriggers';
+import catalogueRaw from '../data/stateCoverageSlim.json';
+import type { VerificationStatus } from '../types/complianceTriggers';
 import { Section } from './ui/Section';
 import { SectionHeader } from './ui/SectionHeader';
 import { Reveal, RevealGroup } from './ui/Reveal';
 import { Card } from './ui/Card';
 import { VerificationBadge } from './dashboard/VerificationBadge';
 
-const catalogue = catalogueRaw as ComplianceCatalogueDataset;
+/** Homepage-only slim catalogue (jurisdictions + state coverage), not the full 600KB+ file. */
+type SlimCatalogue = {
+  jurisdictions: Array<{ jurisdictionId: string; name: string }>;
+  stateCoverage: Array<{
+    coverageId: string;
+    jurisdictionId: string;
+    topic: string;
+    applicabilityStatus?: string;
+    authorityUrl?: string;
+    coverageStatus: VerificationStatus;
+    linkedRuleIds?: string[];
+  }>;
+  statePropertyProfiles: Array<{
+    jurisdictionId: string;
+    recordTerms?: string;
+    titleNote?: string;
+  }>;
+};
+
+const catalogue = catalogueRaw as SlimCatalogue;
 
 const TOPIC_LABELS: Record<string, string> = {
   professional_tax: 'Professional tax',

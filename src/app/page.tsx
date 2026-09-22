@@ -9,6 +9,7 @@ import { TrustStrip } from '@/components/TrustStrip';
 import { WhatsAppRadarSection } from '@/components/WhatsAppRadarSection';
 import { Footer } from '@/components/Footer';
 import { SectionPlaceholder } from '@/components/ui/SectionPlaceholder';
+import { LazySection } from '@/components/ui/LazySection';
 
 const BeyondComplianceSection = dynamic(
   () =>
@@ -162,31 +163,70 @@ export default function LandingPage() {
         <Hero onOpenChecker={handleOpenChecker} onOpenProtectionModal={handleOpenProtection} />
         <ProofOfWorkSection />
         <TrustStrip />
-        <BeyondComplianceSection onOpenChecker={handleOpenChecker} />
-        <CustomerStoriesSection />
-        <HumanProfessionalsSection onOpenChecker={handleOpenChecker} />
-        <ProfessionalAccountingSection onOpenChecker={handleOpenChecker} />
-        <CompliancePassportSection onOpenChecker={handleOpenChecker} />
-        <IndustryComplianceSection onOpenChecker={handleOpenChecker} />
-        <BusinessGrowthSection onOpenChecker={handleOpenChecker} />
-        <AIAgentsSection onOpenChecker={handleOpenChecker} />
-        <ProfessionalWorkflowSection onOpenChecker={handleOpenChecker} />
-        <ProtectionGuaranteeSection
-          onOpenChecker={handleOpenChecker}
-          onOpenProtectionModal={handleOpenProtection}
-        />
-        <RiskPenaltyExplorer onOpenChecker={handleOpenChecker} />
-        <ComplianceCatalogue onOpenChecker={handleOpenChecker} />
-        <StateComplianceExplorer onOpenChecker={handleOpenChecker} />
-        <AnnualPackageExplorer onOpenChecker={handleOpenChecker} />
-        <PricingSection
-          onOpenChecker={handleOpenChecker}
-          onOpenProtectionModal={handleOpenProtection}
-        />
-        <ProfessionalNetworkSection onOpenChecker={handleOpenChecker} />
-        <EcosystemSection />
-        <FAQSection onOpenChecker={handleOpenChecker} />
-        <FinalTrustSection onOpenChecker={handleOpenChecker} />
+
+        <LazySection>
+          <BeyondComplianceSection onOpenChecker={handleOpenChecker} />
+        </LazySection>
+        <LazySection>
+          <CustomerStoriesSection />
+        </LazySection>
+        <LazySection>
+          <HumanProfessionalsSection onOpenChecker={handleOpenChecker} />
+        </LazySection>
+        <LazySection>
+          <ProfessionalAccountingSection onOpenChecker={handleOpenChecker} />
+        </LazySection>
+        <LazySection>
+          <CompliancePassportSection onOpenChecker={handleOpenChecker} />
+        </LazySection>
+        <LazySection>
+          <IndustryComplianceSection onOpenChecker={handleOpenChecker} />
+        </LazySection>
+        <LazySection>
+          <BusinessGrowthSection onOpenChecker={handleOpenChecker} />
+        </LazySection>
+        <LazySection>
+          <AIAgentsSection onOpenChecker={handleOpenChecker} />
+        </LazySection>
+        <LazySection>
+          <ProfessionalWorkflowSection onOpenChecker={handleOpenChecker} />
+        </LazySection>
+        <LazySection>
+          <ProtectionGuaranteeSection
+            onOpenChecker={handleOpenChecker}
+            onOpenProtectionModal={handleOpenProtection}
+          />
+        </LazySection>
+        <LazySection>
+          <RiskPenaltyExplorer onOpenChecker={handleOpenChecker} />
+        </LazySection>
+        <LazySection>
+          <ComplianceCatalogue onOpenChecker={handleOpenChecker} />
+        </LazySection>
+        <LazySection>
+          <StateComplianceExplorer onOpenChecker={handleOpenChecker} />
+        </LazySection>
+        <LazySection>
+          <AnnualPackageExplorer onOpenChecker={handleOpenChecker} />
+        </LazySection>
+        <LazySection>
+          <PricingSection
+            onOpenChecker={handleOpenChecker}
+            onOpenProtectionModal={handleOpenProtection}
+          />
+        </LazySection>
+        <LazySection>
+          <ProfessionalNetworkSection onOpenChecker={handleOpenChecker} />
+        </LazySection>
+        <LazySection>
+          <EcosystemSection />
+        </LazySection>
+        <LazySection>
+          <FAQSection onOpenChecker={handleOpenChecker} />
+        </LazySection>
+        <LazySection>
+          <FinalTrustSection onOpenChecker={handleOpenChecker} />
+        </LazySection>
       </main>
 
       <Footer onOpenChecker={handleOpenChecker} onOpenProtectionModal={handleOpenProtection} />

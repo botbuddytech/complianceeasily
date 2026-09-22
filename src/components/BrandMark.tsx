@@ -32,7 +32,7 @@ export function BrandMark({
   if (!framed) {
     return (
       <Image
-        src="/brand/mark.png"
+        src="/brand/mark.webp"
         alt="ComplianceEasily"
         width={px}
         height={px}
@@ -47,7 +47,7 @@ export function BrandMark({
       className={`relative inline-flex ${box} shrink-0 items-center justify-center overflow-hidden rounded-xl bg-black shadow-[0_4px_12px_-4px_rgba(213,170,109,0.45)] ring-1 ring-[#B89E6B]/30 ${className}`}
     >
       <Image
-        src="/brand/mark.png"
+        src="/brand/mark.webp"
         alt="ComplianceEasily"
         width={px}
         height={px}

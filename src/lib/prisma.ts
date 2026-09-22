@@ -18,6 +18,12 @@ if (process.env.NODE_ENV !== 'production') {
 export function isPrismaConfigured(): boolean {
   const url = process.env.DATABASE_URL;
   if (!url) return false;
-  if (url.includes('user:password@') || url.includes('YOUR_PASSWORD')) return false;
+  if (
+    url.includes('user:password@') ||
+    url.includes('YOUR_PASSWORD') ||
+    url.includes('YOUR_PROJECT_REF')
+  ) {
+    return false;
+  }
   return true;
 }

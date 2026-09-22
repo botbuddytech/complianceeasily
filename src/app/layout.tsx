@@ -7,8 +7,9 @@ const fraunces = Fraunces({
   subsets: ['latin'],
   variable: '--font-fraunces',
   display: 'swap',
-  weight: ['500', '600', '700'],
+  weight: ['600', '700'],
   style: ['normal', 'italic'],
+  adjustFontFallback: true,
 });
 
 const plusJakarta = Plus_Jakarta_Sans({
@@ -16,6 +17,7 @@ const plusJakarta = Plus_Jakarta_Sans({
   variable: '--font-plus-jakarta',
   display: 'swap',
   weight: ['400', '500', '600', '700'],
+  adjustFontFallback: true,
 });
 
 const jetbrainsMono = JetBrains_Mono({
@@ -23,6 +25,8 @@ const jetbrainsMono = JetBrains_Mono({
   variable: '--font-jetbrains',
   display: 'swap',
   weight: ['400', '500'],
+  preload: false,
+  adjustFontFallback: true,
 });
 
 export const metadata: Metadata = {
@@ -37,7 +41,6 @@ export const metadata: Metadata = {
       { url: '/favicon.svg', type: 'image/svg+xml' },
       { url: '/favicon-32.png', sizes: '32x32', type: 'image/png' },
       { url: '/favicon-16.png', sizes: '16x16', type: 'image/png' },
-      { url: '/brand/logo.png', type: 'image/png' },
     ],
     apple: [{ url: '/apple-icon.png', sizes: '180x180', type: 'image/png' }],
     shortcut: '/favicon.png',

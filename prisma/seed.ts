@@ -381,6 +381,60 @@ async function main() {
     console.log(`Seeded staff admin: ${adminEmail}`);
   }
 
+  const { ADMIN_BLOG_CATEGORIES, ADMIN_BLOGS } = await import('../src/data/dashboard/blogs');
+  console.log('Seeding blog categories and posts…');
+  for (const cat of ADMIN_BLOG_CATEGORIES) {
+    await prisma.blogCategory.upsert({
+      where: { id: cat.id },
+      create: {
+        id: cat.id,
+        name: cat.name,
+        slug: cat.slug,
+        description: cat.description,
+        status: cat.status,
+        updatedAt: new Date(cat.updatedAt),
+      },
+      update: {
+        name: cat.name,
+        slug: cat.slug,
+        description: cat.description,
+        status: cat.status,
+        updatedAt: new Date(cat.updatedAt),
+      },
+    });
+  }
+  for (const post of ADMIN_BLOGS) {
+    await prisma.blogPost.upsert({
+      where: { id: post.id },
+      create: {
+        id: post.id,
+        title: post.title,
+        slug: post.slug,
+        excerpt: post.excerpt,
+        body: post.body,
+        author: post.author,
+        categoryId: post.categoryId,
+        status: post.status,
+        tags: post.tags,
+        publishedAt: post.publishedAt ? new Date(post.publishedAt) : null,
+        updatedAt: new Date(post.updatedAt),
+      },
+      update: {
+        title: post.title,
+        slug: post.slug,
+        excerpt: post.excerpt,
+        body: post.body,
+        author: post.author,
+        categoryId: post.categoryId,
+        status: post.status,
+        tags: post.tags,
+        publishedAt: post.publishedAt ? new Date(post.publishedAt) : null,
+        updatedAt: new Date(post.updatedAt),
+      },
+    });
+  }
+  console.log(`Seeded ${ADMIN_BLOG_CATEGORIES.length} blog categories and ${ADMIN_BLOGS.length} posts.`);
+
   console.log(`Done. ${dataset.triggers.length} triggers seeded via Prisma.`);
 }
 

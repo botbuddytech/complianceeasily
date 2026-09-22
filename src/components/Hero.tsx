@@ -8,12 +8,25 @@ import {
   Award,
   PhoneCall,
 } from 'lucide-react';
-import { motion, useReducedMotion } from 'motion/react';
-import { CompliancePassportDemo } from './CompliancePassportDemo';
+import dynamic from 'next/dynamic';
 import { VerifiedBadge } from './VerifiedBadge';
 import { Section } from './ui/Section';
 import { Card } from './ui/Card';
 import { Reveal, RevealGroup } from './ui/Reveal';
+
+const CompliancePassportDemo = dynamic(
+  () =>
+    import('./CompliancePassportDemo').then((m) => ({ default: m.CompliancePassportDemo })),
+  {
+    ssr: false,
+    loading: () => (
+      <div
+        className="min-h-[320px] rounded-2xl border border-[#2A3340] bg-[#1A222C]/60 animate-pulse"
+        aria-hidden
+      />
+    ),
+  },
+);
 
 interface HeroProps {
   onOpenChecker: () => void;
@@ -21,59 +34,11 @@ interface HeroProps {
 }
 
 function HeadlineWords() {
-  const prefersReduced = useReducedMotion();
-
-  if (prefersReduced) {
-    return (
-      <h2 className="font-display text-[2rem] sm:text-5xl lg:text-[3.4rem] font-semibold tracking-tight leading-[1.1] text-white">
-        AI business compliance for India.
-        <br />
-        <span className="text-[#B89E6B] italic">Professional accountability.</span>
-      </h2>
-    );
-  }
-
-  const lines = [
-    [
-      { text: 'AI', className: 'text-white' },
-      { text: 'business', className: 'text-white' },
-      { text: 'compliance', className: 'text-white' },
-      { text: 'for', className: 'text-white' },
-      { text: 'India.', className: 'text-white' },
-    ],
-    [
-      { text: 'Professional', className: 'text-[#B89E6B] italic' },
-      { text: 'accountability.', className: 'text-[#B89E6B] italic' },
-    ],
-  ];
-
-  let delayIndex = 0;
-
   return (
-    <h2 className="font-display text-[2rem] sm:text-5xl lg:text-[3.4rem] font-semibold tracking-tight leading-[1.1]">
-      {lines.map((line, lineIdx) => (
-        <span key={lineIdx} className="block">
-          {line.map((word) => {
-            const delay = delayIndex * 0.07;
-            delayIndex += 1;
-            return (
-              <motion.span
-                key={word.text}
-                className={`inline-block mr-[0.28em] ${word.className}`}
-                initial={{ opacity: 0, y: 28 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{
-                  duration: 0.55,
-                  delay,
-                  ease: [0.22, 1, 0.36, 1],
-                }}
-              >
-                {word.text}
-              </motion.span>
-            );
-          })}
-        </span>
-      ))}
+    <h2 className="font-display text-[2rem] sm:text-5xl lg:text-[3.4rem] font-semibold tracking-tight leading-[1.1] text-white">
+      AI business compliance for India.
+      <br />
+      <span className="text-[#B89E6B] italic">Professional accountability.</span>
     </h2>
   );
 }

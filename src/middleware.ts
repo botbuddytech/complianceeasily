@@ -39,7 +39,12 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
+  // Only auth-sensitive routes — skip anonymous marketing pages for lower TTFB.
   matcher: [
-    '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
+    '/dashboard/:path*',
+    '/admin/:path*',
+    '/professional/:path*',
+    '/login',
+    '/signup',
   ],
 };

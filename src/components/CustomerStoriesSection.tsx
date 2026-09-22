@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useId, useState } from 'react';
+import Image from 'next/image';
 import { Play, X } from 'lucide-react';
 import { Section } from './ui/Section';
 import { Reveal, RevealGroup } from './ui/Reveal';
@@ -69,12 +70,12 @@ function StoryCard({
       className="group relative isolate flex aspect-[3/4] w-full min-w-[240px] sm:min-w-0 overflow-hidden rounded-2xl text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B89E6B] focus-visible:ring-offset-2 focus-visible:ring-offset-[#12161B]"
       aria-label={`Play customer story: ${story.title}`}
     >
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
+      <Image
         src={story.image}
         alt={story.imageAlt}
-        className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
-        loading="lazy"
+        fill
+        sizes="(max-width: 640px) 80vw, (max-width: 1024px) 40vw, 25vw"
+        className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
       />
 
       {story.featured && (
@@ -179,11 +180,12 @@ function VideoLightbox({
             />
           ) : (
             <div className="absolute inset-0">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <Image
                 src={story.image}
                 alt=""
-                className="h-full w-full object-cover opacity-50"
+                fill
+                sizes="(max-width: 768px) 100vw, 768px"
+                className="object-cover opacity-50"
               />
               <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 px-6 text-center">
                 <span className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-white/95 text-[#0E1217]">

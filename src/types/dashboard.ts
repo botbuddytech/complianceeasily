@@ -192,6 +192,31 @@ export interface CatalogueServiceAdmin {
   filingsThisMonth: number;
 }
 
+export type BlogStatus = 'draft' | 'published' | 'archived';
+
+export interface BlogCategory {
+  id: string;
+  name: string;
+  slug: string;
+  description: string;
+  status: 'active' | 'archived';
+  updatedAt: string;
+}
+
+export interface BlogPost {
+  id: string;
+  title: string;
+  slug: string;
+  excerpt: string;
+  body: string;
+  author: string;
+  categoryId: string;
+  status: BlogStatus;
+  tags: string[];
+  publishedAt?: string;
+  updatedAt: string;
+}
+
 export interface StaffUser {
   id: string;
   name: string;

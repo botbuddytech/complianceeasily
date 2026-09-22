@@ -24,6 +24,7 @@ import {
   IndianRupee,
   UserRound,
   Wallet,
+  Newspaper,
 } from 'lucide-react';
 
 export type DashboardVariant = 'client' | 'admin' | 'professional';
@@ -57,6 +58,7 @@ export const ADMIN_NAV: NavItem[] = [
   { label: 'Professionals', to: '/admin/professionals', icon: UserCog },
   { label: 'Protection Claims', to: '/admin/protection-claims', icon: Shield },
   { label: 'Catalogue', to: '/admin/catalogue', icon: BookOpen },
+  { label: 'Blog', to: '/admin/blog', icon: Newspaper },
   { label: 'Users & Roles', to: '/admin/users', icon: KeyRound },
   { label: 'Support', to: '/admin/support', icon: LifeBuoy },
 ];

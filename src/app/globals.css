@@ -360,21 +360,19 @@
   inset: 0;
   overflow: hidden;
   pointer-events: none;
-  /* Avvocato-style cool charcoal navy + soft gold glow */
+  /* Avvocato-style cool charcoal navy + soft gold glow — static for first paint */
   background:
     radial-gradient(ellipse 70% 55% at 72% 42%, rgba(184, 158, 107, 0.12), transparent 58%),
     radial-gradient(ellipse 55% 45% at 18% 30%, rgba(30, 40, 55, 0.55), transparent 60%),
     radial-gradient(ellipse 50% 40% at 88% 78%, rgba(18, 28, 40, 0.7), transparent 55%),
     linear-gradient(165deg, #0E1217 0%, #12161B 38%, #0F171E 68%, #0A0E13 100%);
-  background-size: 130% 130%, 140% 140%, 140% 140%, 100% 100%;
-  animation: hero-mesh-shift 22s ease-in-out infinite;
 }
 
 .hero-bg__orb {
   position: absolute;
   border-radius: 9999px;
-  filter: blur(72px);
-  will-change: transform, opacity;
+  /* Soft edges via gradient only — avoid expensive live blur filters */
+  opacity: 0.9;
 }
 
 .hero-bg__orb--a {
@@ -382,8 +380,7 @@
   height: min(52vw, 520px);
   top: -12%;
   left: -8%;
-  background: radial-gradient(circle, rgba(32, 44, 60, 0.65) 0%, transparent 70%);
-  animation: hero-aurora 14s ease-in-out infinite;
+  background: radial-gradient(circle, rgba(32, 44, 60, 0.55) 0%, transparent 70%);
 }
 
 .hero-bg__orb--b {
@@ -391,8 +388,7 @@
   height: min(48vw, 460px);
   top: 8%;
   right: -8%;
-  background: radial-gradient(circle, rgba(184, 158, 107, 0.18) 0%, transparent 68%);
-  animation: hero-aurora-alt 16s ease-in-out infinite;
+  background: radial-gradient(circle, rgba(184, 158, 107, 0.16) 0%, transparent 68%);
 }
 
 .hero-bg__orb--c {
@@ -400,8 +396,7 @@
   height: min(40vw, 380px);
   bottom: -8%;
   left: 30%;
-  background: radial-gradient(circle, rgba(20, 32, 48, 0.55) 0%, transparent 70%);
-  animation: hero-drift 12s ease-in-out infinite;
+  background: radial-gradient(circle, rgba(20, 32, 48, 0.45) 0%, transparent 70%);
 }
 
 .hero-bg__grid {
@@ -426,8 +421,7 @@
     rgba(40, 55, 75, 0.14) 200deg,
     transparent 280deg
   );
-  animation: hero-aurora 22s linear infinite;
-  opacity: 0.5;
+  opacity: 0.45;
 }
 
 .hero-bg__fade {

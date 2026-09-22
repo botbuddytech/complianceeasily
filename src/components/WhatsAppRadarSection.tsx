@@ -38,24 +38,20 @@ const HEADLINE_SPLIT_AT = 'Catch the Error.'.length;
 
 function HeadlineTyping() {
   const prefersReduced = useReducedMotion();
-  const [typed, setTyped] = useState(prefersReduced ? HEADLINE_FULL : '');
+  // Start with full headline so LCP text is immediate (animation is progressive enhancement).
+  const [typed, setTyped] = useState(HEADLINE_FULL);
 
   useEffect(() => {
-    if (prefersReduced) {
-      setTyped(HEADLINE_FULL);
-      return;
-    }
+    if (prefersReduced) return;
 
     let cancelled = false;
     let timeoutId: ReturnType<typeof setTimeout>;
     const TYPE_MS = 55;
     const DELETE_MS = 32;
-    const HOLD_FULL_MS = 1800;
+    const HOLD_FULL_MS = 2200;
     const HOLD_EMPTY_MS = 450;
-    let i = 0;
-    let deleting = false;
-
-    setTyped('');
+    let i = HEADLINE_FULL.length;
+    let deleting = true;
 
     const schedule = (fn: () => void, ms: number) => {
       timeoutId = setTimeout(fn, ms);
@@ -87,7 +83,8 @@ function HeadlineTyping() {
       schedule(tick, DELETE_MS);
     };
 
-    schedule(tick, TYPE_MS);
+    // Let first paint settle before starting the loop.
+    schedule(tick, HOLD_FULL_MS);
 
     return () => {
       cancelled = true;

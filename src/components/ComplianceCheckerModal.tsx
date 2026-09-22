@@ -1,4 +1,4 @@
-import React, { useMemo, useState, FormEvent } from 'react';
+import React, { useEffect, useMemo, useState, FormEvent } from 'react';
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
 import {
   X,
@@ -17,15 +17,12 @@ import {
   AlertTriangle,
 } from 'lucide-react';
 import { INDIAN_STATES_DATA } from '../data/states';
-import rawDataset from '../data/complianceTriggers.json';
 import type { ComplianceTriggerDataset } from '../types/complianceTriggers';
 import {
   formatDueDate,
   nextDueDate,
   triggersGroupedForEntity,
 } from '../lib/compliance/matcher';
-
-const dataset = rawDataset as ComplianceTriggerDataset;
 
 const ENTITY_MAP: Record<string, string> = {
   'Private Limited': 'Pvt Ltd',
@@ -71,6 +68,7 @@ interface ComplianceCheckerModalProps {
 
 export function ComplianceCheckerModal({ isOpen, onClose }: ComplianceCheckerModalProps) {
   const [step, setStep] = useState<1 | 2 | 3 | 4>(1);
+  const [dataset, setDataset] = useState<ComplianceTriggerDataset | null>(null);
 
   // Form State
   const [entityType, setEntityType] = useState('Private Limited');
@@ -85,6 +83,20 @@ export function ComplianceCheckerModal({ isOpen, onClose }: ComplianceCheckerMod
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const prefersReduced = useReducedMotion();
+
+  // Load the 1.2MB trigger dataset only after the modal opens (separate chunk).
+  useEffect(() => {
+    if (!isOpen || dataset) return;
+    let cancelled = false;
+    import('../data/complianceTriggers.json').then((mod) => {
+      if (!cancelled) {
+        setDataset((mod.default ?? mod) as ComplianceTriggerDataset);
+      }
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [isOpen, dataset]);
 
   const entityOptions = [
     'Private Limited',
@@ -127,6 +139,14 @@ export function ComplianceCheckerModal({ isOpen, onClose }: ComplianceCheckerMod
     INDIAN_STATES_DATA.find((s) => s.code === stateCode)?.name || 'West Bengal';
 
   const matchGroups = useMemo(() => {
+    if (!dataset) {
+      return {
+        applicable: [] as ReturnType<typeof triggersGroupedForEntity>['applicable'],
+        needs_review: [] as ReturnType<typeof triggersGroupedForEntity>['needs_review'],
+        unknown: [] as ReturnType<typeof triggersGroupedForEntity>['unknown'],
+        not_applicable: [] as ReturnType<typeof triggersGroupedForEntity>['not_applicable'],
+      };
+    }
     const profile = {
       id: 'checker-preview',
       name: businessName || 'Preview entity',
@@ -139,7 +159,15 @@ export function ComplianceCheckerModal({ isOpen, onClose }: ComplianceCheckerMod
       activities: [industry],
     };
     return triggersGroupedForEntity(profile, dataset);
-  }, [entityType, selectedStateName, industry, employees, turnover, businessName]);
+  }, [
+    dataset,
+    entityType,
+    selectedStateName,
+    industry,
+    employees,
+    turnover,
+    businessName,
+  ]);
 
   const applicable = matchGroups.applicable;
   const needsReview = matchGroups.needs_review;

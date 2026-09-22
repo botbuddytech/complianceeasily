@@ -402,6 +402,21 @@ enum ServiceStatus {
   @@map("service_status")
 }
 
+enum BlogCategoryStatus {
+  active
+  archived
+
+  @@map("blog_category_status")
+}
+
+enum BlogPostStatus {
+  draft
+  published
+  archived
+
+  @@map("blog_post_status")
+}
+
 enum StaffRole {
   super_admin
   ops_manager
@@ -1687,4 +1702,43 @@ model CorrectionLog {
   source CatalogueSource? @relation(fields: [sourceId], references: [sourceId])
 
   @@map("correction_log")
+}
+
+// ---------------------------------------------------------------------------
+// Blog (admin CMS)
+// ---------------------------------------------------------------------------
+
+model BlogCategory {
+  id          String             @id
+  name        String
+  slug        String             @unique
+  description String             @default("")
+  status      BlogCategoryStatus @default(active)
+  createdAt   DateTime           @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt   DateTime           @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  posts BlogPost[]
+
+  @@map("blog_categories")
+}
+
+model BlogPost {
+  id          String         @id
+  title       String
+  slug        String         @unique
+  excerpt     String         @default("")
+  body        String         @default("")
+  author      String         @default("")
+  categoryId  String         @map("category_id")
+  status      BlogPostStatus @default(draft)
+  tags        String[]       @default([])
+  publishedAt DateTime?      @map("published_at") @db.Timestamptz(6)
+  createdAt   DateTime       @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt   DateTime       @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  category BlogCategory @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+
+  @@index([categoryId])
+  @@index([status])
+  @@map("blog_posts")
 }
