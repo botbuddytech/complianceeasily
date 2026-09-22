@@ -6,11 +6,7 @@ import { Link } from '@/components/nav/NextNav';
 import { PageHeader } from '@/components/dashboard/PageHeader';
 import { StatusBadge } from '@/components/dashboard/StatusBadge';
 import { DataTable, type Column } from '@/components/dashboard/DataTable';
-import {
-  ADMIN_BLOG_CATEGORIES,
-  ADMIN_BLOGS,
-  blogCategoryById,
-} from '@/data/dashboard/blogs';
+import { blogCategoryById } from '@/data/dashboard/blogs';
 import { listBlogCategories, listBlogPosts } from '@/lib/actions/blog';
 import type { BlogCategory, BlogPost } from '@/types/dashboard';
 
@@ -18,8 +14,8 @@ export function BlogListPage() {
   const [q, setQ] = useState('');
   const [status, setStatus] = useState<string>('all');
   const [categoryId, setCategoryId] = useState<string>('all');
-  const [posts, setPosts] = useState<BlogPost[]>(ADMIN_BLOGS);
-  const [categories, setCategories] = useState<BlogCategory[]>(ADMIN_BLOG_CATEGORIES);
+  const [posts, setPosts] = useState<BlogPost[]>([]);
+  const [categories, setCategories] = useState<BlogCategory[]>([]);
   const [pending, startTransition] = useTransition();
 
   useEffect(() => {
@@ -47,7 +43,14 @@ export function BlogListPage() {
         header: 'Post',
         render: (b) => (
           <div>
-            <div className="font-semibold text-admin-text">{b.title}</div>
+            <a
+              href={`/blog/${b.slug}`}
+              target="_blank"
+              rel="noreferrer"
+              className="font-semibold text-admin-text underline-offset-2 hover:text-[#8A7344] hover:underline"
+            >
+              {b.title}
+            </a>
             <div className="max-w-md truncate text-xs text-admin-muted">{b.excerpt}</div>
           </div>
         ),

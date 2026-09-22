@@ -221,7 +221,7 @@ export function buildOrganizationJsonLd() {
     },
     sameAs: [
       'https://www.contracteasily.com',
-      'https://www.findcaseseasily.com',
+      'https://findcaseseasily.com',
     ],
   };
 }

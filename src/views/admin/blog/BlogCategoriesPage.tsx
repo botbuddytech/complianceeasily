@@ -5,7 +5,6 @@ import { FolderPlus, Pencil, Search } from 'lucide-react';
 import { PageHeader } from '@/components/dashboard/PageHeader';
 import { StatusBadge } from '@/components/dashboard/StatusBadge';
 import { DataTable, type Column } from '@/components/dashboard/DataTable';
-import { ADMIN_BLOG_CATEGORIES, ADMIN_BLOGS } from '@/data/dashboard/blogs';
 import {
   listBlogCategories,
   listBlogPosts,
@@ -24,8 +23,8 @@ function slugify(value: string): string {
 }
 
 export function BlogCategoriesPage() {
-  const [categories, setCategories] = useState<BlogCategory[]>(ADMIN_BLOG_CATEGORIES);
-  const [posts, setPosts] = useState<BlogPost[]>(ADMIN_BLOGS);
+  const [categories, setCategories] = useState<BlogCategory[]>([]);
+  const [posts, setPosts] = useState<BlogPost[]>([]);
   const [q, setQ] = useState('');
   const [name, setName] = useState('');
   const [slug, setSlug] = useState('');

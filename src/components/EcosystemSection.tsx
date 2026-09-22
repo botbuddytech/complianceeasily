@@ -19,7 +19,7 @@ export function EcosystemSection() {
       name: 'FindCasesEasily',
       tagline: 'Court Judgment & Case Intelligence',
       description: 'AI semantic search across millions of High Court and Supreme Court of India precedents.',
-      url: 'https://www.findcaseseasily.com',
+      url: 'https://findcaseseasily.com',
       badge: 'Live',
       badgeColor: 'bg-[#EBE8E2] border border-[#D5D0C6] text-[#B89E6B]',
       icon: Search,

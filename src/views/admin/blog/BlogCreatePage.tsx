@@ -4,7 +4,6 @@ import { FormEvent, useEffect, useMemo, useState, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
 import { PageHeader } from '@/components/dashboard/PageHeader';
 import { Link } from '@/components/nav/NextNav';
-import { ADMIN_BLOG_CATEGORIES } from '@/data/dashboard/blogs';
 import { createBlogPost, listBlogCategories } from '@/lib/actions/blog';
 import type { BlogCategory, BlogStatus } from '@/types/dashboard';
 
@@ -20,14 +19,14 @@ function slugify(value: string): string {
 
 export function BlogCreatePage() {
   const router = useRouter();
-  const [categories, setCategories] = useState<BlogCategory[]>(ADMIN_BLOG_CATEGORIES);
+  const [categories, setCategories] = useState<BlogCategory[]>([]);
   const [title, setTitle] = useState('');
   const [slug, setSlug] = useState('');
   const [slugTouched, setSlugTouched] = useState(false);
   const [excerpt, setExcerpt] = useState('');
   const [body, setBody] = useState('');
   const [author, setAuthor] = useState('Ops Desk');
-  const [categoryId, setCategoryId] = useState(ADMIN_BLOG_CATEGORIES[0]?.id ?? '');
+  const [categoryId, setCategoryId] = useState('');
   const [tags, setTags] = useState('');
   const [status, setStatus] = useState<BlogStatus>('draft');
   const [message, setMessage] = useState<string | null>(null);

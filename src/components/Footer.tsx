@@ -47,7 +47,7 @@ export function Footer(_props: FooterProps) {
                   <ExternalLink className="w-3 h-3 text-[#6B7580]" />
                 </a>
                 <a
-                  href="https://www.findcaseseasily.com"
+                  href="https://findcaseseasily.com"
                   target="_blank"
                   rel="noreferrer"
                   className={`${SUITE_LINK} items-center`}
@@ -169,6 +169,11 @@ export function Footer(_props: FooterProps) {
                 </a>
               </li>
               <li>
+                <Link to="/blog" className="hover:text-white text-[#B89E6B] font-semibold transition-colors">
+                  Blog &amp; compliance guides
+                </Link>
+              </li>
+              <li>
                 <Link
                   to="/protection-guarantee"
                   className="hover:text-white text-[#B89E6B] font-semibold transition-colors"
@@ -253,6 +258,10 @@ export function Footer(_props: FooterProps) {
           <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
             <Link to="/about" className="hover:text-[#E4E0D8] transition-colors">
               About
+            </Link>
+            <span className="hidden sm:inline">&bull;</span>
+            <Link to="/blog" className="hover:text-[#E4E0D8] transition-colors">
+              Blog
             </Link>
             <span className="hidden sm:inline">&bull;</span>
             <Link to="/contact" className="hover:text-[#E4E0D8] transition-colors">

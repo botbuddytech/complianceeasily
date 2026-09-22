@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
+import { usePathname } from 'next/navigation';
 import { Link } from '@/components/nav/NextNav';
 import { BrandMark } from '@/components/BrandMark';
 import {
@@ -9,7 +10,6 @@ import {
   ChevronDown,
   ArrowRight,
   ExternalLink,
-  CheckCircle2,
   PhoneCall,
   BookOpenCheck,
   ShieldCheck,
@@ -45,6 +45,7 @@ const MORE_LINKS = [
   { href: '#whatsapp-radar', label: 'WhatsApp radar' },
   { href: '/about', label: 'About us' },
   { href: '/contact', label: 'Contact us' },
+  { href: '/blog', label: 'Blog' },
   { href: '/terms', label: 'Terms & Conditions' },
   { href: '/privacy', label: 'Privacy Policy' },
   { href: '/protection-guarantee', label: 'Protection Guarantee' },
@@ -63,6 +64,7 @@ const MOBILE_LINKS = [
   { href: '#faq', label: 'FAQs', group: 'Network' },
   { href: '/about', label: 'About us', group: 'Network' },
   { href: '/contact', label: 'Contact us', group: 'Network' },
+  { href: '/blog', label: 'Blog', group: 'Network' },
   { href: '/terms', label: 'Terms & Conditions', group: 'Legal' },
   { href: '/privacy', label: 'Privacy Policy', group: 'Legal' },
   { href: '/refund-policy', label: 'Refund Policy', group: 'Legal' },
@@ -83,7 +85,7 @@ const SUITE = [
   {
     name: 'FindCasesEasily',
     desc: 'Judgments & case intelligence',
-    url: 'https://www.findcaseseasily.com',
+    url: 'https://findcaseseasily.com',
     icon: Search,
     external: true,
     status: 'Live' as const,
@@ -107,6 +109,8 @@ const SUITE = [
 ];
 
 export function Navbar({ onOpenChecker }: NavbarProps) {
+  const pathname = usePathname();
+  const blogActive = pathname === '/blog' || pathname.startsWith('/blog/');
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [suiteOpen, setSuiteOpen] = useState(false);
@@ -276,6 +280,15 @@ export function Navbar({ onOpenChecker }: NavbarProps) {
                     )}
                   </AnimatePresence>
                 </div>
+
+                <Link
+                  to="/blog"
+                  className={`relative px-3.5 py-1.5 text-[13px] font-medium rounded-full transition-colors ${
+                    blogActive ? 'bg-[#B89E6B] text-[#0E1217]' : 'text-[#A8B0BA] hover:text-white'
+                  }`}
+                >
+                  Blog
+                </Link>
               </nav>
             </LayoutGroup>
 
@@ -396,26 +409,10 @@ export function Navbar({ onOpenChecker }: NavbarProps) {
               >
                 Sign up
               </Link>
-              <button
-                type="button"
-                onClick={onOpenChecker}
-                className="btn-primary group text-[13px] py-2 px-4"
-              >
-                <span>Check free</span>
-                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
-              </button>
             </div>
 
             {/* Mobile controls */}
             <div className="lg:hidden flex items-center gap-1.5 sm:gap-2 shrink-0">
-              <button
-                type="button"
-                onClick={onOpenChecker}
-                className="text-xs font-semibold text-[#0E1217] bg-[#B89E6B] border border-[#B89E6B] px-2.5 sm:px-3 py-1.5 rounded-lg shadow-sm"
-              >
-                <span className="sm:hidden">Check</span>
-                <span className="hidden sm:inline">Check free</span>
-              </button>
               <button
                 type="button"
                 onClick={() => setMobileMenuOpen((v) => !v)}
@@ -575,20 +572,6 @@ export function Navbar({ onOpenChecker }: NavbarProps) {
                       <PhoneCall className="w-4 h-4" />
                       Talk to an expert
                     </button>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        closeMobile();
-                        onOpenChecker();
-                      }}
-                      className="w-full btn-primary py-3"
-                    >
-                      Check my compliance — Free
-                    </button>
-                    <div className="flex items-center justify-center gap-1.5 text-xs text-[#6B7580] pt-0.5">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-[#B89E6B]" />
-                      <span>~2 minutes · Free WhatsApp alerts</span>
-                    </div>
                   </div>
                 </div>
               </div>

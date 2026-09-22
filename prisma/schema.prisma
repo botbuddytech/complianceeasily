@@ -1737,8 +1737,49 @@ model BlogPost {
   updatedAt   DateTime       @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
 
   category BlogCategory @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+  indexEntry BlogIndexEntry?
+  sections   BlogSection[]
 
   @@index([categoryId])
   @@index([status])
   @@map("blog_posts")
+}
+
+/** Table of contents for one blog post, one row per heading. */
+model BlogSection {
+  id       String @id
+  postId   String @map("post_id")
+  heading  String
+  anchor   String
+  level    Int
+  position Int
+
+  post BlogPost @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  @@unique([postId, position])
+  @@index([postId])
+  @@map("blog_sections")
+}
+
+/** Catalogue of every published guide, rebuilt from blog_posts. */
+model BlogIndexEntry {
+  id           String    @id
+  postId       String    @unique @map("post_id")
+  title        String
+  slug         String    @unique
+  excerpt      String    @default("")
+  author       String    @default("")
+  categoryId   String    @map("category_id")
+  categoryName String    @map("category_name")
+  categorySlug String    @map("category_slug")
+  tags         String[]  @default([])
+  position     Int
+  publishedAt  DateTime? @map("published_at") @db.Timestamptz(6)
+  indexedAt    DateTime  @default(now()) @map("indexed_at") @db.Timestamptz(6)
+
+  post BlogPost @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  @@index([categorySlug, position])
+  @@index([title])
+  @@map("blog_index")
 }

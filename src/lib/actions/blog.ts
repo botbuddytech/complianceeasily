@@ -11,6 +11,7 @@ import type {
   BlogCategoryStatus as PrismaBlogCategoryStatus,
   BlogPostStatus as PrismaBlogPostStatus,
 } from '@prisma/client';
+import { extractBlogSections } from '@/lib/blog/sections';
 
 function requireDb(): { error: string } | null {
   if (!isPrismaConfigured()) {
@@ -198,7 +199,7 @@ export async function createBlogPost(input: {
   const id = `blog-${slug.slice(0, 40)}-${Date.now().toString(36)}`;
 
   try {
-    await prisma.blogPost.create({
+    const created = await prisma.blogPost.create({
       data: {
         id,
         title,
@@ -211,7 +212,40 @@ export async function createBlogPost(input: {
         tags: input.tags ?? [],
         publishedAt: status === 'published' ? new Date() : null,
       },
+      include: { category: { select: { id: true, name: true, slug: true } } },
     });
+    const sections = extractBlogSections(body);
+    if (sections.length) {
+      await prisma.blogSection.createMany({
+        data: sections.map((section) => ({
+          id: `${created.id}-s${String(section.position).padStart(2, '0')}`,
+          postId: created.id,
+          heading: section.heading,
+          anchor: section.anchor,
+          level: section.level,
+          position: section.position,
+        })),
+      });
+    }
+    if (created.status === 'published') {
+      const last = await prisma.blogIndexEntry.aggregate({ _max: { position: true } });
+      await prisma.blogIndexEntry.create({
+        data: {
+          id: created.id,
+          postId: created.id,
+          title: created.title,
+          slug: created.slug,
+          excerpt: created.excerpt,
+          author: created.author,
+          categoryId: created.category.id,
+          categoryName: created.category.name,
+          categorySlug: created.category.slug,
+          tags: created.tags,
+          position: (last._max.position ?? 0) + 1,
+          publishedAt: created.publishedAt,
+        },
+      });
+    }
   } catch (e) {
     return { error: e instanceof Error ? e.message : 'Failed to create post' };
   }

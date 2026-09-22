@@ -15,6 +15,9 @@
     "prisma:seed": "tsx prisma/seed.ts",
     "seed:triggers": "tsx prisma/seed.ts",
     "etl:catalogue": "tsx scripts/etl/import-codex-catalogue.ts",
+    "blogs:triggers": "tsx scripts/generate-compliance-blogs.ts",
+    "blogs:index": "tsx scripts/rebuild-blog-index.ts",
+    "blogs:sections": "tsx scripts/rebuild-blog-sections.ts",
     "db:types": "echo \"Run: npx supabase gen types typescript --local > src/types/database.ts\""
   },
   "prisma": {
